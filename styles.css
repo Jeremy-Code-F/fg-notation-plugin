@@ -6,3 +6,115 @@ available in the app when your plugin is enabled.
 If your plugin does not need CSS, delete this file.
 
 */
+
+.fg-notation-block {
+	display: flex;
+	flex-direction: column;
+	vertical-align: middle;
+	gap: 6px;
+	padding: 8px 12px;
+	background-color: var(--background-secondary);
+	border-radius: 4px;
+	font-family: var(--font-monospace);
+}
+
+.fg-notation-block .fg-line {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 4px;
+}
+
+.fg-notation-block .fg-input {
+	display: inline-flex;
+	align-items: center;
+	gap: 2px;
+}
+
+.fg-notation-block .fg-direction {
+	font-size: 0.75em;
+	color: var(--text-muted);
+	font-weight: 600;
+}
+
+.fg-notation-block .fg-button {
+	display: inline-flex;
+	align-items: center;
+	vertical-align: middle;
+	justify-content: center;
+	width: 28px;
+	height: 28px;
+	border-radius: 50%;
+	font-size: 0.65em;
+	font-weight: 700;
+	color: #1a1a1a;
+	user-select: none;
+}
+
+.fg-notation-block .fg-arrows {
+	font-size: 2.5em;
+}
+
+.fg-button--lp {
+	background-color: blue;
+}
+
+.fg-button--lk {
+	background-color: blue;
+}
+
+.fg-button--mp {
+	background-color: yellow;
+}
+
+.fg-button--mk {
+	background-color: yellow;
+}
+
+.fg-button--hp {
+	background-color: red;
+}
+
+.fg-button--hk {
+	background-color: red;
+}
+
+.fg-notation-block .fg-separator {
+	color: var(--text-muted);
+	font-size: 0.9em;
+	padding: 0 2px;
+}
+
+.fg-notation-block .fg-raw {
+	color: var(--text-normal);
+}
+
+.fg-notation-block .fg-badge {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	vertical-align: middle;
+	padding: 0 6px;
+	height: 20px;
+	border-radius: 10px;
+	font-size: 0.65em;
+	font-weight: 700;
+	color: #1a1a1a;
+	user-select: none;
+}
+
+.fg-badge--ch {
+	background-color: #d47f08;
+}
+
+.fg-badge--dr {
+	background-color: #22c55e;
+}
+
+.fg-badge--di {
+	background-color: #ca0505;
+}
+
+.fg-badge--drc {
+	background-color: #16a34a;
+}
