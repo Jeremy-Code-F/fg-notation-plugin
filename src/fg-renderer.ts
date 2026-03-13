@@ -3,10 +3,10 @@ export type { IconProvider } from "./types";
 import { Direction, Button, IconProvider } from "./types";
 
 const DIRECTION_MAP: Record<string, Direction> = Object.fromEntries(
-	Object.values(Direction).map(v => [v, v as Direction])
+	Object.values(Direction).map((v) => [v, v as Direction]),
 );
 const BUTTON_MAP: Record<string, Button> = Object.fromEntries(
-	Object.values(Button).map(v => [v, v as Button])
+	Object.values(Button).map((v) => [v, v as Button]),
 );
 
 const DIRECTION_ARROWS: Record<Direction, string> = {
@@ -97,16 +97,22 @@ function parseLine(line: string): FgToken[] {
 function parseFgSource(source: string): FgToken[][] {
 	return source
 		.split("\n")
-		.filter(line => line.trim().length > 0)
-		.map(line => parseLine(line.trim()));
+		.filter((line) => line.trim().length > 0)
+		.map((line) => parseLine(line.trim()));
 }
 
-function renderToken(token: FgToken, parent: HTMLElement, icons: IconProvider): void {
+function renderToken(
+	token: FgToken,
+	parent: HTMLElement,
+	icons: IconProvider,
+): void {
 	if (token.kind === "input") {
 		const wrapper = parent.createSpan({ cls: "fg-input" });
 		const arrows = DIRECTION_ARROWS[token.direction];
 		if (arrows) {
-			wrapper.createSpan({ cls: ["fg-direction", "fg-arrows"] }).setText(arrows);
+			wrapper
+				.createSpan({ cls: ["fg-direction", "fg-arrows"] })
+				.setText(arrows);
 		}
 		icons.renderButton(token.button, wrapper);
 	} else if (token.kind === "separator") {
@@ -118,7 +124,11 @@ function renderToken(token: FgToken, parent: HTMLElement, icons: IconProvider): 
 	}
 }
 
-function renderFgNotation(lines: FgToken[][], el: HTMLElement, icons: IconProvider): void {
+function renderFgNotation(
+	lines: FgToken[][],
+	el: HTMLElement,
+	icons: IconProvider,
+): void {
 	el.addClass("fg-notation-block");
 	for (const lineTokens of lines) {
 		const lineEl = el.createDiv({ cls: "fg-line" });
@@ -128,6 +138,10 @@ function renderFgNotation(lines: FgToken[][], el: HTMLElement, icons: IconProvid
 	}
 }
 
-export function processFgBlock(source: string, el: HTMLElement, icons: IconProvider): void {
+export function processFgBlock(
+	source: string,
+	el: HTMLElement,
+	icons: IconProvider,
+): void {
 	renderFgNotation(parseFgSource(source), el, icons);
 }

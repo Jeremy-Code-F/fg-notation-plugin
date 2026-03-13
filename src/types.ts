@@ -10,16 +10,16 @@ export enum Direction {
 	Up = "8",
 	UpForward = "9",
 	// Motion inputs
-	DoubleQuarterCircleForward = "236236",   // qcf qcf 
-	QuarterCircleForward = "236",   // QCF / fireball
-	QuarterCircleBack = "214",   // QCB
-	DragonPunch = "623",   // DP / Shoryuken (Z-motion)
-	ReverseDragonPunch = "421",   // RDP
+	DoubleQuarterCircleForward = "236236", // qcf qcf
+	QuarterCircleForward = "236", // QCF / fireball
+	QuarterCircleBack = "214", // QCB
+	DragonPunch = "623", // DP / Shoryuken (Z-motion)
+	ReverseDragonPunch = "421", // RDP
 	HalfCircleForward = "41236", // HCF
 	HalfCircleBack = "63214", // HCB
-	DoubleDown = "22",    // double-tap down
-	DoubleTapForward = "66",    // dash forward
-	DoubleTapBack = "44",    // dash back
+	DoubleDown = "22", // double-tap down
+	DoubleTapForward = "66", // dash forward
+	DoubleTapBack = "44", // dash back
 }
 
 export enum Button {
@@ -33,6 +33,7 @@ export enum Button {
 	DriveRushCancel = "DRC",
 	DriveImpact = "DI",
 	CounterHit = "CH",
+	PunishCounter = "PC",
 }
 
 export interface IconProvider {

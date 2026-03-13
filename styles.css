@@ -107,6 +107,10 @@ If your plugin does not need CSS, delete this file.
 	background-color: #d47f08;
 }
 
+.fg-badge--pc {
+	background-color: #ca0505;
+}
+
 .fg-badge--dr {
 	background-color: #22c55e;
 }
