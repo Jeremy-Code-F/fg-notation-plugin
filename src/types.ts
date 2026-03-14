@@ -36,7 +36,8 @@ export enum Button {
 	PunishCounter = "PC",
 }
 
-export interface IconProvider {
-	renderButton(button: Button, parent: HTMLElement): void;
-	renderBadge(button: Button, parent: HTMLElement): void;
+export enum Separator {
+	Cancel = ">",
+	Chain = "~",
+	Link = ",",
 }

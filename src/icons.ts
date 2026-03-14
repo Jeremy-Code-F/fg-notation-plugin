@@ -1,4 +1,8 @@
-import { Button } from "./types";
+import { Button, Separator } from "./types";
+
+export const SEPARATOR_SVG_ICONS: Partial<Record<Separator, string>> = {
+	[Separator.Cancel]: `<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M256 120.768L306.432 64 768 512l-461.568 448L256 903.232 659.072 512z" fill="currentColor" stroke="currentColor" stroke-width="40" stroke-linejoin="round" /></svg>`,
+};
 
 /**
  * SVG markup for button icons, keyed by Button enum value.
@@ -75,5 +79,5 @@ export const BUTTON_SVG_ICONS: Partial<Record<Button, string>> = {
       c1.568,4.64,5.947,7.984,11.115,7.984c6.484,0,11.743-5.256,11.743-11.741c0-2.813-0.992-5.394-2.643-7.416L72.903,74.043z"/>
     <circle cx="36.161" cy="26.693" r="4.342"/>
   </g>
-</svg>`
+</svg>`,
 };
