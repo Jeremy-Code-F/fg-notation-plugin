@@ -1,4 +1,5 @@
 export { Direction, Button } from "./types";
+import { wrap } from "module";
 import { Direction, Button, Separator } from "./types";
 import { IconProvider } from "icon-provider";
 
@@ -22,6 +23,7 @@ const DIRECTION_ARROWS: Record<Direction, string> = {
 	[Direction.UpBack]: "↖",
 	[Direction.Up]: "↑",
 	[Direction.UpForward]: "↗",
+	[Direction.Jump]: "JUMP",
 	// Motions expanded into their component arrows
 	[Direction.DoubleQuarterCircleForward]: "↓↘→↓↘→",
 	[Direction.QuarterCircleForward]: "↓↘→",
@@ -51,7 +53,7 @@ type BadgeToken = { kind: "badge"; button: Button };
 type RawToken = { kind: "raw"; value: string };
 type FgToken = InputToken | SeparatorToken | BadgeToken | RawToken;
 
-const INPUT_RE = /^([1-9]+)\.([LMH][PK])$/;
+const INPUT_RE = /^([j]|[1-9]+)\.([LMH][PK])$/;
 const SEPARATOR_RE = /^(>|,|\+|~)$/;
 const STANDALONE_BUTTON_RE = /^(DRC|DR|DI)$/;
 const MODIFIER_RE = /^(\[CH\]|\[PC\])$/;
@@ -124,11 +126,24 @@ function renderToken(
 	if (token.kind === "input") {
 		const wrapper = parent.createSpan({ cls: "fg-input" });
 		const arrows = DIRECTION_ARROWS[token.direction];
-		if (arrows) {
+
+		if (token.direction === Direction.Jump) {
+			// wrapper
+			// 	.createSpan({ cls: ["fg-direction", "fg-arrows"] })
+			// 	.setText("Where jump would go");
 			wrapper
-				.createSpan({ cls: ["fg-direction", "fg-arrows"] })
-				.setText(arrows);
+				.createSpan({
+					cls: ["fg-badge", `fg-badge--jump`],
+				})
+				.setText("jump");
+		} else {
+			if (arrows) {
+				wrapper
+					.createSpan({ cls: ["fg-direction", "fg-arrows"] })
+					.setText(arrows);
+			}
 		}
+
 		icons.renderButton(token.button, wrapper);
 	} else if (token.kind === "separator") {
 		//parent.createSpan({ cls: "fg-separator" }).setText(` ${token.value} `);
