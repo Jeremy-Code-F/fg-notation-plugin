@@ -2,6 +2,10 @@ import { Button, Separator } from "./types";
 
 export const SEPARATOR_SVG_ICONS: Partial<Record<Separator, string>> = {
 	[Separator.Cancel]: `<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M256 120.768L306.432 64 768 512l-461.568 448L256 903.232 659.072 512z" fill="currentColor" stroke="currentColor" stroke-width="40" stroke-linejoin="round" /></svg>`,
+
+	[Separator.Chain]: `<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M0 16q0 0.96 0.672 1.632t1.6 0.672 1.632-0.672 0.672-1.632q0-1.888 1.344-3.232t3.232-1.344 3.232 1.344 1.344 3.232q0 2.496 1.216 4.608t3.328 3.328 4.576 1.216 4.608-1.216 3.328-3.328 1.216-4.608q0-0.928-0.672-1.6t-1.6-0.672-1.632 0.672-0.672 1.6q0 1.888-1.344 3.232t-3.232 1.344-3.232-1.312-1.344-3.264q0-2.464-1.216-4.576t-3.328-3.328-4.576-1.216-4.608 1.216-3.328 3.328-1.216 4.576z" fill="currentColor"/></svg>`,
+
+	[Separator.Link]: `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 12H16M15 8H17C19.2091 8 21 9.79086 21 12C21 14.2091 19.2091 16 17 16H15M9 8H7C4.79086 8 3 9.79086 3 12C3 14.2091 4.79086 16 7 16H9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
 };
 
 /**
