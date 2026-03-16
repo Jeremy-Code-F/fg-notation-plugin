@@ -84,6 +84,46 @@ describe("FgParser", () => {
 			]);
 		});
 
+		it("parses an EX move with PP", () => {
+			expect(parser.parseLine("236.PP")).toEqual([
+				{
+					kind: "input",
+					direction: Direction.QuarterCircleForward,
+					button: Button.DoublePunch,
+				},
+			]);
+		});
+
+		it("parses an EX move with KK", () => {
+			expect(parser.parseLine("623.KK")).toEqual([
+				{
+					kind: "input",
+					direction: Direction.DragonPunch,
+					button: Button.DoubleKick,
+				},
+			]);
+		});
+
+		it("parses an EX move with PPP", () => {
+			expect(parser.parseLine("236.PPP")).toEqual([
+				{
+					kind: "input",
+					direction: Direction.QuarterCircleForward,
+					button: Button.TriplePunch,
+				},
+			]);
+		});
+
+		it("parses an EX move with KKK", () => {
+			expect(parser.parseLine("236.KKK")).toEqual([
+				{
+					kind: "input",
+					direction: Direction.QuarterCircleForward,
+					button: Button.TripleKick,
+				},
+			]);
+		});
+
 		it("falls back to raw token for unrecognized input", () => {
 			expect(parser.parseLine("foobar")).toEqual([
 				{ kind: "raw", value: "foobar" },

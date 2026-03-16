@@ -5,7 +5,7 @@ export interface IFgParser {
 	parseFgSource(line: String): FgToken[][];
 }
 
-const INPUT_RE = /^([j]|[1-9]+)\.([LMH][PK])$/;
+const INPUT_RE = /^([j]|[1-9]+)\.([LMH][PK]|PPP|KKK|PP|KK)$/;
 const SEPARATOR_RE = /^(>|,|\+|~)$/;
 const STANDALONE_BUTTON_RE = /^(DRC|DR|DI|THROW)$/;
 const MODIFIER_RE = /^(\[CH\]|\[PC\])$/;

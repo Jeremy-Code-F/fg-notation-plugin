@@ -36,6 +36,10 @@ export enum Button {
 	CounterHit = "CH",
 	PunishCounter = "PC",
 	THROW = "THROW",
+	DoublePunch = "PP",
+	DoubleKick = "KK",
+	TriplePunch = "PPP",
+	TripleKick = "KKK",
 }
 
 export enum Separator {

@@ -42,13 +42,19 @@ If your plugin does not need CSS, delete this file.
 	align-items: center;
 	vertical-align: middle;
 	justify-content: center;
-	width: 28px;
+	width: auto;
 	height: 28px;
 	border-radius: 50%;
 	font-size: 0.65em;
 	font-weight: 700;
 	color: #1a1a1a;
 	user-select: none;
+}
+
+.fg-notation-block .fg-button svg {
+	width: 28px;
+	height: 28px;
+	flex-shrink: 0;
 }
 
 .fg-notation-block .fg-arrows {
