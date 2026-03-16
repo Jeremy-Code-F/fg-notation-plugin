@@ -6,6 +6,7 @@ export interface IFgParser {
 }
 
 const INPUT_RE = /^([j]|[1-9]+)\.([LMH][PK]|PPP|KKK|PP|KK)$/;
+const CHARGE_INPUT_RE = /^\[([1-9])\]([1-9j])\.([LMH][PK]|PPP|KKK|PP|KK)$/;
 const SEPARATOR_RE = /^(>|,|\+|~)$/;
 const STANDALONE_BUTTON_RE = /^(DRC|DR|DI|THROW)$/;
 const MODIFIER_RE = /^(\[CH\]|\[PC\])$/;
@@ -45,6 +46,33 @@ export class FgParser implements IFgParser {
 					const button = this.parseButton(rawBtn);
 					if (direction !== null && button !== null) {
 						tokens.push({ kind: "input", direction, button });
+						continue;
+					}
+				}
+			}
+
+			const chargeMatch = CHARGE_INPUT_RE.exec(part);
+			if (chargeMatch) {
+				const [, rawCharge, rawDir, rawBtn] = chargeMatch;
+				if (
+					rawCharge !== undefined &&
+					rawDir !== undefined &&
+					rawBtn !== undefined
+				) {
+					const charge = this.parseDirection(rawCharge);
+					const direction = this.parseDirection(rawDir);
+					const button = this.parseButton(rawBtn);
+					if (
+						charge !== null &&
+						direction !== null &&
+						button !== null
+					) {
+						tokens.push({
+							kind: "charge-input",
+							charge,
+							direction,
+							button,
+						});
 						continue;
 					}
 				}

@@ -53,7 +53,18 @@ export type InputToken = {
 	direction: Direction;
 	button: Button;
 };
+export type ChargeInputToken = {
+	kind: "charge-input";
+	charge: Direction;
+	direction: Direction;
+	button: Button;
+};
 export type SeparatorToken = { kind: "separator"; separator: Separator };
 export type BadgeToken = { kind: "badge"; button: Button };
 export type RawToken = { kind: "raw"; value: string };
-export type FgToken = InputToken | SeparatorToken | BadgeToken | RawToken;
+export type FgToken =
+	| InputToken
+	| ChargeInputToken
+	| SeparatorToken
+	| BadgeToken
+	| RawToken;

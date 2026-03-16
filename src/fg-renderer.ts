@@ -30,6 +30,15 @@ function renderToken(
 		icons.renderButton(token.button, wrapper);
 	} else if (token.kind === "separator") {
 		icons.renderSeparator(token.separator, parent);
+	} else if (token.kind == "charge-input") {
+		const wrapper = parent.createSpan({ cls: "fg-input" });
+		const directionArrows = DIRECTION_ARROWS[token.direction];
+		const chargeArrows = DIRECTION_ARROWS[token.charge];
+		wrapper
+			.createSpan({ cls: ["fg-charge", "fg-arrows"] })
+			.setText(chargeArrows);
+		wrapper.createSpan({ cls: ["fg-arrows"] }).setText(directionArrows);
+		icons.renderButton(token.button, wrapper);
 	} else if (token.kind === "badge") {
 		icons.renderBadge(token.button, parent);
 	} else {

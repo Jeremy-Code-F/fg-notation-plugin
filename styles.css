@@ -150,3 +150,7 @@ If your plugin does not need CSS, delete this file.
 .fg-badge--drc {
 	background-color: #16a34a;
 }
+
+.fg-charge {
+	color: #d47f08;
+}

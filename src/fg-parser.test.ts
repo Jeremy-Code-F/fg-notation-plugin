@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { FgParser } from "./fg-parser";
 import { Button, Direction, Separator } from "types";
+import type { ChargeInputToken } from "types";
 
 describe("FgParser", () => {
 	const parser = new FgParser();
@@ -121,6 +122,40 @@ describe("FgParser", () => {
 					direction: Direction.QuarterCircleForward,
 					button: Button.TripleKick,
 				},
+			]);
+		});
+
+		it("parses a charge input", () => {
+			expect(parser.parseLine("[4]6.HP")).toEqual([
+				{
+					kind: "charge-input",
+					charge: Direction.Back,
+					direction: Direction.Forward,
+					button: Button.HeavyPunch,
+				} satisfies ChargeInputToken,
+			]);
+		});
+
+		it("parses a full combo with a charge input", () => {
+			expect(parser.parseLine("5.MP ~ 4.HP > [4]6.HP")).toEqual([
+				{
+					kind: "input",
+					direction: Direction.Neutral,
+					button: Button.MediumPunch,
+				},
+				{ kind: "separator", separator: Separator.Chain },
+				{
+					kind: "input",
+					direction: Direction.Back,
+					button: Button.HeavyPunch,
+				},
+				{ kind: "separator", separator: Separator.Cancel },
+				{
+					kind: "charge-input",
+					charge: Direction.Back,
+					direction: Direction.Forward,
+					button: Button.HeavyPunch,
+				} satisfies ChargeInputToken,
 			]);
 		});
 
