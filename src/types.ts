@@ -42,3 +42,13 @@ export enum Separator {
 	Chain = "~",
 	Link = ",",
 }
+
+export type InputToken = {
+	kind: "input";
+	direction: Direction;
+	button: Button;
+};
+export type SeparatorToken = { kind: "separator"; separator: Separator };
+export type BadgeToken = { kind: "badge"; button: Button };
+export type RawToken = { kind: "raw"; value: string };
+export type FgToken = InputToken | SeparatorToken | BadgeToken | RawToken;
