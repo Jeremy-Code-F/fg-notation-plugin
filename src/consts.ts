@@ -15,6 +15,7 @@ export const DIRECTION_ARROWS: Record<Direction, string> = {
 	[Direction.DoubleQuarterCircleForward]: "↓↘→↓↘→",
 	[Direction.QuarterCircleForward]: "↓↘→",
 	[Direction.QuarterCircleBack]: "↓↙←",
+	[Direction.ChargeSuper]: "→←→",
 	[Direction.DragonPunch]: "→↓↘",
 	[Direction.ReverseDragonPunch]: "←↓↙",
 	[Direction.HalfCircleForward]: "←↙↓↘→",

@@ -31,6 +31,7 @@ function renderToken(
 	} else if (token.kind === "separator") {
 		icons.renderSeparator(token.separator, parent);
 	} else if (token.kind == "charge-input") {
+		console.log(`Charge input token direction was ${token.direction}`);
 		const wrapper = parent.createSpan({ cls: "fg-input" });
 		const directionArrows = DIRECTION_ARROWS[token.direction];
 		const chargeArrows = DIRECTION_ARROWS[token.charge];

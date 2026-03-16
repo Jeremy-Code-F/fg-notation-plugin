@@ -13,6 +13,7 @@ export enum Direction {
 	// Motion inputs
 	DoubleQuarterCircleForward = "236236", // qcf qcf
 	QuarterCircleForward = "236", // QCF / fireball
+	ChargeSuper = "646", // Guile Sonic Hurricane for example
 	QuarterCircleBack = "214", // QCB
 	DragonPunch = "623", // DP / Shoryuken (Z-motion)
 	ReverseDragonPunch = "421", // RDP

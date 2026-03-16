@@ -6,7 +6,7 @@ export interface IFgParser {
 }
 
 const INPUT_RE = /^([j]|[1-9]+)\.([LMH][PK]|PPP|KKK|PP|KK)$/;
-const CHARGE_INPUT_RE = /^\[([1-9])\]([1-9j])\.([LMH][PK]|PPP|KKK|PP|KK)$/;
+const CHARGE_INPUT_RE = /^\[([1-9])\]([1-9j]+)\.([LMH][PK]|PPP|KKK|PP|KK)$/;
 const SEPARATOR_RE = /^(>|,|\+|~)$/;
 const STANDALONE_BUTTON_RE = /^(DRC|DR|DI|THROW)$/;
 const MODIFIER_RE = /^(\[CH\]|\[PC\])$/;
@@ -53,7 +53,12 @@ export class FgParser implements IFgParser {
 
 			const chargeMatch = CHARGE_INPUT_RE.exec(part);
 			if (chargeMatch) {
+				console.log(`Read charge input from part ${part}`);
 				const [, rawCharge, rawDir, rawBtn] = chargeMatch;
+
+				console.log(
+					`RawCharge ${rawCharge} RawDir ${rawDir} RawBtn ${rawBtn}`,
+				);
 				if (
 					rawCharge !== undefined &&
 					rawDir !== undefined &&
