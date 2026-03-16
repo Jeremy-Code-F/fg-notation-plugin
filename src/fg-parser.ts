@@ -7,7 +7,7 @@ export interface IFgParser {
 
 const INPUT_RE = /^([j]|[1-9]+)\.([LMH][PK])$/;
 const SEPARATOR_RE = /^(>|,|\+|~)$/;
-const STANDALONE_BUTTON_RE = /^(DRC|DR|DI)$/;
+const STANDALONE_BUTTON_RE = /^(DRC|DR|DI|THROW)$/;
 const MODIFIER_RE = /^(\[CH\]|\[PC\])$/;
 
 const DIRECTION_MAP: Record<string, Direction> = Object.fromEntries(

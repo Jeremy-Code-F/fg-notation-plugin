@@ -117,6 +117,10 @@ If your plugin does not need CSS, delete this file.
 	height: 100%;
 }
 
+.fg-badge--throw {
+	background-color: #82c3ed;
+}
+
 .fg-badge--jump {
 	background-color: #82c3ed;
 }

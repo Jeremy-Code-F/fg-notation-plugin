@@ -35,6 +35,7 @@ export enum Button {
 	DriveImpact = "DI",
 	CounterHit = "CH",
 	PunishCounter = "PC",
+	THROW = "THROW",
 }
 
 export enum Separator {
