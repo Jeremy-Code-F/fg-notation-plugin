@@ -1,38 +1,23 @@
-import { Button, Separator } from "./types";
+export const CANCEL_SVG = `<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M256 120.768L306.432 64 768 512l-461.568 448L256 903.232 659.072 512z" fill="currentColor" stroke="currentColor" stroke-width="40" stroke-linejoin="round" /></svg>`;
+export const CHAIN_SVG = `<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M0 16q0 0.96 0.672 1.632t1.6 0.672 1.632-0.672 0.672-1.632q0-1.888 1.344-3.232t3.232-1.344 3.232 1.344 1.344 3.232q0 2.496 1.216 4.608t3.328 3.328 4.576 1.216 4.608-1.216 3.328-3.328 1.216-4.608q0-0.928-0.672-1.6t-1.6-0.672-1.632 0.672-0.672 1.6q0 1.888-1.344 3.232t-3.232 1.344-3.232-1.312-1.344-3.264q0-2.464-1.216-4.576t-3.328-3.328-4.576-1.216-4.608 1.216-3.328 3.328-1.216 4.576z" fill="currentColor"/></svg>`;
+export const LINK_SVG = `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 12H16M15 8H17C19.2091 8 21 9.79086 21 12C21 14.2091 19.2091 16 17 16H15M9 8H7C4.79086 8 3 9.79086 3 12C3 14.2091 4.79086 16 7 16H9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 
-export const SEPARATOR_SVG_ICONS: Partial<Record<Separator, string>> = {
-	[Separator.Cancel]: `<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M256 120.768L306.432 64 768 512l-461.568 448L256 903.232 659.072 512z" fill="currentColor" stroke="currentColor" stroke-width="40" stroke-linejoin="round" /></svg>`,
-
-	[Separator.Chain]: `<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M0 16q0 0.96 0.672 1.632t1.6 0.672 1.632-0.672 0.672-1.632q0-1.888 1.344-3.232t3.232-1.344 3.232 1.344 1.344 3.232q0 2.496 1.216 4.608t3.328 3.328 4.576 1.216 4.608-1.216 3.328-3.328 1.216-4.608q0-0.928-0.672-1.6t-1.6-0.672-1.632 0.672-0.672 1.6q0 1.888-1.344 3.232t-3.232 1.344-3.232-1.312-1.344-3.264q0-2.464-1.216-4.576t-3.328-3.328-4.576-1.216-4.608 1.216-3.328 3.328-1.216 4.576z" fill="currentColor"/></svg>`,
-
-	[Separator.Link]: `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 12H16M15 8H17C19.2091 8 21 9.79086 21 12C21 14.2091 19.2091 16 17 16H15M9 8H7C4.79086 8 3 9.79086 3 12C3 14.2091 4.79086 16 7 16H9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
-};
-
-/**
- * SVG markup for button icons, keyed by Button enum value.
- *
- * Add SVG strings here to override the default text rendering for a button.
- * Any button without an entry will fall back to text via TextIconProvider.
- *
- * SVG source files live in assets/icons/ for design/version control purposes.
- */
-
-const LP_SVG = `<svg width="512px" height="512px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+export const LP_SVG = `<svg width="512px" height="512px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
   <circle cx="256" cy="256" r="256" fill="#6EC6F0"/>
   <path fill="#ffffff" d="M202.15 135.336c16.1.356 25.565 12.198 34.666 24.678L177.312 263.08c-20.422 1.985-35.31-4.577-41.787-24.123l59.51-103.074c1.93-.326 3.772-.503 5.537-.545.534-.013 1.06-.014 1.578-.002zm69.037 11.197c16.1.352 25.567 12.2 34.668 24.676L238.947 290.24c-20.423 1.985-35.31-4.586-41.785-24.127l66.91-119.03c1.93-.327 3.772-.507 5.537-.55.533-.013 1.058-.013 1.577-.002zm58.704 32.05c16.102.357 25.567 12.198 34.67 24.673l-65.945 117.547c-20.423 1.98-35.31-4.58-41.783-24.123l65.94-117.55c1.93-.325 3.773-.502 5.54-.544.532-.013 1.06-.013 1.58-.002zm46.342 55.233c16.773.098 26.746 11.977 36.354 24.485l-55.557 96.227c-20.026 1.297-34.856-5.367-41.786-24.125l55.56-96.224c1.887-.255 3.693-.372 5.428-.362zM127.55 271.713l105.83 47.52c3.015 21.69-2.782 38.788-21.958 48.91L105.588 320.62c-4.508-21.618 8.273-35.485 21.96-48.907z"/>
 </svg>`;
 
-const MP_SVG = `<svg width="512px" height="512px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+export const MP_SVG = `<svg width="512px" height="512px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
   <circle cx="256" cy="256" r="256" fill="#F5C518"/>
   <path fill="#ffffff" d="M202.15 135.336c16.1.356 25.565 12.198 34.666 24.678L177.312 263.08c-20.422 1.985-35.31-4.577-41.787-24.123l59.51-103.074c1.93-.326 3.772-.503 5.537-.545.534-.013 1.06-.014 1.578-.002zm69.037 11.197c16.1.352 25.567 12.2 34.668 24.676L238.947 290.24c-20.423 1.985-35.31-4.586-41.785-24.127l66.91-119.03c1.93-.327 3.772-.507 5.537-.55.533-.013 1.058-.013 1.577-.002zm58.704 32.05c16.102.357 25.567 12.198 34.67 24.673l-65.945 117.547c-20.423 1.98-35.31-4.58-41.783-24.123l65.94-117.55c1.93-.325 3.773-.502 5.54-.544.532-.013 1.06-.013 1.58-.002zm46.342 55.233c16.773.098 26.746 11.977 36.354 24.485l-55.557 96.227c-20.026 1.297-34.856-5.367-41.786-24.125l55.56-96.224c1.887-.255 3.693-.372 5.428-.362zM127.55 271.713l105.83 47.52c3.015 21.69-2.782 38.788-21.958 48.91L105.588 320.62c-4.508-21.618 8.273-35.485 21.96-48.907z"/>
 </svg>`;
 
-const HP_SVG = `<svg width="512px" height="512px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+export const HP_SVG = `<svg width="512px" height="512px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
   <circle cx="256" cy="256" r="256" fill="#E63946"/>
   <path fill="#ffffff" d="M202.15 135.336c16.1.356 25.565 12.198 34.666 24.678L177.312 263.08c-20.422 1.985-35.31-4.577-41.787-24.123l59.51-103.074c1.93-.326 3.772-.503 5.537-.545.534-.013 1.06-.014 1.578-.002zm69.037 11.197c16.1.352 25.567 12.2 34.668 24.676L238.947 290.24c-20.423 1.985-35.31-4.586-41.785-24.127l66.91-119.03c1.93-.327 3.772-.507 5.537-.55.533-.013 1.058-.013 1.577-.002zm58.704 32.05c16.102.357 25.567 12.198 34.67 24.673l-65.945 117.547c-20.423 1.98-35.31-4.58-41.783-24.123l65.94-117.55c1.93-.325 3.773-.502 5.54-.544.532-.013 1.06-.013 1.58-.002zm46.342 55.233c16.773.098 26.746 11.977 36.354 24.485l-55.557 96.227c-20.026 1.297-34.856-5.367-41.786-24.125l55.56-96.224c1.887-.255 3.693-.372 5.428-.362zM127.55 271.713l105.83 47.52c3.015 21.69-2.782 38.788-21.958 48.91L105.588 320.62c-4.508-21.618 8.273-35.485 21.96-48.907z"/>
 </svg>`;
 
-const LK_SVG = `<svg width="512px" height="512px" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+export const LK_SVG = `<svg width="512px" height="512px" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
   <circle cx="50" cy="50" r="50" fill="#6EC6F0"/>
   <g fill="#ffffff" transform="scale(-1,1) translate(-107,0)">
     <circle cx="28.549" cy="35.885" r="4.342"/>
@@ -46,7 +31,7 @@ const LK_SVG = `<svg width="512px" height="512px" viewBox="0 0 100 100" xmlns="h
   </g>
 </svg>`;
 
-const MK_SVG = `<svg width="512px" height="512px" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+export const MK_SVG = `<svg width="512px" height="512px" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
   <circle cx="50" cy="50" r="50" fill="#F5C518"/>
   <g fill="#ffffff" transform="scale(-1,1) translate(-107,0)">
     <circle cx="28.549" cy="35.885" r="4.342"/>
@@ -60,7 +45,7 @@ const MK_SVG = `<svg width="512px" height="512px" viewBox="0 0 100 100" xmlns="h
   </g>
 </svg>`;
 
-const HK_SVG = `<svg width="512px" height="512px" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+export const HK_SVG = `<svg width="512px" height="512px" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
   <circle cx="50" cy="50" r="50" fill="#E63946"/>
   <g fill="#ffffff" transform="scale(-1,1) translate(-107,0)">
     <circle cx="28.549" cy="35.885" r="4.342"/>
@@ -74,15 +59,3 @@ const HK_SVG = `<svg width="512px" height="512px" viewBox="0 0 100 100" xmlns="h
   </g>
 </svg>`;
 
-export const BUTTON_SVG_ICONS: Partial<Record<Button, string>> = {
-	[Button.LightPunch]: LP_SVG,
-	[Button.MediumPunch]: MP_SVG,
-	[Button.HeavyPunch]: HP_SVG,
-	[Button.LightKick]: LK_SVG,
-	[Button.MediumKick]: MK_SVG,
-	[Button.HeavyKick]: HK_SVG,
-	[Button.DoublePunch]: LP_SVG + MP_SVG,
-	[Button.DoubleKick]: LK_SVG + MK_SVG,
-	[Button.TriplePunch]: LP_SVG + MP_SVG + HP_SVG,
-	[Button.TripleKick]: LK_SVG + MK_SVG + HK_SVG,
-};

@@ -1,7 +1,7 @@
 export { Direction, Button } from "./types";
-import { Direction, FgToken } from "./types";
+import { ChargeInputToken, Direction, FgToken, InputToken } from "./types";
 import { IconProvider } from "icon-provider";
-import { DIRECTION_ARROWS } from "consts";
+import { DIRECTION_DATA } from "./symbol-data";
 import { FgParser } from "fg-parser";
 
 function renderToken(
@@ -10,41 +10,57 @@ function renderToken(
 	icons: IconProvider,
 ): void {
 	if (token.kind === "input") {
-		const wrapper = parent.createSpan({ cls: "fg-input" });
-		const arrows = DIRECTION_ARROWS[token.direction];
-
-		if (token.direction === Direction.Jump) {
-			wrapper
-				.createSpan({
-					cls: ["fg-badge", `fg-badge--jump`],
-				})
-				.setText("jump");
-		} else {
-			if (arrows) {
-				wrapper
-					.createSpan({ cls: ["fg-direction", "fg-arrows"] })
-					.setText(arrows);
-			}
-		}
-
-		icons.renderButton(token.button, wrapper);
+		renderInputToken(token, parent, icons);
 	} else if (token.kind === "separator") {
 		icons.renderSeparator(token.separator, parent);
 	} else if (token.kind == "charge-input") {
-		console.log(`Charge input token direction was ${token.direction}`);
-		const wrapper = parent.createSpan({ cls: "fg-input" });
-		const directionArrows = DIRECTION_ARROWS[token.direction];
-		const chargeArrows = DIRECTION_ARROWS[token.charge];
-		wrapper
-			.createSpan({ cls: ["fg-charge", "fg-arrows"] })
-			.setText(chargeArrows);
-		wrapper.createSpan({ cls: ["fg-arrows"] }).setText(directionArrows);
-		icons.renderButton(token.button, wrapper);
+		renderChargeInputToken(token, parent, icons);
 	} else if (token.kind === "badge") {
 		icons.renderBadge(token.button, parent);
 	} else {
 		parent.createSpan({ cls: "fg-raw" }).setText(token.value);
 	}
+}
+
+function renderInputToken(
+	token: InputToken,
+	parent: HTMLElement,
+	iconProvider: IconProvider,
+) {
+	const wrapper = parent.createSpan({ cls: "fg-input" });
+	const arrows = DIRECTION_DATA[token.direction].arrows;
+
+	if (token.direction === Direction.Jump) {
+		wrapper
+			.createSpan({
+				cls: ["fg-badge", `fg-badge--jump`],
+			})
+			.setText("jump");
+	} else {
+		if (arrows) {
+			wrapper
+				.createSpan({ cls: ["fg-direction", "fg-arrows"] })
+				.setText(arrows);
+		}
+	}
+
+	iconProvider.renderButton(token.button, wrapper);
+}
+
+function renderChargeInputToken(
+	token: ChargeInputToken,
+	parent: HTMLElement,
+	iconProvider: IconProvider,
+) {
+	console.log(`Charge input token direction was ${token.direction}`);
+	const wrapper = parent.createSpan({ cls: "fg-input" });
+	const directionArrows = DIRECTION_DATA[token.direction].arrows;
+	const chargeArrows = DIRECTION_DATA[token.charge].arrows;
+	wrapper
+		.createSpan({ cls: ["fg-charge", "fg-arrows"] })
+		.setText(chargeArrows);
+	wrapper.createSpan({ cls: ["fg-arrows"] }).setText(directionArrows);
+	iconProvider.renderButton(token.button, wrapper);
 }
 
 function renderFgNotation(
