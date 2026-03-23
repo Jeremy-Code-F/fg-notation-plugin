@@ -39,8 +39,12 @@ export class FgParser implements IFgParser {
 
 	parseLine(line: string): FgToken[] {
 		const tokens: FgToken[] = [];
+		console.log(
+			`parseLine: inputRe=${this.inputRe.toString()} for game: ${this.config.gameName}`,
+		);
 		for (const part of line.split(/\s+/)) {
 			if (part.length === 0) continue;
+			console.log(`  testing part="${part}" against inputRe`);
 
 			const inputMatch = this.inputRe.exec(part);
 			if (inputMatch) {
@@ -48,6 +52,7 @@ export class FgParser implements IFgParser {
 				if (rawDir !== undefined && rawBtn !== undefined) {
 					const direction = this.parseDirection(rawDir);
 					const button = this.parseButton(rawBtn);
+					console.log(`Button ${rawBtn} parsed as '${button}'`);
 					if (direction !== null && button !== null) {
 						tokens.push({ kind: "input", direction, button });
 						continue;
@@ -66,8 +71,17 @@ export class FgParser implements IFgParser {
 					const charge = this.parseDirection(rawCharge);
 					const direction = this.parseDirection(rawDir);
 					const button = this.parseButton(rawBtn);
-					if (charge !== null && direction !== null && button !== null) {
-						tokens.push({ kind: "charge-input", charge, direction, button });
+					if (
+						charge !== null &&
+						direction !== null &&
+						button !== null
+					) {
+						tokens.push({
+							kind: "charge-input",
+							charge,
+							direction,
+							button,
+						});
 						continue;
 					}
 				}
