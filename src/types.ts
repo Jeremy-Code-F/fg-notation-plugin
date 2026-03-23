@@ -24,24 +24,6 @@ export enum Direction {
 	DoubleTapBack = "44", // dash back
 }
 
-export enum Button {
-	LightPunch = "LP",
-	MediumPunch = "MP",
-	HeavyPunch = "HP",
-	LightKick = "LK",
-	MediumKick = "MK",
-	HeavyKick = "HK",
-	DriveRush = "DR",
-	DriveRushCancel = "DRC",
-	DriveImpact = "DI",
-	CounterHit = "CH",
-	PunishCounter = "PC",
-	THROW = "THROW",
-	DoublePunch = "PP",
-	DoubleKick = "KK",
-	TriplePunch = "PPP",
-	TripleKick = "KKK",
-}
 
 export enum Separator {
 	Cancel = ">",
@@ -53,16 +35,16 @@ export enum Separator {
 export type InputToken = {
 	kind: "input";
 	direction: Direction;
-	button: Button;
+	button: string;
 };
 export type ChargeInputToken = {
 	kind: "charge-input";
 	charge: Direction;
 	direction: Direction;
-	button: Button;
+	button: string;
 };
 export type SeparatorToken = { kind: "separator"; separator: Separator };
-export type BadgeToken = { kind: "badge"; button: Button };
+export type BadgeToken = { kind: "badge"; button: string };
 export type RawToken = { kind: "raw"; value: string };
 export type FgToken =
 	| InputToken

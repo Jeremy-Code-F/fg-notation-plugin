@@ -1,34 +1,38 @@
-import { Button, Direction, Separator } from "types";
+import { Direction, Separator } from "types";
 import { FgToken } from "types";
+import { GameConfig } from "./game-config";
 
 export interface IFgParser {
 	parseFgSource(line: String): FgToken[][];
 }
 
-const INPUT_RE = /^([j]|[1-9]+)\.([LMH][PK]|PPP|KKK|PP|KK)$/;
-const CHARGE_INPUT_RE = /^\[([1-9])\]([1-9j]+)\.([LMH][PK]|PPP|KKK|PP|KK)$/;
 const SEPARATOR_RE = /^(>|,|\+|~)$/;
-const STANDALONE_BUTTON_RE = /^(DRC|DR|DI|THROW)$/;
-const MODIFIER_RE = /^(\[CH\]|\[PC\])$/;
 
 const DIRECTION_MAP: Record<string, Direction> = Object.fromEntries(
 	Object.values(Direction).map((v) => [v, v as Direction]),
-);
-
-const BUTTON_MAP: Record<string, Button> = Object.fromEntries(
-	Object.values(Button).map((v) => [v, v as Button]),
 );
 const SEPARATOR_MAP: Record<string, Separator> = Object.fromEntries(
 	Object.values(Separator).map((v) => [v, v as Separator]),
 );
 
 export class FgParser implements IFgParser {
+	private inputRe: RegExp;
+	private chargeInputRe: RegExp;
+
+	constructor(private config: GameConfig) {
+		const btn = config.buttonPattern;
+		this.inputRe = new RegExp(`^([j]|[1-9]+)\\.(${btn})$`);
+		this.chargeInputRe = new RegExp(`^\\[([1-9])\\]([1-9j]+)\\.(${btn})$`);
+	}
+
 	parseDirection(raw: string): Direction | null {
 		return DIRECTION_MAP[raw] ?? null;
 	}
-	parseButton(raw: string): Button | null {
-		return BUTTON_MAP[raw] ?? null;
+
+	parseButton(raw: string): string | null {
+		return raw in this.config.buttonData ? raw : null;
 	}
+
 	parseSeparator(raw: string): Separator | null {
 		return SEPARATOR_MAP[raw] ?? null;
 	}
@@ -38,7 +42,7 @@ export class FgParser implements IFgParser {
 		for (const part of line.split(/\s+/)) {
 			if (part.length === 0) continue;
 
-			const inputMatch = INPUT_RE.exec(part);
+			const inputMatch = this.inputRe.exec(part);
 			if (inputMatch) {
 				const [, rawDir, rawBtn] = inputMatch;
 				if (rawDir !== undefined && rawBtn !== undefined) {
@@ -51,14 +55,9 @@ export class FgParser implements IFgParser {
 				}
 			}
 
-			const chargeMatch = CHARGE_INPUT_RE.exec(part);
+			const chargeMatch = this.chargeInputRe.exec(part);
 			if (chargeMatch) {
-				console.log(`Read charge input from part ${part}`);
 				const [, rawCharge, rawDir, rawBtn] = chargeMatch;
-
-				console.log(
-					`RawCharge ${rawCharge} RawDir ${rawDir} RawBtn ${rawBtn}`,
-				);
 				if (
 					rawCharge !== undefined &&
 					rawDir !== undefined &&
@@ -67,37 +66,22 @@ export class FgParser implements IFgParser {
 					const charge = this.parseDirection(rawCharge);
 					const direction = this.parseDirection(rawDir);
 					const button = this.parseButton(rawBtn);
-					if (
-						charge !== null &&
-						direction !== null &&
-						button !== null
-					) {
-						tokens.push({
-							kind: "charge-input",
-							charge,
-							direction,
-							button,
-						});
+					if (charge !== null && direction !== null && button !== null) {
+						tokens.push({ kind: "charge-input", charge, direction, button });
 						continue;
 					}
 				}
 			}
 
 			if (SEPARATOR_RE.test(part)) {
-				console.log(`Testing separator RE on part '${part}'`);
 				const separator = this.parseSeparator(part);
 				if (separator !== null) {
-					console.log(`Separator was parsed from part ${part}`);
 					tokens.push({ kind: "separator", separator });
 					continue;
-				} else {
-					console.log(
-						`Separator RE matched for part '${separator}', but it could not be parsed as a separator`,
-					);
 				}
 			}
 
-			if (MODIFIER_RE.test(part)) {
+			if (this.config.modifierBadgeRe.test(part)) {
 				const button = this.parseButton(part.replace(/[\[\]]/g, ""));
 				if (button !== null) {
 					tokens.push({ kind: "badge", button });
@@ -105,7 +89,7 @@ export class FgParser implements IFgParser {
 				}
 			}
 
-			if (STANDALONE_BUTTON_RE.test(part)) {
+			if (this.config.standaloneBadgeRe.test(part)) {
 				const button = this.parseButton(part);
 				if (button !== null) {
 					tokens.push({ kind: "badge", button });

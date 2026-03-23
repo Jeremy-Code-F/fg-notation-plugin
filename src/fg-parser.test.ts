@@ -1,10 +1,11 @@
 import { describe, it, expect } from "vitest";
 import { FgParser } from "./fg-parser";
-import { Button, Direction, Separator } from "types";
+import { Direction, Separator } from "types";
 import type { ChargeInputToken } from "types";
+import { SF6_CONFIG } from "./games/sf6";
 
 describe("FgParser", () => {
-	const parser = new FgParser();
+	const parser = new FgParser(SF6_CONFIG);
 
 	describe("parseLine", () => {
 		it("parses a single numpad input", () => {
@@ -12,7 +13,7 @@ describe("FgParser", () => {
 				{
 					kind: "input",
 					direction: Direction.Neutral,
-					button: Button.LightPunch,
+					button: "LP",
 				},
 			]);
 		});
@@ -22,7 +23,7 @@ describe("FgParser", () => {
 				{
 					kind: "input",
 					direction: Direction.QuarterCircleForward,
-					button: Button.LightPunch,
+					button: "LP",
 				},
 			]);
 		});
@@ -32,7 +33,7 @@ describe("FgParser", () => {
 				{
 					kind: "input",
 					direction: Direction.Jump,
-					button: Button.HeavyPunch,
+					button: "HP",
 				},
 			]);
 		});
@@ -57,31 +58,31 @@ describe("FgParser", () => {
 
 		it("parses a counter hit badge", () => {
 			expect(parser.parseLine("[CH]")).toEqual([
-				{ kind: "badge", button: Button.CounterHit },
+				{ kind: "badge", button: "CH" },
 			]);
 		});
 
 		it("parses a punish counter badge", () => {
 			expect(parser.parseLine("[PC]")).toEqual([
-				{ kind: "badge", button: Button.PunishCounter },
+				{ kind: "badge", button: "PC" },
 			]);
 		});
 
 		it("parses DRC as a badge", () => {
 			expect(parser.parseLine("DRC")).toEqual([
-				{ kind: "badge", button: Button.DriveRushCancel },
+				{ kind: "badge", button: "DRC" },
 			]);
 		});
 
 		it("parses DR as a badge", () => {
 			expect(parser.parseLine("DR")).toEqual([
-				{ kind: "badge", button: Button.DriveRush },
+				{ kind: "badge", button: "DR" },
 			]);
 		});
 
 		it("parses DI as a badge", () => {
 			expect(parser.parseLine("DI")).toEqual([
-				{ kind: "badge", button: Button.DriveImpact },
+				{ kind: "badge", button: "DI" },
 			]);
 		});
 
@@ -90,7 +91,7 @@ describe("FgParser", () => {
 				{
 					kind: "input",
 					direction: Direction.QuarterCircleForward,
-					button: Button.DoublePunch,
+					button: "PP",
 				},
 			]);
 		});
@@ -100,7 +101,7 @@ describe("FgParser", () => {
 				{
 					kind: "input",
 					direction: Direction.DragonPunch,
-					button: Button.DoubleKick,
+					button: "KK",
 				},
 			]);
 		});
@@ -110,7 +111,7 @@ describe("FgParser", () => {
 				{
 					kind: "input",
 					direction: Direction.QuarterCircleForward,
-					button: Button.TriplePunch,
+					button: "PPP",
 				},
 			]);
 		});
@@ -120,7 +121,7 @@ describe("FgParser", () => {
 				{
 					kind: "input",
 					direction: Direction.QuarterCircleForward,
-					button: Button.TripleKick,
+					button: "KKK",
 				},
 			]);
 		});
@@ -131,7 +132,7 @@ describe("FgParser", () => {
 					kind: "charge-input",
 					charge: Direction.Back,
 					direction: Direction.Forward,
-					button: Button.HeavyPunch,
+					button: "HP",
 				} satisfies ChargeInputToken,
 			]);
 		});
@@ -141,20 +142,20 @@ describe("FgParser", () => {
 				{
 					kind: "input",
 					direction: Direction.Neutral,
-					button: Button.MediumPunch,
+					button: "MP",
 				},
 				{ kind: "separator", separator: Separator.Chain },
 				{
 					kind: "input",
 					direction: Direction.Back,
-					button: Button.HeavyPunch,
+					button: "HP",
 				},
 				{ kind: "separator", separator: Separator.Cancel },
 				{
 					kind: "charge-input",
 					charge: Direction.Back,
 					direction: Direction.Forward,
-					button: Button.HeavyPunch,
+					button: "HP",
 				} satisfies ChargeInputToken,
 			]);
 		});
@@ -170,19 +171,19 @@ describe("FgParser", () => {
 				{
 					kind: "input",
 					direction: Direction.QuarterCircleForward,
-					button: Button.HeavyPunch,
+					button: "HP",
 				},
 				{ kind: "separator", separator: Separator.Cancel },
 				{
 					kind: "input",
 					direction: Direction.Neutral,
-					button: Button.MediumPunch,
+					button: "MP",
 				},
 				{ kind: "separator", separator: Separator.Chain },
 				{
 					kind: "input",
 					direction: Direction.Neutral,
-					button: Button.LightPunch,
+					button: "LP",
 				},
 			]);
 		});
@@ -192,13 +193,13 @@ describe("FgParser", () => {
 				{
 					kind: "input",
 					direction: Direction.Neutral,
-					button: Button.LightPunch,
+					button: "LP",
 				},
 				{ kind: "separator", separator: Separator.Cancel },
 				{
 					kind: "input",
 					direction: Direction.Neutral,
-					button: Button.HeavyPunch,
+					button: "HP",
 				},
 			]);
 		});
@@ -212,14 +213,14 @@ describe("FgParser", () => {
 				{
 					kind: "input",
 					direction: Direction.Neutral,
-					button: Button.LightPunch,
+					button: "LP",
 				},
 			]);
 			expect(result[1]).toEqual([
 				{
 					kind: "input",
 					direction: Direction.Neutral,
-					button: Button.HeavyPunch,
+					button: "HP",
 				},
 			]);
 		});
@@ -236,7 +237,7 @@ describe("FgParser", () => {
 					{
 						kind: "input",
 						direction: Direction.Neutral,
-						button: Button.LightPunch,
+						button: "LP",
 					},
 				],
 			]);

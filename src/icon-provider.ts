@@ -1,22 +1,28 @@
-import { Button, Separator } from "./types";
-import { BUTTON_DATA, SEPARATOR_DATA } from "./symbol-data";
+import { Separator } from "./types";
+import { ButtonData, SEPARATOR_DATA } from "./symbol-data";
 
 export interface IconProvider {
-	renderButton(button: Button, parent: HTMLElement): void;
-	renderBadge(button: Button, parent: HTMLElement): void;
+	renderButton(button: string, parent: HTMLElement): void;
+	renderBadge(button: string, parent: HTMLElement): void;
 	renderSeparator(separator: Separator, parent: HTMLElement): void;
 }
 
 export class TextIconProvider implements IconProvider {
-	renderButton(button: Button, parent: HTMLElement): void {
-		const { label, cssClass } = BUTTON_DATA[button];
+	constructor(private buttonData: Record<string, ButtonData>) {}
+
+	renderButton(button: string, parent: HTMLElement): void {
+		const data = this.buttonData[button];
+		if (!data) return;
+		const { label, cssClass } = data;
 		parent
 			.createSpan({ cls: ["fg-button", `fg-button--${cssClass}`] })
 			.setText(label);
 	}
 
-	renderBadge(button: Button, parent: HTMLElement): void {
-		const { label, cssClass } = BUTTON_DATA[button];
+	renderBadge(button: string, parent: HTMLElement): void {
+		const data = this.buttonData[button];
+		if (!data) return;
+		const { label, cssClass } = data;
 		parent
 			.createSpan({ cls: ["fg-badge", `fg-badge--${cssClass}`] })
 			.setText(label);
@@ -31,27 +37,31 @@ export class TextIconProvider implements IconProvider {
 }
 
 export class SvgIconProvider implements IconProvider {
-	private text = new TextIconProvider();
+	private text: TextIconProvider;
 
-	renderButton(button: Button, parent: HTMLElement): void {
-		const { cssClass, svg } = BUTTON_DATA[button];
-		if (svg) {
+	constructor(private buttonData: Record<string, ButtonData>) {
+		this.text = new TextIconProvider(buttonData);
+	}
+
+	renderButton(button: string, parent: HTMLElement): void {
+		const data = this.buttonData[button];
+		if (data?.svg) {
 			const span = parent.createSpan({
-				cls: ["fg-button", `fg-button--${cssClass}`],
+				cls: ["fg-button", `fg-button--${data.cssClass}`],
 			});
-			span.innerHTML = svg;
+			span.innerHTML = data.svg;
 		} else {
 			this.text.renderButton(button, parent);
 		}
 	}
 
-	renderBadge(button: Button, parent: HTMLElement): void {
-		const { cssClass, svg } = BUTTON_DATA[button];
-		if (svg) {
+	renderBadge(button: string, parent: HTMLElement): void {
+		const data = this.buttonData[button];
+		if (data?.svg) {
 			const span = parent.createSpan({
-				cls: ["fg-badge", `fg-badge--${cssClass}`],
+				cls: ["fg-badge", `fg-badge--${data.cssClass}`],
 			});
-			span.innerHTML = svg;
+			span.innerHTML = data.svg;
 		} else {
 			this.text.renderBadge(button, parent);
 		}

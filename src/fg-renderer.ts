@@ -1,8 +1,9 @@
-export { Direction, Button } from "./types";
+export { Direction } from "./types";
 import { ChargeInputToken, Direction, FgToken, InputToken } from "./types";
 import { IconProvider } from "icon-provider";
 import { DIRECTION_DATA } from "./symbol-data";
 import { FgParser } from "fg-parser";
+import { GameConfig } from "./game-config";
 
 function renderToken(
 	token: FgToken,
@@ -52,7 +53,6 @@ function renderChargeInputToken(
 	parent: HTMLElement,
 	iconProvider: IconProvider,
 ) {
-	console.log(`Charge input token direction was ${token.direction}`);
 	const wrapper = parent.createSpan({ cls: "fg-input" });
 	const directionArrows = DIRECTION_DATA[token.direction].arrows;
 	const chargeArrows = DIRECTION_DATA[token.charge].arrows;
@@ -81,7 +81,8 @@ export function processFgBlock(
 	source: string,
 	el: HTMLElement,
 	icons: IconProvider,
+	config: GameConfig,
 ): void {
-	let fg_parser = new FgParser();
-	renderFgNotation(fg_parser.parseFgSource(source), el, icons);
+	const parser = new FgParser(config);
+	renderFgNotation(parser.parseFgSource(source), el, icons);
 }
