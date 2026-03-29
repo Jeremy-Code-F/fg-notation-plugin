@@ -1,12 +1,12 @@
-import { GGST_P_SVG } from "icons";
 import { GameConfig } from "../game-config";
+import GGST_P_PNG from "../assets/GGST-P.png";
 
 export const GGST_CONFIG: GameConfig = {
 	buttonPattern: "HS|S|P|K|D",
 	standaloneBadgeRe: /^(RC|Burst|THROW)$/,
 	modifierBadgeRe: /^(\[CH\]|\[RISC\])$/,
 	buttonData: {
-		P: { label: "P", cssClass: "ggst-p", svg: GGST_P_SVG },
+		P: { label: "P", cssClass: "ggst-p", png: GGST_P_PNG },
 		K: { label: "K", cssClass: "ggst-k" },
 		S: { label: "S", cssClass: "ggst-s" },
 		HS: { label: "HS", cssClass: "ggst-hs" },

@@ -10,6 +10,7 @@ export type ButtonData = {
 	label: string;
 	cssClass: string;
 	svg?: string;
+	png?: string;
 };
 
 export type DirectionData = {

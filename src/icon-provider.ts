@@ -8,7 +8,7 @@ export interface IconProvider {
 }
 
 export class TextIconProvider implements IconProvider {
-	constructor(private buttonData: Record<string, ButtonData>) {}
+	constructor(private buttonData: Record<string, ButtonData>) { }
 
 	renderButton(button: string, parent: HTMLElement): void {
 		const data = this.buttonData[button];
@@ -36,20 +36,30 @@ export class TextIconProvider implements IconProvider {
 	}
 }
 
-export class SvgIconProvider implements IconProvider {
+export class AdaptiveIconProvider implements IconProvider {
 	private text: TextIconProvider;
 
 	constructor(private buttonData: Record<string, ButtonData>) {
 		this.text = new TextIconProvider(buttonData);
 	}
 
+	private createImg(src: string, alt: string): HTMLImageElement {
+		const img = document.createElement("img");
+		img.src = src;
+		img.alt = alt;
+		img.addEventListener("error", () => img.remove(), { once: true });
+		return img;
+	}
+
 	renderButton(button: string, parent: HTMLElement): void {
 		const data = this.buttonData[button];
-		if (data?.svg) {
-			const span = parent.createSpan({
-				cls: ["fg-button", `fg-button--${data.cssClass}`],
-			});
+		if (!data) return;
+		if (data.svg) {
+			const span = parent.createSpan({ cls: ["fg-button", `fg-button--${data.cssClass}`] });
 			span.innerHTML = data.svg;
+		} else if (data.png) {
+			const span = parent.createSpan({ cls: ["fg-button", `fg-button--${data.cssClass}`] });
+			span.appendChild(this.createImg(data.png, data.label));
 		} else {
 			this.text.renderButton(button, parent);
 		}
@@ -57,11 +67,13 @@ export class SvgIconProvider implements IconProvider {
 
 	renderBadge(button: string, parent: HTMLElement): void {
 		const data = this.buttonData[button];
-		if (data?.svg) {
-			const span = parent.createSpan({
-				cls: ["fg-badge", `fg-badge--${data.cssClass}`],
-			});
+		if (!data) return;
+		if (data.svg) {
+			const span = parent.createSpan({ cls: ["fg-badge", `fg-badge--${data.cssClass}`] });
 			span.innerHTML = data.svg;
+		} else if (data.png) {
+			const span = parent.createSpan({ cls: ["fg-badge", `fg-badge--${data.cssClass}`] });
+			span.appendChild(this.createImg(data.png, data.label));
 		} else {
 			this.text.renderBadge(button, parent);
 		}
@@ -70,12 +82,14 @@ export class SvgIconProvider implements IconProvider {
 	renderSeparator(separator: Separator, parent: HTMLElement): void {
 		const { cssClass, svg } = SEPARATOR_DATA[separator];
 		if (svg) {
-			const span = parent.createSpan({
-				cls: ["fg-separator", `fg-separator--${cssClass}`],
-			});
+			const span = parent.createSpan({ cls: ["fg-separator", `fg-separator--${cssClass}`] });
 			span.innerHTML = svg;
 		} else {
 			this.text.renderSeparator(separator, parent);
 		}
 	}
+}
+
+export function createIconProvider(buttonData: Record<string, ButtonData>): IconProvider {
+	return new AdaptiveIconProvider(buttonData);
 }
