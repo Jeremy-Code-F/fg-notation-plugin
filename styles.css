@@ -163,24 +163,42 @@ If your plugin does not need CSS, delete this file.
 }
 
 /* Text buttons use min-width + padding so multi-char labels (HS) aren't squashed into an oval */
-.fg-button--ggst-k,
+/* .fg-button--ggst-k, */
 .fg-button--ggst-s,
-.fg-button--ggst-hs,
-.fg-button--ggst-d {
+.fg-button--ggst-hs {
 	min-width: 28px;
 	padding: 0 4px;
 	border-radius: 10px;
 	color: #ffffff;
 }
 
-.fg-button--ggst-k  { background-color: #e84040; }
-.fg-button--ggst-s  { background-color: #40a040; }
-.fg-button--ggst-hs { background-color: #8040c0; }
-.fg-button--ggst-d  { background-color: #c0a000; }
+
+.fg-button--ggst-s {
+	background-color: #40a040;
+}
+
+.fg-button--ggst-hs {
+	background-color: #8040c0;
+}
+
 
 /* GGST badges */
-.fg-badge--ggst-rc    { background-color: #ffd700; }
-.fg-badge--ggst-burst { background-color: #ff6b35; }
-.fg-badge--ggst-throw { background-color: #82c3ed; }
-.fg-badge--ggst-ch    { background-color: #d47f08; }
-.fg-badge--ggst-risc  { background-color: #e84040; }
+.fg-badge--ggst-rc {
+	background-color: #ffd700;
+}
+
+.fg-badge--ggst-burst {
+	background-color: #ff6b35;
+}
+
+.fg-badge--ggst-throw {
+	background-color: #82c3ed;
+}
+
+.fg-badge--ggst-ch {
+	background-color: #d47f08;
+}
+
+.fg-badge--ggst-risc {
+	background-color: #e84040;
+}
