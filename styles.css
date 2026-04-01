@@ -172,16 +172,6 @@ If your plugin does not need CSS, delete this file.
 	color: #ffffff;
 }
 
-
-.fg-button--ggst-s {
-	background-color: #40a040;
-}
-
-.fg-button--ggst-hs {
-	background-color: #8040c0;
-}
-
-
 /* GGST badges */
 .fg-badge--ggst-rc {
 	background-color: #ffd700;

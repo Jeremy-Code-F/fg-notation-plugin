@@ -2,6 +2,8 @@ import { GameConfig } from "../game-config";
 import GGST_P_PNG from "../assets/GGST-P.png";
 import GGST_K_PNG from "../assets/GGST-K.png";
 import GGST_D_PNG from "../assets/GGST-D.png";
+import GGST_HS_PNG from "../assets/GGST-HS.png";
+import GGST_S_PNG from "../assets/GGST-S.png";
 
 export const GGST_CONFIG: GameConfig = {
 	buttonPattern: "HS|S|P|K|D",
@@ -10,8 +12,8 @@ export const GGST_CONFIG: GameConfig = {
 	buttonData: {
 		P: { label: "P", cssClass: "ggst-p", png: GGST_P_PNG },
 		K: { label: "K", cssClass: "ggst-k", png: GGST_K_PNG },
-		S: { label: "S", cssClass: "ggst-s" },
-		HS: { label: "HS", cssClass: "ggst-hs" },
+		S: { label: "S", cssClass: "ggst-s", png: GGST_S_PNG },
+		HS: { label: "HS", cssClass: "ggst-hs", png: GGST_HS_PNG },
 		D: { label: "D", cssClass: "ggst-d", png: GGST_D_PNG },
 		RC: { label: "RC", cssClass: "ggst-rc" },
 		Burst: { label: "Burst", cssClass: "ggst-burst" },
