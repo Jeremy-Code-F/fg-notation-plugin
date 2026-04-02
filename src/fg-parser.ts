@@ -21,7 +21,7 @@ export class FgParser implements IFgParser {
 
 	constructor(private config: GameConfig) {
 		const btn = config.buttonPattern;
-		this.inputRe = new RegExp(`^([j]|[1-9]+)\\.(${btn})$`);
+		this.inputRe = config.inputRe;
 		this.chargeInputRe = new RegExp(`^\\[([1-9])\\]([1-9j]+)\\.(${btn})$`);
 	}
 
@@ -49,10 +49,11 @@ export class FgParser implements IFgParser {
 			const inputMatch = this.inputRe.exec(part);
 			if (inputMatch) {
 				const [, rawDir, rawBtn] = inputMatch;
-				if (rawDir !== undefined && rawBtn !== undefined) {
-					const direction = this.parseDirection(rawDir);
+				if (rawBtn !== undefined) {
+					const normalizedDir = (rawDir ?? "").replace(/\.$/, "") || "5";
+					const direction = this.parseDirection(normalizedDir);
 					const button = this.parseButton(rawBtn);
-					console.log(`Button ${rawBtn} parsed as '${button}'`);
+
 					if (direction !== null && button !== null) {
 						tokens.push({ kind: "input", direction, button });
 						continue;

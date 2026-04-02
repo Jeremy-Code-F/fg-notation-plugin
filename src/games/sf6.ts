@@ -1,8 +1,11 @@
 import { GameConfig } from "../game-config";
 import { LP_SVG, MP_SVG, HP_SVG, LK_SVG, MK_SVG, HK_SVG } from "../icons";
 
+const buttonPattern = "[LMH][PK]|PPP|KKK|PP|KK";
+
 export const SF6_CONFIG: GameConfig = {
-	buttonPattern: "[LMH][PK]|PPP|KKK|PP|KK",
+	buttonPattern,
+	inputRe: new RegExp(`^([j]|[1-9]+)\\.(${buttonPattern})$`),
 	standaloneBadgeRe: /^(DRC|DR|DI|THROW)$/,
 	modifierBadgeRe: /^(\[CH\]|\[PC\])$/,
 	buttonData: {

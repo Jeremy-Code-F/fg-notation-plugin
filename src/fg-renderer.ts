@@ -37,7 +37,20 @@ function renderInputToken(
 				cls: ["fg-badge", `fg-badge--jump`],
 			})
 			.setText("jump");
-	} else {
+	} else if (token.direction === Direction.Close) {
+		wrapper
+			.createSpan({
+				cls: ["fg-badge", `fg-badge--close`],
+			})
+			.setText("close");
+	} else if (token.direction === Direction.Far) {
+		wrapper
+			.createSpan({
+				cls: ["fg-badge", `fg-badge--far`],
+			})
+			.setText("far");
+	}
+	else {
 		if (arrows) {
 			wrapper
 				.createSpan({ cls: ["fg-direction", "fg-arrows"] })

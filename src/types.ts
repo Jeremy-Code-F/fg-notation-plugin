@@ -10,6 +10,8 @@ export enum Direction {
 	Up = "8",
 	UpForward = "9",
 	Jump = "j",
+	Close = "c",
+	Far = "f",
 	// Motion inputs
 	DoubleQuarterCircleForward = "236236", // qcf qcf
 	QuarterCircleForward = "236", // QCF / fireball
