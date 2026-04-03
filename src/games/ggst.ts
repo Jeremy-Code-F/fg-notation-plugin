@@ -10,7 +10,7 @@ const buttonPattern = "HS|H|S|P|K|D";
 export const GGST_CONFIG: GameConfig = {
 	buttonPattern,
 	inputRe: new RegExp(`^(c\\.|f\\.|j\\.|[1-9]*)(${buttonPattern})$`),
-	standaloneBadgeRe: /^(RC|Burst|THROW)$/,
+	standaloneBadgeRe: /^(RC|Burst|THROW|RRC|YRC|66|WS|WB)$/,
 	modifierBadgeRe: /^(\[CH\]|\[RISC\])$/,
 	buttonData: {
 		P: { label: "P", cssClass: "ggst-p", png: GGST_P_PNG },
@@ -20,10 +20,15 @@ export const GGST_CONFIG: GameConfig = {
 		HS: { label: "HS", cssClass: "ggst-hs", png: GGST_HS_PNG },
 		D: { label: "D", cssClass: "ggst-d", png: GGST_D_PNG },
 		RC: { label: "RC", cssClass: "ggst-rc" },
+		RRC: { label: "RC", cssClass: "ggst-rrc" },
+		YRC: { label: "RC", cssClass: "ggst-yrc" },
+		66: { label: "Dash", cssClass: "ggst-dash" },
 		Burst: { label: "Burst", cssClass: "ggst-burst" },
 		THROW: { label: "THROW", cssClass: "ggst-throw" },
 		CH: { label: "CH", cssClass: "ggst-ch" },
 		RISC: { label: "RISC", cssClass: "ggst-risc" },
+		WS: { label: "Wall Splat", cssClass: "ggst-ws" },
+		WB: { label: "Wall Break", cssClass: "ggst-wb" },
 	},
 	gameName: "GGST",
 };

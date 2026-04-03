@@ -182,7 +182,7 @@ If your plugin does not need CSS, delete this file.
 
 /* GGST badges */
 .fg-badge--ggst-rc {
-	background-color: #ffd700;
+	background-color: #82c3ed;
 }
 
 .fg-badge--ggst-burst {
@@ -193,10 +193,30 @@ If your plugin does not need CSS, delete this file.
 	background-color: #82c3ed;
 }
 
+.fg-badge--ggst-dash {
+	background-color: #82c3ed;
+}
+
+.fg-badge--ggst-ws {
+	background-color: #82c3ed;
+}
+
+.fg-badge--ggst-wb {
+	background-color: #82c3ed;
+}
+
 .fg-badge--ggst-ch {
 	background-color: #d47f08;
 }
 
 .fg-badge--ggst-risc {
+	background-color: #e84040;
+}
+
+.fg-badge--ggst-yrc {
+	background-color: #ffd700;
+}
+
+.fg-badge--ggst-rrc {
 	background-color: #e84040;
 }
