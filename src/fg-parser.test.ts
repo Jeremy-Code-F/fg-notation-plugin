@@ -18,6 +18,46 @@ describe("FgParser", () => {
 			]);
 		});
 
+		it("parses a neutral input without a dot (5LP)", () => {
+			expect(parser.parseLine("5LP")).toEqual([
+				{
+					kind: "input",
+					direction: Direction.Neutral,
+					button: "LP",
+				},
+			]);
+		});
+
+		it("parses a neutral input with no direction or dot (LP)", () => {
+			expect(parser.parseLine("LP")).toEqual([
+				{
+					kind: "input",
+					direction: Direction.Neutral,
+					button: "LP",
+				},
+			]);
+		});
+
+		it("parses a non-neutral input without a dot (2LP)", () => {
+			expect(parser.parseLine("2LP")).toEqual([
+				{
+					kind: "input",
+					direction: Direction.Down,
+					button: "LP",
+				},
+			]);
+		});
+
+		it("parses a motion input without a dot (236LP)", () => {
+			expect(parser.parseLine("236LP")).toEqual([
+				{
+					kind: "input",
+					direction: Direction.QuarterCircleForward,
+					button: "LP",
+				},
+			]);
+		});
+
 		it("parses a motion input", () => {
 			expect(parser.parseLine("236.LP")).toEqual([
 				{
