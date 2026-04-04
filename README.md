@@ -17,11 +17,13 @@ Wrap your notation in a fenced code block with the appropriate game tag:
 
 ````markdown
 ```fg-sf6
-236.HP > DRC > 5.MP ~ 5.LP, 2.HK
+4.HK , 2.MP , 5.LK > 214.LP , 623.LP
 ```
 ````
 
 Each line in the block is rendered as a separate notation sequence.
+
+![SF6 combo notation rendered in Obsidian](docs/assets/ExampleComboSf6.png)
 
 ---
 
@@ -58,7 +60,7 @@ Use `j` for jump inputs.
 
 ### Buttons
 
-Buttons are written after a `.` separator on the direction. For example:
+Buttons are written with a direction and input, with an optional `.` separator for certain modifiers. For example:
 
 - `5HP` — standing heavy punch
 - `236LP` — QCF + light punch
@@ -76,6 +78,9 @@ Use bracket notation for charge inputs:
 ```
 
 This means: hold back, release forward + heavy punch.
+
+
+![SF6 charge notation rendered in Obsidian](docs/assets/ExampleChargeInputSf6.png)
 
 ### Badges
 
