@@ -8,6 +8,7 @@ import { processFgBlock } from "./fg-renderer";
 import { createIconProvider } from "./icon-provider";
 import { SF6_CONFIG } from "./games/sf6";
 import { GGST_CONFIG } from "games/ggst";
+import { COTW_CONFIG } from "games/cotw";
 
 export default class FgNotationPlugin extends Plugin {
 	settings: MyPluginSettings;
@@ -27,9 +28,13 @@ export default class FgNotationPlugin extends Plugin {
 		this.registerMarkdownCodeBlockProcessor("fg-ggst", (source, el) => {
 			processFgBlock(source, el, createIconProvider(GGST_CONFIG.buttonData), GGST_CONFIG);
 		});
+
+		this.registerMarkdownCodeBlockProcessor("fg-cotw", (source, el) => {
+			processFgBlock(source, el, createIconProvider(COTW_CONFIG.buttonData), COTW_CONFIG);
+		});
 	}
 
-	onunload() {}
+	onunload() { }
 
 	async loadSettings() {
 		this.settings = Object.assign(

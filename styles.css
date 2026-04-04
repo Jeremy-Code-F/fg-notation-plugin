@@ -170,6 +170,36 @@ If your plugin does not need CSS, delete this file.
 	background-color: transparent;
 }
 
+.fg-button--cotw-lp {
+	width: 33px !important;
+	height: 33px;
+}
+
+.fg-button--cotw-hp {
+	width: 33px !important;
+	height: 33px;
+}
+
+.fg-button--cotw-lk {
+	width: 33px !important;
+	height: 33px;
+}
+
+.fg-button--cotw-hk {
+	width: 33px !important;
+	height: 33px;
+}
+
+.fg-button--cotw-brake {
+	width: 33px !important;
+	height: 33px;
+}
+
+.fg-button--cotw-faint {
+	width: 33px !important;
+	height: 33px;
+}
+
 /* Text buttons use min-width + padding so multi-char labels (HS) aren't squashed into an oval */
 /* .fg-button--ggst-k, */
 .fg-button--ggst-s,
