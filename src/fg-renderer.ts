@@ -31,6 +31,12 @@ function renderInputToken(
 	const wrapper = parent.createSpan({ cls: "fg-input" });
 	const arrows = DIRECTION_DATA[token.direction].arrows;
 
+	if (token.delayed) {
+		wrapper
+			.createSpan({ cls: ["fg-badge", "fg-badge--delay"] })
+			.setText("delay");
+	}
+
 	if (token.direction === Direction.Jump) {
 		wrapper
 			.createSpan({

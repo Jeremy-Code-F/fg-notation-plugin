@@ -50,12 +50,13 @@ export class FgParser implements IFgParser {
 			if (inputMatch) {
 				const [, rawDir, rawBtn] = inputMatch;
 				if (rawBtn !== undefined) {
-					const normalizedDir = (rawDir ?? "").replace(/\.$/, "") || "5";
+					const delayed = (rawDir ?? "").startsWith("d.");
+					const normalizedDir = (rawDir ?? "").replace(/^d\./, "").replace(/\.$/, "") || "5";
 					const direction = this.parseDirection(normalizedDir);
 					const button = this.parseButton(rawBtn);
 
 					if (direction !== null && button !== null) {
-						tokens.push({ kind: "input", direction, button });
+						tokens.push({ kind: "input", direction, button, delayed });
 						continue;
 					}
 				}

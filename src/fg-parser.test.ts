@@ -14,6 +14,7 @@ describe("FgParser", () => {
 					kind: "input",
 					direction: Direction.Neutral,
 					button: "LP",
+					delayed: false,
 				},
 			]);
 		});
@@ -24,6 +25,7 @@ describe("FgParser", () => {
 					kind: "input",
 					direction: Direction.Neutral,
 					button: "LP",
+					delayed: false,
 				},
 			]);
 		});
@@ -34,6 +36,7 @@ describe("FgParser", () => {
 					kind: "input",
 					direction: Direction.Neutral,
 					button: "LP",
+					delayed: false,
 				},
 			]);
 		});
@@ -44,6 +47,7 @@ describe("FgParser", () => {
 					kind: "input",
 					direction: Direction.Down,
 					button: "LP",
+					delayed: false,
 				},
 			]);
 		});
@@ -54,6 +58,7 @@ describe("FgParser", () => {
 					kind: "input",
 					direction: Direction.QuarterCircleForward,
 					button: "LP",
+					delayed: false,
 				},
 			]);
 		});
@@ -64,6 +69,7 @@ describe("FgParser", () => {
 					kind: "input",
 					direction: Direction.QuarterCircleForward,
 					button: "LP",
+					delayed: false,
 				},
 			]);
 		});
@@ -74,6 +80,7 @@ describe("FgParser", () => {
 					kind: "input",
 					direction: Direction.Jump,
 					button: "HP",
+					delayed: false,
 				},
 			]);
 		});
@@ -132,6 +139,7 @@ describe("FgParser", () => {
 					kind: "input",
 					direction: Direction.QuarterCircleForward,
 					button: "PP",
+					delayed: false,
 				},
 			]);
 		});
@@ -142,6 +150,7 @@ describe("FgParser", () => {
 					kind: "input",
 					direction: Direction.DragonPunch,
 					button: "KK",
+					delayed: false,
 				},
 			]);
 		});
@@ -152,6 +161,7 @@ describe("FgParser", () => {
 					kind: "input",
 					direction: Direction.QuarterCircleForward,
 					button: "PPP",
+					delayed: false,
 				},
 			]);
 		});
@@ -162,6 +172,7 @@ describe("FgParser", () => {
 					kind: "input",
 					direction: Direction.QuarterCircleForward,
 					button: "KKK",
+					delayed: false,
 				},
 			]);
 		});
@@ -183,12 +194,14 @@ describe("FgParser", () => {
 					kind: "input",
 					direction: Direction.Neutral,
 					button: "MP",
+					delayed: false,
 				},
 				{ kind: "separator", separator: Separator.Chain },
 				{
 					kind: "input",
 					direction: Direction.Back,
 					button: "HP",
+					delayed: false,
 				},
 				{ kind: "separator", separator: Separator.Cancel },
 				{
@@ -212,18 +225,21 @@ describe("FgParser", () => {
 					kind: "input",
 					direction: Direction.QuarterCircleForward,
 					button: "HP",
+					delayed: false,
 				},
 				{ kind: "separator", separator: Separator.Cancel },
 				{
 					kind: "input",
 					direction: Direction.Neutral,
 					button: "MP",
+					delayed: false,
 				},
 				{ kind: "separator", separator: Separator.Chain },
 				{
 					kind: "input",
 					direction: Direction.Neutral,
 					button: "LP",
+					delayed: false,
 				},
 			]);
 		});
@@ -234,12 +250,14 @@ describe("FgParser", () => {
 					kind: "input",
 					direction: Direction.Neutral,
 					button: "LP",
+					delayed: false,
 				},
 				{ kind: "separator", separator: Separator.Cancel },
 				{
 					kind: "input",
 					direction: Direction.Neutral,
 					button: "HP",
+					delayed: false,
 				},
 			]);
 		});
@@ -254,6 +272,7 @@ describe("FgParser", () => {
 					kind: "input",
 					direction: Direction.Neutral,
 					button: "LP",
+					delayed: false,
 				},
 			]);
 			expect(result[1]).toEqual([
@@ -261,6 +280,7 @@ describe("FgParser", () => {
 					kind: "input",
 					direction: Direction.Neutral,
 					button: "HP",
+					delayed: false,
 				},
 			]);
 		});
@@ -278,6 +298,7 @@ describe("FgParser", () => {
 						kind: "input",
 						direction: Direction.Neutral,
 						button: "LP",
+						delayed: false,
 					},
 				],
 			]);

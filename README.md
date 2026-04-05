@@ -74,7 +74,7 @@ Multi-button inputs like `PP`, `KK`, `PPP`, `KKK` are supported for games that u
 Use bracket notation for charge inputs:
 
 ```
-[4]6.HP
+[4]6HP > [2]8HK
 ```
 
 This means: hold back, release forward + heavy punch.

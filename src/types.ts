@@ -38,6 +38,7 @@ export type InputToken = {
 	kind: "input";
 	direction: Direction;
 	button: string;
+	delayed?: boolean;
 };
 export type ChargeInputToken = {
 	kind: "charge-input";

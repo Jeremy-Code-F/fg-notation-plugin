@@ -127,6 +127,14 @@ If your plugin does not need CSS, delete this file.
 	background-color: #82c3ed;
 }
 
+.fg-badge--wallsplat {
+	background-color: #ca0505;
+}
+
+.fg-badge--delay {
+	background-color: #82c3ed;
+}
+
 .fg-badge--jump {
 	background-color: #82c3ed;
 }
