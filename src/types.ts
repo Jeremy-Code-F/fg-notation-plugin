@@ -14,6 +14,7 @@ export enum Direction {
 	Far = "f",
 	// Motion inputs
 	DoubleQuarterCircleForward = "236236", // qcf qcf
+	DoubleQuarterCircleBack = "214214", // qcb qcb 
 	QuarterCircleForward = "236", // QCF / fireball
 	ChargeSuper = "646", // Guile Sonic Hurricane for example
 	QuarterCircleBack = "214", // QCB
@@ -21,9 +22,10 @@ export enum Direction {
 	ReverseDragonPunch = "421", // RDP
 	HalfCircleForward = "41236", // HCF
 	HalfCircleBack = "63214", // HCB
+	FullCircle = "360",
 	DoubleDown = "22", // double-tap down
 	DoubleTapForward = "66", // dash forward
-	DoubleTapBack = "44", // dash back
+	DoubleTapBack = "44",
 }
 
 

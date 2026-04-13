@@ -5,7 +5,7 @@ const buttonPattern = "[LMH][PK]|PPP|KKK|PP|KK";
 
 export const SF6_CONFIG: GameConfig = {
 	buttonPattern,
-	inputRe: new RegExp(`^((?:d\\.)?(?:[j]|[1-9]+)\\.?)?(${buttonPattern})$`),
+	inputRe: new RegExp(`^((?:d\\.)?(?:[j]|[0-9]+)\\.?)?(${buttonPattern})$`),
 	standaloneBadgeRe: /^(DRC|DR|DI|THROW|WALLSPLAT)$/,
 	modifierBadgeRe: /^(\[CH\]|\[PC\])$/,
 	buttonData: {
