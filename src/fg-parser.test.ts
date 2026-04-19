@@ -430,28 +430,28 @@ describe("FgParser", () => {
 		// Neutral throw
 		it("parses a throw", () => {
 			expect(parser.parseLine("THROW")).toEqual([
-				{ kind: "badge", button: "THROW" }, // or whatever the expected token is
+				{ kind: "input", direction: "5", button: "THROW", delayed: false }, // or whatever the expected token is
 			]);
 		});
 
 		// Forward throw (walk forward + throw)
 		it("parses a forward throw (6Throw)", () => {
 			expect(parser.parseLine("6THROW")).toEqual([{
-				kind: "input", direction: Direction.Forward, button: "Throw", delayed: false,
+				kind: "input", direction: Direction.Forward, button: "THROW", delayed: false
 			}]);
 		});
 
 		// Back throw
 		it("parses a back throw (4Throw)", () => {
 			expect(parser.parseLine("4THROW")).toEqual([{
-				kind: "input", direction: Direction.Back, button: "Throw", delayed: false,
+				kind: "input", direction: Direction.Back, button: "THROW", delayed: false
 			}]);
 		});
 
 		// Air throw
 		it("parses an air throw (j.Throw)", () => {
 			expect(parser.parseLine("jTHROW")).toEqual([{
-				kind: "input", direction: Direction.Jump, button: "Throw", delayed: false,
+				kind: "input", direction: Direction.Jump, button: "THROW", delayed: false
 			}]);
 		});
 	})

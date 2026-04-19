@@ -14,9 +14,18 @@ export class TextIconProvider implements IconProvider {
 		const data = this.buttonData[button];
 		if (!data) return;
 		const { label, cssClass } = data;
-		parent
-			.createSpan({ cls: ["fg-button", `fg-button--${cssClass}`] })
-			.setText(label);
+
+		if (data.label === "THROW") {
+			parent
+				.createSpan({ cls: ["fg-badge", `fg-badge--${cssClass}`] })
+				.setText(label);
+
+		} else {
+			parent
+				.createSpan({ cls: ["fg-button", `fg-button--${cssClass}`] })
+				.setText(label);
+
+		}
 	}
 
 	renderBadge(button: string, parent: HTMLElement): void {
