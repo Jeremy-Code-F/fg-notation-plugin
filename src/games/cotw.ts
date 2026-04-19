@@ -15,7 +15,7 @@ export const COTW_CONFIG: GameConfig = {
     inputRe: new RegExp(`^(c\\.|f\\.|j\\.|[1-9]*)(${buttonPattern})$`),
     standaloneBadgeRe: /^(RC|Burst|THROW|RRC|YRC|66|WS|WB)$/,
     modifierBadgeRe: /^(\[CH\]|\[RISC\])$/,
-    buttonData: {
+    inputData: {
         LP: { label: "LP", cssClass: "cotw-lp", png: COTW_LP_PNG },
         HP: { label: "HP", cssClass: "cotw-hp", png: COTW_HP_PNG },
         LK: { label: "LK", cssClass: "cotw-lk", png: COTW_LK_PNG },

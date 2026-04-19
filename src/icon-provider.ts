@@ -8,10 +8,10 @@ export interface IconProvider {
 }
 
 export class TextIconProvider implements IconProvider {
-	constructor(private buttonData: Record<string, ButtonData>) { }
+	constructor(private inputData: Record<string, ButtonData>) { }
 
 	renderButton(button: string, parent: HTMLElement): void {
-		const data = this.buttonData[button];
+		const data = this.inputData[button];
 		if (!data) return;
 		const { label, cssClass } = data;
 
@@ -29,8 +29,12 @@ export class TextIconProvider implements IconProvider {
 	}
 
 	renderBadge(button: string, parent: HTMLElement): void {
-		const data = this.buttonData[button];
-		if (!data) return;
+		console.log(`Rendering badge for '${button}'`);
+		const data = this.inputData[button];
+		if (!data) {
+			console.error(`No button data found for button ${button}`);
+			return;
+		}
 		const { label, cssClass } = data;
 		parent
 			.createSpan({ cls: ["fg-badge", `fg-badge--${cssClass}`] })
@@ -48,8 +52,8 @@ export class TextIconProvider implements IconProvider {
 export class AdaptiveIconProvider implements IconProvider {
 	private text: TextIconProvider;
 
-	constructor(private buttonData: Record<string, ButtonData>) {
-		this.text = new TextIconProvider(buttonData);
+	constructor(private inputData: Record<string, ButtonData>) {
+		this.text = new TextIconProvider(inputData);
 	}
 
 	private createImg(src: string, alt: string): HTMLImageElement {
@@ -61,7 +65,7 @@ export class AdaptiveIconProvider implements IconProvider {
 	}
 
 	renderButton(button: string, parent: HTMLElement): void {
-		const data = this.buttonData[button];
+		const data = this.inputData[button];
 		if (!data) return;
 		if (data.svg) {
 			const span = parent.createSpan({ cls: ["fg-button", `fg-button--${data.cssClass}`] });
@@ -75,8 +79,11 @@ export class AdaptiveIconProvider implements IconProvider {
 	}
 
 	renderBadge(button: string, parent: HTMLElement): void {
-		const data = this.buttonData[button];
-		if (!data) return;
+		const data = this.inputData[button];
+		if (!data) {
+			console.error(`No button data found for badge '${button}'`);
+			return;
+		}
 		if (data.svg) {
 			const span = parent.createSpan({ cls: ["fg-badge", `fg-badge--${data.cssClass}`] });
 			span.innerHTML = data.svg;

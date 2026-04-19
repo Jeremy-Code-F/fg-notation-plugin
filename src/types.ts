@@ -57,3 +57,5 @@ export type FgToken =
 	| SeparatorToken
 	| BadgeToken
 	| RawToken;
+
+export const ThrowInputlabel = "THROW";

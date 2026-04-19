@@ -1,3 +1,4 @@
+import { ThrowInputlabel } from "types";
 import { GameConfig } from "../game-config";
 import { LP_SVG, MP_SVG, HP_SVG, LK_SVG, MK_SVG, HK_SVG } from "../icons";
 
@@ -8,7 +9,7 @@ export const SF6_CONFIG: GameConfig = {
 	inputRe: new RegExp(`^((?:d\\.)?(?:[j]|[0-9]+)\\.?)?(${buttonPattern})$`),
 	standaloneBadgeRe: /^(DRC|DR|DI|WALLSPLAT)$/,
 	modifierBadgeRe: /^(\[CH\]|\[PC\])$/,
-	buttonData: {
+	inputData: {
 		LP: { label: "LP", cssClass: "lp", svg: LP_SVG },
 		MP: { label: "MP", cssClass: "mp", svg: MP_SVG },
 		HP: { label: "HP", cssClass: "hp", svg: HP_SVG },
@@ -24,7 +25,11 @@ export const SF6_CONFIG: GameConfig = {
 		DI: { label: "DI", cssClass: "di" },
 		CH: { label: "CH", cssClass: "ch" },
 		PC: { label: "PC", cssClass: "pc" },
-		THROW: { label: "THROW", cssClass: "throw" },
+		JUMP: { label: "JUMP", cssClass: "jump" },
+		CLOSE: { label: "CLOSE", cssClass: "close" },
+		FAR: { label: "FAR", cssClass: "far" },
+		DELAY: { label: "DELAY", cssClass: "delay" },
+		THROW: { label: ThrowInputlabel, cssClass: "throw" },
 		WALLSPLAT: { label: "WALLSPLAT", cssClass: "wallsplat" },
 	},
 	gameName: "SF6",

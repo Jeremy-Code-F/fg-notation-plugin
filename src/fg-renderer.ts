@@ -32,37 +32,26 @@ function renderInputToken(
 	const arrows = DIRECTION_DATA[token.direction].arrows;
 
 	if (token.delayed) {
-		wrapper
-			.createSpan({ cls: ["fg-badge", "fg-badge--delay"] })
-			.setText("delay");
+		iconProvider.renderBadge("DELAY", wrapper);
 	}
 
 	if (token.direction === Direction.Jump) {
-		wrapper
-			.createSpan({
-				cls: ["fg-badge", `fg-badge--jump`],
-			})
-			.setText("jump");
-	} else if (token.direction === Direction.Close) {
-		wrapper
-			.createSpan({
-				cls: ["fg-badge", `fg-badge--close`],
-			})
-			.setText("close");
-	} else if (token.direction === Direction.Far) {
-		wrapper
-			.createSpan({
-				cls: ["fg-badge", `fg-badge--far`],
-			})
-			.setText("far");
+		console.log("Rendering jump badge");
+		iconProvider.renderBadge("JUMP", wrapper);
 	}
-	else {
+	else if (token.direction === Direction.Close) {
+		iconProvider.renderBadge("CLOSE", wrapper);
+	}
+	else if (token.direction === Direction.Far) {
+		iconProvider.renderBadge("FAR", wrapper);
+	} else {
 		if (arrows) {
 			wrapper
 				.createSpan({ cls: ["fg-direction", "fg-arrows"] })
 				.setText(arrows);
 		}
 	}
+
 
 	iconProvider.renderButton(token.button, wrapper);
 }

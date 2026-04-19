@@ -10,6 +10,6 @@ export interface GameConfig {
 	/** Regex matching bracketed modifier badge tokens, e.g. /^(\[CH\]|\[PC\])$/ */
 	modifierBadgeRe: RegExp;
 	/** Map from raw button string to display data */
-	buttonData: Record<string, ButtonData>;
+	inputData: Record<string, ButtonData>;
 	gameName: string;
 }

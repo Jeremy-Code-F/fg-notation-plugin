@@ -12,7 +12,7 @@ export const GGST_CONFIG: GameConfig = {
 	inputRe: new RegExp(`^(c\\.|f\\.|j\\.|[1-9]*)(${buttonPattern})$`),
 	standaloneBadgeRe: /^(RC|Burst|THROW|RRC|YRC|66|WS|WB)$/,
 	modifierBadgeRe: /^(\[CH\]|\[RISC\])$/,
-	buttonData: {
+	inputData: {
 		P: { label: "P", cssClass: "ggst-p", png: GGST_P_PNG },
 		K: { label: "K", cssClass: "ggst-k", png: GGST_K_PNG },
 		S: { label: "S", cssClass: "ggst-s", png: GGST_S_PNG },

@@ -18,19 +18,19 @@ export default class FgNotationPlugin extends Plugin {
 		this.addSettingTab(new SampleSettingTab(this.app, this));
 
 		this.registerMarkdownCodeBlockProcessor("fg", (source, el) => {
-			processFgBlock(source, el, createIconProvider(SF6_CONFIG.buttonData), SF6_CONFIG);
+			processFgBlock(source, el, createIconProvider(SF6_CONFIG.inputData), SF6_CONFIG);
 		});
 
 		this.registerMarkdownCodeBlockProcessor("fg-sf6", (source, el) => {
-			processFgBlock(source, el, createIconProvider(SF6_CONFIG.buttonData), SF6_CONFIG);
+			processFgBlock(source, el, createIconProvider(SF6_CONFIG.inputData), SF6_CONFIG);
 		});
 
 		this.registerMarkdownCodeBlockProcessor("fg-ggst", (source, el) => {
-			processFgBlock(source, el, createIconProvider(GGST_CONFIG.buttonData), GGST_CONFIG);
+			processFgBlock(source, el, createIconProvider(GGST_CONFIG.inputData), GGST_CONFIG);
 		});
 
 		this.registerMarkdownCodeBlockProcessor("fg-cotw", (source, el) => {
-			processFgBlock(source, el, createIconProvider(COTW_CONFIG.buttonData), COTW_CONFIG);
+			processFgBlock(source, el, createIconProvider(COTW_CONFIG.inputData), COTW_CONFIG);
 		});
 	}
 

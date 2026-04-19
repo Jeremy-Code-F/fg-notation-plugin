@@ -1,4 +1,4 @@
-import { Direction, Separator } from "types";
+import { Direction, Separator, ThrowInputlabel } from "types";
 import { FgToken } from "types";
 import { GameConfig } from "./game-config";
 
@@ -30,7 +30,7 @@ export class FgParser implements IFgParser {
 	}
 
 	parseButton(raw: string): string | null {
-		return raw in this.config.buttonData ? raw : null;
+		return raw in this.config.inputData ? raw : null;
 	}
 
 	parseSeparator(raw: string): Separator | null {
