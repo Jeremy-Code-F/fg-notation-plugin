@@ -36,6 +36,9 @@ export const DIRECTION_DATA: Record<Direction, DirectionData> = {
 	[Direction.UpForward]: { arrows: "↗" },
 	[Direction.Jump]: { arrows: "JUMP" },
 	[Direction.DoubleQuarterCircleForward]: { arrows: "↓↘→↓↘→" },
+	[Direction.DoubleQuarterCircleBack]: {
+		arrows: "↓↙←↓↙←"
+	},
 	[Direction.QuarterCircleForward]: { arrows: "↓↘→" },
 	[Direction.QuarterCircleBack]: { arrows: "↓↙←" },
 	[Direction.ChargeSuper]: { arrows: "→←→" },
@@ -47,7 +50,10 @@ export const DIRECTION_DATA: Record<Direction, DirectionData> = {
 	[Direction.DoubleTapForward]: { arrows: "→→" },
 	[Direction.DoubleTapBack]: { arrows: "←←" },
 	[Direction.Close]: { arrows: "CLOSE" },
-	[Direction.Far]: { arrows: "FAR" }
+	[Direction.Far]: { arrows: "FAR" },
+	[Direction.FullCircle]: {
+		arrows: "→↘↓↙←↖↑"
+	}
 };
 
 export const SEPARATOR_DATA: Record<Separator, SeparatorData> = {
