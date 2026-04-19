@@ -377,6 +377,13 @@ describe("FgParser", () => {
 		it("parses a full combo ending in SA1", () => {
 			expect(parser.parseLine("2.MK > 236.HP > 236236.LP")).toHaveLength(5);
 		});
+
+		// Charge super (e.g. Guile's Sonic Hurricane: 646)
+		it("parses a charge super (646HP)", () => {
+			expect(parser.parseLine("646HP")).toEqual([{
+				kind: "input", direction: Direction.ChargeSuper, button: "HP", delayed: false,
+			}]);
+		});
 	})
 
 	describe("quarterCircleInputSources", () => {
@@ -476,6 +483,16 @@ describe("FgParser", () => {
 				button: "HP",
 			}]);
 		});
+
+		// Charge input without a dot — known gap, requires regex fix
+		it.fails("parses a charge input without a dot ([4]6HP)", () => {
+			expect(parser.parseLine("[4]6HP")).toEqual([{
+				kind: "charge-input",
+				charge: Direction.Back,
+				direction: Direction.Forward,
+				button: "HP",
+			} satisfies ChargeInputToken]);
+		});
 	})
 
 	describe("driveRushNotation", () => {
@@ -560,6 +577,80 @@ describe("FgParser", () => {
 		});
 	})
 
+
+	describe("wallsplatNotation", () => {
+		it("parses WALLSPLAT as a standalone badge", () => {
+			expect(parser.parseLine("WALLSPLAT")).toEqual([
+				{ kind: "badge", button: "WALLSPLAT" },
+			]);
+		});
+
+		it("parses WALLSPLAT mid-combo", () => {
+			expect(parser.parseLine("DI > 5.HP WALLSPLAT > 236.LP")).toEqual([
+				{ kind: "badge", button: "DI" },
+				{ kind: "separator", separator: Separator.Cancel },
+				{ kind: "input", direction: Direction.Neutral, button: "HP", delayed: false },
+				{ kind: "badge", button: "WALLSPLAT" },
+				{ kind: "separator", separator: Separator.Cancel },
+				{ kind: "input", direction: Direction.QuarterCircleForward, button: "LP", delayed: false },
+			]);
+		});
+	})
+
+	describe("togetherSeparatorNotation", () => {
+		it("parses a together separator (+)", () => {
+			expect(parser.parseLine("+")).toEqual([
+				{ kind: "separator", separator: Separator.Together },
+			]);
+		});
+
+		it("parses simultaneous button press (LP + LK)", () => {
+			expect(parser.parseLine("LP + LK")).toEqual([
+				{ kind: "input", direction: Direction.Neutral, button: "LP", delayed: false },
+				{ kind: "separator", separator: Separator.Together },
+				{ kind: "input", direction: Direction.Neutral, button: "LK", delayed: false },
+			]);
+		});
+
+		it("parses parry notation (MP + MK)", () => {
+			expect(parser.parseLine("MP + MK")).toEqual([
+				{ kind: "input", direction: Direction.Neutral, button: "MP", delayed: false },
+				{ kind: "separator", separator: Separator.Together },
+				{ kind: "input", direction: Direction.Neutral, button: "MK", delayed: false },
+			]);
+		});
+	})
+
+	describe("dashNotation", () => {
+		it("parses a forward dash (66LP)", () => {
+			expect(parser.parseLine("66LP")).toEqual([{
+				kind: "input", direction: Direction.DoubleTapForward, button: "LP", delayed: false,
+			}]);
+		});
+
+		it("parses a back dash (44LK)", () => {
+			expect(parser.parseLine("44LK")).toEqual([{
+				kind: "input", direction: Direction.DoubleTapBack, button: "LK", delayed: false,
+			}]);
+		});
+
+		it("parses a double-down (22LK)", () => {
+			expect(parser.parseLine("22LK")).toEqual([{
+				kind: "input", direction: Direction.DoubleDown, button: "LK", delayed: false,
+			}]);
+		});
+
+		it("parses DR followed by a normal in a combo", () => {
+			expect(parser.parseLine("[CH] 2.MK DRC 5.MP , 236236.KK")).toEqual([
+				{ kind: "badge", button: "CH" },
+				{ kind: "input", direction: Direction.Down, button: "MK", delayed: false },
+				{ kind: "badge", button: "DRC" },
+				{ kind: "input", direction: Direction.Neutral, button: "MP", delayed: false },
+				{ kind: "separator", separator: Separator.Link },
+				{ kind: "input", direction: Direction.DoubleQuarterCircleForward, button: "KK", delayed: false },
+			]);
+		});
+	})
 
 	describe("randomEdgeCases", () => {
 		// Empty string
