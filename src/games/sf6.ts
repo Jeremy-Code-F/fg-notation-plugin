@@ -25,7 +25,7 @@ export const SF6_CONFIG: GameConfig = {
 		DI: { label: "DI", cssClass: "di" },
 		CH: { label: "CH", cssClass: "ch" },
 		PC: { label: "PC", cssClass: "pc" },
-		JUMP: { label: "JUMP", cssClass: "jump" },
+		j: { label: "JUMP", cssClass: "jump" },
 		CLOSE: { label: "CLOSE", cssClass: "close" },
 		FAR: { label: "FAR", cssClass: "far" },
 		DELAY: { label: "DELAY", cssClass: "delay" },

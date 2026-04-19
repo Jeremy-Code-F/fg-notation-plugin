@@ -30,21 +30,17 @@ function renderInputToken(
 ) {
 	const wrapper = parent.createSpan({ cls: "fg-input" });
 	const arrows = DIRECTION_DATA[token.direction].arrows;
+	const directions_requiring_badge = new Set([Direction.Jump, Direction.Close, Direction.Far]);
+
 
 	if (token.delayed) {
 		iconProvider.renderBadge("DELAY", wrapper);
 	}
 
-	if (token.direction === Direction.Jump) {
-		console.log("Rendering jump badge");
-		iconProvider.renderBadge("JUMP", wrapper);
+	if (directions_requiring_badge.has(token.direction)) {
+		iconProvider.renderBadge(token.direction, wrapper);
 	}
-	else if (token.direction === Direction.Close) {
-		iconProvider.renderBadge("CLOSE", wrapper);
-	}
-	else if (token.direction === Direction.Far) {
-		iconProvider.renderBadge("FAR", wrapper);
-	} else {
+	else {
 		if (arrows) {
 			wrapper
 				.createSpan({ cls: ["fg-direction", "fg-arrows"] })
