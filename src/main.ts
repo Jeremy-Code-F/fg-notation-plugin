@@ -9,6 +9,7 @@ import { createIconProvider } from "./icon-provider";
 import { SF6_CONFIG } from "./games/sf6";
 import { GGST_CONFIG } from "games/ggst";
 import { COTW_CONFIG } from "games/cotw";
+import { TXKO_CONFIG } from "games/2xko";
 
 export default class FgNotationPlugin extends Plugin {
 	settings: MyPluginSettings;
@@ -31,6 +32,10 @@ export default class FgNotationPlugin extends Plugin {
 
 		this.registerMarkdownCodeBlockProcessor("fg-cotw", (source, el) => {
 			processFgBlock(source, el, createIconProvider(COTW_CONFIG.inputData), COTW_CONFIG);
+		});
+
+		this.registerMarkdownCodeBlockProcessor("fg-txko", (source, el) => {
+			processFgBlock(source, el, createIconProvider(TXKO_CONFIG.inputData), TXKO_CONFIG);
 		});
 	}
 
