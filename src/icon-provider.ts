@@ -1,6 +1,7 @@
 import { Separator } from "./types";
 import { ButtonData, SEPARATOR_DATA } from "./symbol-data";
 
+import { sanitizeHTMLToDom } from "obsidian";
 export interface IconProvider {
 	renderButton(button: string, parent: HTMLElement): void;
 	renderBadge(button: string, parent: HTMLElement): void;
@@ -8,7 +9,7 @@ export interface IconProvider {
 }
 
 export class TextIconProvider implements IconProvider {
-	constructor(private inputData: Record<string, ButtonData>) { }
+	constructor(private inputData: Record<string, ButtonData>) {}
 
 	renderButton(button: string, parent: HTMLElement): void {
 		const data = this.inputData[button];
@@ -19,17 +20,15 @@ export class TextIconProvider implements IconProvider {
 			parent
 				.createSpan({ cls: ["fg-badge", `fg-badge--${cssClass}`] })
 				.setText(label);
-
 		} else {
 			parent
 				.createSpan({ cls: ["fg-button", `fg-button--${cssClass}`] })
 				.setText(label);
-
 		}
 	}
 
 	renderBadge(button: string, parent: HTMLElement): void {
-		console.log(`Rendering badge for '${button}'`);
+		console.debug(`Rendering badge for '${button}'`);
 		const data = this.inputData[button];
 		if (!data) {
 			console.error(`No button data found for button ${button}`);
@@ -68,10 +67,14 @@ export class AdaptiveIconProvider implements IconProvider {
 		const data = this.inputData[button];
 		if (!data) return;
 		if (data.svg) {
-			const span = parent.createSpan({ cls: ["fg-button", `fg-button--${data.cssClass}`] });
-			span.innerHTML = data.svg;
+			const span = parent.createSpan({
+				cls: ["fg-button", `fg-button--${data.cssClass}`],
+			});
+			span.appendChild(sanitizeHTMLToDom(data.svg));
 		} else if (data.png) {
-			const span = parent.createSpan({ cls: ["fg-button", `fg-button--${data.cssClass}`] });
+			const span = parent.createSpan({
+				cls: ["fg-button", `fg-button--${data.cssClass}`],
+			});
 			span.appendChild(this.createImg(data.png, data.label));
 		} else {
 			this.text.renderButton(button, parent);
@@ -85,10 +88,14 @@ export class AdaptiveIconProvider implements IconProvider {
 			return;
 		}
 		if (data.svg) {
-			const span = parent.createSpan({ cls: ["fg-badge", `fg-badge--${data.cssClass}`] });
-			span.innerHTML = data.svg;
+			const span = parent.createSpan({
+				cls: ["fg-badge", `fg-badge--${data.cssClass}`],
+			});
+			span.appendChild(sanitizeHTMLToDom(data.svg));
 		} else if (data.png) {
-			const span = parent.createSpan({ cls: ["fg-badge", `fg-badge--${data.cssClass}`] });
+			const span = parent.createSpan({
+				cls: ["fg-badge", `fg-badge--${data.cssClass}`],
+			});
 			span.appendChild(this.createImg(data.png, data.label));
 		} else {
 			this.text.renderBadge(button, parent);
@@ -98,14 +105,18 @@ export class AdaptiveIconProvider implements IconProvider {
 	renderSeparator(separator: Separator, parent: HTMLElement): void {
 		const { cssClass, svg } = SEPARATOR_DATA[separator];
 		if (svg) {
-			const span = parent.createSpan({ cls: ["fg-separator", `fg-separator--${cssClass}`] });
-			span.innerHTML = svg;
+			const span = parent.createSpan({
+				cls: ["fg-separator", `fg-separator--${cssClass}`],
+			});
+			span.appendChild(sanitizeHTMLToDom(svg));
 		} else {
 			this.text.renderSeparator(separator, parent);
 		}
 	}
 }
 
-export function createIconProvider(buttonData: Record<string, ButtonData>): IconProvider {
+export function createIconProvider(
+	buttonData: Record<string, ButtonData>,
+): IconProvider {
 	return new AdaptiveIconProvider(buttonData);
 }

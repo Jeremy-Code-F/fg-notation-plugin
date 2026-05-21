@@ -30,8 +30,11 @@ function renderInputToken(
 ) {
 	const wrapper = parent.createSpan({ cls: "fg-input" });
 	const arrows = DIRECTION_DATA[token.direction].arrows;
-	const directions_requiring_badge = new Set([Direction.Jump, Direction.Close, Direction.Far]);
-
+	const directions_requiring_badge = new Set([
+		Direction.Jump,
+		Direction.Close,
+		Direction.Far,
+	]);
 
 	if (token.delayed) {
 		iconProvider.renderBadge("DELAY", wrapper);
@@ -39,15 +42,13 @@ function renderInputToken(
 
 	if (directions_requiring_badge.has(token.direction)) {
 		iconProvider.renderBadge(token.direction, wrapper);
-	}
-	else {
+	} else {
 		if (arrows) {
 			wrapper
 				.createSpan({ cls: ["fg-direction", "fg-arrows"] })
 				.setText(arrows);
 		}
 	}
-
 
 	iconProvider.renderButton(token.button, wrapper);
 }
@@ -87,7 +88,7 @@ export function processFgBlock(
 	icons: IconProvider,
 	config: GameConfig,
 ): void {
-	console.log("Processing fg block for ggst");
+	console.debug("Processing fg block for ggst");
 	const parser = new FgParser(config);
 	renderFgNotation(parser.parseFgSource(source), el, icons);
 }

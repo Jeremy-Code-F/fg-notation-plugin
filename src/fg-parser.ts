@@ -1,9 +1,9 @@
-import { Direction, Separator, ThrowInputlabel } from "types";
+import { Direction, Separator } from "types";
 import { FgToken } from "types";
 import { GameConfig } from "./game-config";
 
 export interface IFgParser {
-	parseFgSource(line: String): FgToken[][];
+	parseFgSource(line: string): FgToken[][];
 }
 
 const SEPARATOR_RE = /^(>|,|\+|~)$/;
@@ -39,24 +39,31 @@ export class FgParser implements IFgParser {
 
 	parseLine(line: string): FgToken[] {
 		const tokens: FgToken[] = [];
-		console.log(
+		console.debug(
 			`parseLine: inputRe=${this.inputRe.toString()} for game: ${this.config.gameName}`,
 		);
 		for (const part of line.split(/\s+/)) {
 			if (part.length === 0) continue;
-			console.log(`  testing part="${part}" against inputRe`);
+			console.debug(`  testing part="${part}" against inputRe`);
 
 			const inputMatch = this.inputRe.exec(part);
 			if (inputMatch) {
 				const [, rawDir, rawBtn] = inputMatch;
 				if (rawBtn !== undefined) {
 					const delayed = (rawDir ?? "").startsWith("d.");
-					const normalizedDir = (rawDir ?? "").replace(/^d\./, "").replace(/\.$/, "") || "5";
+					const normalizedDir =
+						(rawDir ?? "").replace(/^d\./, "").replace(/\.$/, "") ||
+						"5";
 					const direction = this.parseDirection(normalizedDir);
 					const button = this.parseButton(rawBtn);
 
 					if (direction !== null && button !== null) {
-						tokens.push({ kind: "input", direction, button, delayed });
+						tokens.push({
+							kind: "input",
+							direction,
+							button,
+							delayed,
+						});
 						continue;
 					}
 				}
@@ -98,7 +105,7 @@ export class FgParser implements IFgParser {
 			}
 
 			if (this.config.modifierBadgeRe.test(part)) {
-				const button = this.parseButton(part.replace(/[\[\]]/g, ""));
+				const button = this.parseButton(part.replace(/[[\]]/g, ""));
 				if (button !== null) {
 					tokens.push({ kind: "badge", button });
 					continue;
