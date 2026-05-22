@@ -76,7 +76,6 @@ export const HK_SVG = `<svg width="512px" height="512px" viewBox="0 0 100 100" x
   </g>
 </svg>`;
 
-
 export const TXKO_L = `<svg width="33" height="32" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_3204_77594)">
 <mask id="mask0_3204_77594" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="33" height="32">
@@ -183,6 +182,24 @@ export const TXKO_DASH = `<svg width="38" height="32" viewBox="0 0 38 32" fill="
 <defs>
 <clipPath id="clip0_3204_77578">
 <rect width="37" height="32" fill="white" transform="translate(0.5)"/>
+</clipPath>
+</defs>
+</svg>
+`;
+
+export const TXKO_TAG = `<svg width="33" height="32" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_3204_77627)">
+<mask id="mask0_3204_77627" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="33" height="32">
+<path d="M32.5 0H0.5V32H32.5V0Z" fill="white"/>
+</mask>
+<g mask="url(#mask0_3204_77627)">
+<path d="M16.5 31C24.7843 31 31.5 24.2843 31.5 16C31.5 7.71573 24.7843 1 16.5 1C8.21573 1 1.5 7.71573 1.5 16C1.5 24.2843 8.21573 31 16.5 31Z" fill="#CDF564" stroke="black" stroke-width="2"/>
+<path d="M21.794 14.048H18.014V21.496H14.794V14.048H11V11.5H21.794V14.048Z" fill="black"/>
+</g>
+</g>
+<defs>
+<clipPath id="clip0_3204_77627">
+<rect width="32" height="32" fill="white" transform="translate(0.5)"/>
 </clipPath>
 </defs>
 </svg>
