@@ -4,6 +4,7 @@ import {
 	TXKO_H,
 	TXKO_L,
 	TXKO_M,
+	TXKO_PARRY,
 	TXKO_S1,
 	TXKO_S2,
 	TXKO_TAG,
@@ -11,7 +12,7 @@ import {
 
 // Icons from https://wiki.play2xko.com/en-us/Controls
 
-const buttonPattern = "L|M|H|S1|S2|DASH|T";
+const buttonPattern = "L|M|H|S1|S2|DASH|T|P";
 
 export const TXKO_CONFIG: GameConfig = {
 	buttonPattern,
@@ -27,6 +28,7 @@ export const TXKO_CONFIG: GameConfig = {
 		DASH: { label: "DASH", cssClass: "txko-dash", svg: TXKO_DASH },
 		j: { label: "JUMP", cssClass: "jump" },
 		T: { label: "TAG", cssClass: "tag", svg: TXKO_TAG },
+		P: { label: "PARRY", cssClass: "parry", svg: TXKO_PARRY },
 	},
 	gameName: "2XKO",
 };
