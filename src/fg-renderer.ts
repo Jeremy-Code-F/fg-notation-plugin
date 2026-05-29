@@ -40,6 +40,11 @@ function renderInputToken(
 		iconProvider.renderBadge("DELAY", wrapper);
 	}
 
+	if (token.tigerKnee) {
+		console.debug(`Attempting to render tiger knee badge`);
+		iconProvider.renderBadge("TIGER_KNEE", wrapper);
+	}
+
 	if (directions_requiring_badge.has(token.direction)) {
 		iconProvider.renderBadge(token.direction, wrapper);
 	} else {

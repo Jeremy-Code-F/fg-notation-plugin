@@ -6,7 +6,9 @@ const buttonPattern = "[LMH][PK]|PPP|KKK|PP|KK|THROW";
 
 export const SF6_CONFIG: GameConfig = {
 	buttonPattern,
-	inputRe: new RegExp(`^((?:d\\.)?(?:[j]|[0-9]+)\\.?)?(${buttonPattern})$`),
+	inputRe: new RegExp(
+		`^((?:d\\.)?(?:tk\\.)?(?:[j]|[0-9]+)\\.?)?(${buttonPattern})$`,
+	),
 	standaloneBadgeRe: /^(DRC|DR|DI|WALLSPLAT)$/,
 	modifierBadgeRe: /^(\[CH\]|\[PC\])$/,
 	inputData: {
@@ -26,6 +28,7 @@ export const SF6_CONFIG: GameConfig = {
 		CH: { label: "CH", cssClass: "ch" },
 		PC: { label: "PC", cssClass: "pc" },
 		j: { label: "JUMP", cssClass: "jump" },
+		TIGER_KNEE: { label: "Tiger Knee", cssClass: "tk" },
 		CLOSE: { label: "CLOSE", cssClass: "close" },
 		FAR: { label: "FAR", cssClass: "far" },
 		DELAY: { label: "DELAY", cssClass: "delay" },

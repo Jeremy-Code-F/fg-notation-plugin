@@ -14,7 +14,7 @@ export enum Direction {
 	Far = "f",
 	// Motion inputs
 	DoubleQuarterCircleForward = "236236", // qcf qcf
-	DoubleQuarterCircleBack = "214214", // qcb qcb 
+	DoubleQuarterCircleBack = "214214", // qcb qcb
 	QuarterCircleForward = "236", // QCF / fireball
 	ChargeSuper = "646", // Guile Sonic Hurricane for example
 	QuarterCircleBack = "214", // QCB
@@ -28,7 +28,6 @@ export enum Direction {
 	DoubleTapBack = "44",
 }
 
-
 export enum Separator {
 	Cancel = ">",
 	Chain = "~",
@@ -41,6 +40,7 @@ export type InputToken = {
 	direction: Direction;
 	button: string;
 	delayed?: boolean;
+	tigerKnee?: boolean;
 };
 export type ChargeInputToken = {
 	kind: "charge-input";

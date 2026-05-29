@@ -48,12 +48,21 @@ export class FgParser implements IFgParser {
 
 			const inputMatch = this.inputRe.exec(part);
 			if (inputMatch) {
+				console.debug(`Input matched regex`);
 				const [, rawDir, rawBtn] = inputMatch;
 				if (rawBtn !== undefined) {
 					const delayed = (rawDir ?? "").startsWith("d.");
+					const tigerKnee = (rawDir ?? "").startsWith("tk.");
+
+					console.debug(
+						`rawDir was ${rawDir}, Delayed? ${delayed} TigerKnee? ${tigerKnee}`,
+					);
+
 					const normalizedDir =
-						(rawDir ?? "").replace(/^d\./, "").replace(/\.$/, "") ||
-						"5";
+						(rawDir ?? "")
+							.replace(/^d\./, "")
+							.replace(/^tk\./, "")
+							.replace(/\.$/, "") || "5";
 					const direction = this.parseDirection(normalizedDir);
 					const button = this.parseButton(rawBtn);
 
@@ -63,10 +72,13 @@ export class FgParser implements IFgParser {
 							direction,
 							button,
 							delayed,
+							tigerKnee,
 						});
 						continue;
 					}
 				}
+			} else {
+				console.debug(`Input did NOT match regex`);
 			}
 
 			const chargeMatch = this.chargeInputRe.exec(part);
