@@ -42,8 +42,15 @@ export class FgParser implements IFgParser {
 		console.debug(
 			`parseLine: inputRe=${this.inputRe.toString()} for game: ${this.config.gameName}`,
 		);
+
+		line = this.cleanupSeparator(line, Separator.Chain);
+		line = this.cleanupSeparator(line, Separator.Cancel);
+		line = this.cleanupSeparator(line, Separator.Link);
+		line = this.cleanupSeparator(line, Separator.Together);
+
 		for (const part of line.split(/\s+/)) {
 			if (part.length === 0) continue;
+
 			console.debug(`  testing part="${part}" against inputRe`);
 
 			const inputMatch = this.inputRe.exec(part);
@@ -135,6 +142,11 @@ export class FgParser implements IFgParser {
 			tokens.push({ kind: "raw", value: part });
 		}
 		return tokens;
+	}
+
+	cleanupSeparator(line: string, separator: Separator): string {
+		line = line.replaceAll(separator, ` ${separator} `);
+		return line;
 	}
 
 	parseFgSource(source: string): FgToken[][] {
