@@ -9,7 +9,7 @@ export const SF6_CONFIG: GameConfig = {
 	inputRe: new RegExp(
 		`^((?:d\\.)?(?:tk\\.)?(?:[j]|[0-9]+)\\.?)?(${buttonPattern})$`,
 	),
-	standaloneBadgeRe: /^(DRC|DR|DI|WALLSPLAT)$/,
+	standaloneBadgeRe: /^(DRC|DR|DI|WALLSPLAT|SA1|SA2|SA3)$/,
 	modifierBadgeRe: /^(\[CH\]|\[PC\])$/,
 	inputData: {
 		LP: { label: "LP", cssClass: "lp", svg: LP_SVG },
@@ -34,6 +34,9 @@ export const SF6_CONFIG: GameConfig = {
 		DELAY: { label: "DELAY", cssClass: "delay" },
 		THROW: { label: ThrowInputlabel, cssClass: "throw" },
 		WALLSPLAT: { label: "WALLSPLAT", cssClass: "wallsplat" },
+		SA1: { label: "Super Art 1", cssClass: "sa1" },
+		SA2: { label: "Super Art 2", cssClass: "sa2" },
+		SA3: { label: "Super Art 3", cssClass: "sa3" },
 	},
 	gameName: "SF6",
 };

@@ -139,6 +139,18 @@ If your plugin does not need CSS, delete this file.
 	background-color: #82c3ed;
 }
 
+.fg-badge--sa1 {
+	background-color: #82c3ed;
+}
+
+.fg-badge--sa2 {
+	background-color: #82c3ed;
+}
+
+.fg-badge--sa3 {
+	background-color: #82c3ed;
+}
+
 .fg-badge--close {
 	background-color: #cc930c;
 }

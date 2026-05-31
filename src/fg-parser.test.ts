@@ -20,13 +20,6 @@ describe("FgParser", () => {
 			]);
 		});
 
-		// 		export enum Separator {
-		// 			Cancel = ">",
-		// 			Chain = "~",
-		// 			Link = ",",
-		// 			Together = "+",
-		// }
-
 		it("parses chain with and without spaces the same", () => {
 			let spacedTokens = parser.parseLine("LP ~ LP");
 			let nonSpacedTokens = parser.parseLine("LP~LP");
@@ -652,11 +645,11 @@ describe("FgParser", () => {
 		});
 
 		// Down-charge Forward (Guile Sonic Boom)
-		it("parses a down-back charge forward input ([2]6HP)", () => {
-			expect(parser.parseLine("[2]6.HP")).toEqual([
+		it("parses a down-back charge forward input ([4]6HP)", () => {
+			expect(parser.parseLine("[4]6.HP")).toEqual([
 				{
 					kind: "charge-input",
-					charge: Direction.Down,
+					charge: Direction.Back,
 					direction: Direction.Forward,
 					button: "HP",
 				},
@@ -1033,6 +1026,35 @@ describe("FgParser", () => {
 		it("treats tab-only lines as blank", () => {
 			const result = parser.parseFgSource("5.LP\n\t\n5.HP");
 			expect(result).toHaveLength(2);
+		});
+	});
+
+	describe("sf6-super-arts", () => {
+		it("parses a sf6 super art 1", () => {
+			expect(parser.parseLine("SA1")).toEqual([
+				{
+					kind: "badge",
+					button: "SA1",
+				},
+			]);
+		});
+
+		it("parses a sf6 super art 2", () => {
+			expect(parser.parseLine("SA2")).toEqual([
+				{
+					kind: "badge",
+					button: "SA2",
+				},
+			]);
+		});
+
+		it("parses a sf6 super art 3", () => {
+			expect(parser.parseLine("SA3")).toEqual([
+				{
+					kind: "badge",
+					button: "SA3",
+				},
+			]);
 		});
 	});
 });
