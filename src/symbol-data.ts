@@ -1,10 +1,5 @@
 import { Direction, Separator } from "./types";
-import {
-	CANCEL_SVG,
-	CHAIN_SVG,
-	LINK_SVG,
-	TOGETHER_SVG,
-} from "./icons";
+import { CANCEL_SVG, CHAIN_SVG, LINK_SVG, TOGETHER_SVG } from "./icons";
 
 export type ButtonData = {
 	label: string;
@@ -23,7 +18,6 @@ export type SeparatorData = {
 	svg?: string;
 };
 
-
 export const DIRECTION_DATA: Record<Direction, DirectionData> = {
 	[Direction.DownBack]: { arrows: "↙" },
 	[Direction.Down]: { arrows: "↓" },
@@ -37,7 +31,7 @@ export const DIRECTION_DATA: Record<Direction, DirectionData> = {
 	[Direction.Jump]: { arrows: "JUMP" },
 	[Direction.DoubleQuarterCircleForward]: { arrows: "↓↘→↓↘→" },
 	[Direction.DoubleQuarterCircleBack]: {
-		arrows: "↓↙←↓↙←"
+		arrows: "↓↙←↓↙←",
 	},
 	[Direction.QuarterCircleForward]: { arrows: "↓↘→" },
 	[Direction.QuarterCircleBack]: { arrows: "↓↙←" },
@@ -52,13 +46,21 @@ export const DIRECTION_DATA: Record<Direction, DirectionData> = {
 	[Direction.Close]: { arrows: "CLOSE" },
 	[Direction.Far]: { arrows: "FAR" },
 	[Direction.FullCircle]: {
-		arrows: "→↘↓↙←↖↑"
-	}
+		arrows: "→↘↓↙←↖↑",
+	},
 };
 
 export const SEPARATOR_DATA: Record<Separator, SeparatorData> = {
 	[Separator.Cancel]: { label: ">", cssClass: "cancel", svg: CANCEL_SVG },
 	[Separator.Chain]: { label: "~", cssClass: "chain", svg: CHAIN_SVG },
 	[Separator.Link]: { label: ",", cssClass: "link", svg: LINK_SVG },
-	[Separator.Together]: { label: "+", cssClass: "together", svg: TOGETHER_SVG },
+	[Separator.Together]: {
+		label: "+",
+		cssClass: "together",
+		svg: TOGETHER_SVG,
+	},
+	[Separator.Or]: {
+		label: "/",
+		cssClass: "or",
+	},
 };

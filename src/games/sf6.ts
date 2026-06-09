@@ -28,6 +28,7 @@ export const SF6_CONFIG: GameConfig = {
 		CH: { label: "CH", cssClass: "ch" },
 		PC: { label: "PC", cssClass: "pc" },
 		j: { label: "JUMP", cssClass: "jump" },
+		OR: { label: "OR", cssClass: "or" },
 		TIGER_KNEE: { label: "Tiger Knee", cssClass: "tk" },
 		CLOSE: { label: "CLOSE", cssClass: "close" },
 		FAR: { label: "FAR", cssClass: "far" },

@@ -33,6 +33,7 @@ export enum Separator {
 	Chain = "~",
 	Link = ",",
 	Together = "+",
+	Or = "/",
 }
 
 export type InputToken = {

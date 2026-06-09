@@ -6,7 +6,7 @@ export interface IFgParser {
 	parseFgSource(line: string): FgToken[][];
 }
 
-const SEPARATOR_RE = /^(>|,|\+|~)$/;
+const SEPARATOR_RE = /^(>|,|\+|~|\/)$/;
 
 const DIRECTION_MAP: Record<string, Direction> = Object.fromEntries(
 	Object.values(Direction).map((v) => [v, v as Direction]),
@@ -47,6 +47,7 @@ export class FgParser implements IFgParser {
 		line = this.cleanupSeparator(line, Separator.Cancel);
 		line = this.cleanupSeparator(line, Separator.Link);
 		line = this.cleanupSeparator(line, Separator.Together);
+		line = this.cleanupSeparator(line, Separator.Or);
 
 		for (const part of line.split(/\s+/)) {
 			if (part.length === 0) continue;
@@ -118,6 +119,10 @@ export class FgParser implements IFgParser {
 			if (SEPARATOR_RE.test(part)) {
 				const separator = this.parseSeparator(part);
 				if (separator !== null) {
+					if (separator == Separator.Or) {
+						tokens.push({ kind: "badge", button: "OR" });
+						continue;
+					}
 					tokens.push({ kind: "separator", separator });
 					continue;
 				}
