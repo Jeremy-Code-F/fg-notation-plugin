@@ -5,6 +5,7 @@ import { FgToken } from "types";
 import { Cursor } from "cursor";
 import { MotionRecognizer } from "recognizers/motion-recognizer";
 import { ButtonRecognizer } from "recognizers/button-recognizer";
+import { DotRecognizer } from "recognizers/dot-recognizer";
 
 const DIRECTION_MAP: Record<string, Direction> = Object.fromEntries(
 	Object.values(Direction).map((v) => [v, v as Direction]),
@@ -23,6 +24,7 @@ export class FgTokenizerParser implements IFgParser {
 	parseLine(line: string): FgToken[] {
 		const tokens: FgToken[] = [];
 		let motionRecognizer = new MotionRecognizer();
+		let dotRecognizer = new DotRecognizer();
 		let buttonRecognizer = new ButtonRecognizer(this.gameConfig);
 
 		for (const part of line.split(/\s+/)) {
@@ -31,6 +33,7 @@ export class FgTokenizerParser implements IFgParser {
 			let cursor = new Cursor(part);
 			let motion: string | null =
 				motionRecognizer.RecognizeMotion(cursor);
+			dotRecognizer.RecognizeDot(cursor);
 
 			let parsedDirection: Direction | null = null;
 			if (motion !== null) {
