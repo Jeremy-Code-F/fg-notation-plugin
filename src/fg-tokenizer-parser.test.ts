@@ -4,7 +4,7 @@ import type { ChargeInputToken } from "types";
 import { SF6_CONFIG } from "./games/sf6";
 import { FgTokenizerParser } from "./fg-tokenizer-parser";
 
-describe("FgParser", () => {
+describe("FgTokenizingParser", () => {
 	const parser = new FgTokenizerParser(SF6_CONFIG);
 
 	describe("parseLine", () => {
