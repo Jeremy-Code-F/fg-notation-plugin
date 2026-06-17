@@ -6,6 +6,10 @@ export class Cursor {
 		this.input = input;
 	}
 
+	ToString() {
+		return this.input.toString();
+	}
+
 	GetCurrentPosition(): number {
 		return this.currentPosition;
 	}

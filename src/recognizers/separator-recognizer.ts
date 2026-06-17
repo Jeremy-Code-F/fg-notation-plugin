@@ -1,20 +1,28 @@
 import { Cursor } from "cursor";
 import { Separator } from "types";
 
-export class SeparatorRecognizer {
-	SEPARATOR_MAP: Record<string, Separator> = Object.fromEntries(
-		Object.values(Separator).map((v) => [v, v as Separator]),
-	);
+const SEPARATOR_MAP: Record<string, Separator> = Object.fromEntries(
+	Object.values(Separator).map((v) => [v, v as Separator]),
+);
 
-	RecognizeSeparator(cursor: Cursor): string | null {
+export class SeparatorRecognizer {
+	RecognizeSeparator(cursor: Cursor): Separator | null {
 		let value = cursor.Peek();
 
 		if (value === null) {
 			return null;
 		}
 
-		if (value in this.SEPARATOR_MAP) {
-			return cursor.Consume();
+		if (value in SEPARATOR_MAP) {
+			let consumedCharacters = cursor.Consume();
+			let lookedUpSeparator = SEPARATOR_MAP[consumedCharacters];
+			if (lookedUpSeparator === undefined) {
+				let msg = `Failed to find separator '${consumedCharacters}' in SEPARATOR_MAP for input '${cursor.ToString()}'`;
+				console.warn(msg);
+				throw new Error(msg);
+			}
+
+			return lookedUpSeparator;
 		}
 
 		return null;

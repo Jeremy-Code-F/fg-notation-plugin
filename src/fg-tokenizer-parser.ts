@@ -1,18 +1,16 @@
 import { IFgParser } from "fg-parser";
 import { GameConfig } from "game-config";
-import { Direction, Separator } from "types";
+import { Direction } from "types";
 import { FgToken } from "types";
 import { Cursor } from "cursor";
 import { MotionRecognizer } from "recognizers/motion-recognizer";
 import { ButtonRecognizer } from "recognizers/button-recognizer";
 import { DotRecognizer } from "recognizers/dot-recognizer";
 import { SeparatorRecognizer } from "recognizers/separator-recognizer";
+import { ButtonData } from "symbol-data";
 
 const DIRECTION_MAP: Record<string, Direction> = Object.fromEntries(
 	Object.values(Direction).map((v) => [v, v as Direction]),
-);
-const SEPARATOR_MAP: Record<string, Separator> = Object.fromEntries(
-	Object.values(Separator).map((v) => [v, v as Separator]),
 );
 
 export class FgTokenizerParser implements IFgParser {
@@ -36,7 +34,7 @@ export class FgTokenizerParser implements IFgParser {
 			let motion: string | null =
 				motionRecognizer.RecognizeMotion(cursor);
 			dotRecognizer.RecognizeDot(cursor);
-			let button: string | null =
+			let button: ButtonData | null =
 				buttonRecognizer.RecognizeButton(cursor);
 
 			let parsedDirection: Direction | null = null;
@@ -54,13 +52,10 @@ export class FgTokenizerParser implements IFgParser {
 
 			let separator = separatorRecognizer.RecognizeSeparator(cursor);
 			if (separator !== null) {
-				let parsedSeparator = this.parseSeparator(separator);
-				if (parsedSeparator !== null) {
-					tokens.push({
-						kind: "separator",
-						separator: parsedSeparator,
-					});
-				}
+				tokens.push({
+					kind: "separator",
+					separator: separator,
+				});
 			}
 		}
 
@@ -68,21 +63,23 @@ export class FgTokenizerParser implements IFgParser {
 	}
 	PushButtonTokon(
 		tokens: FgToken[],
-		button: string,
+		button: ButtonData,
 		parsedDirection: Direction,
 	) {
-		switch (button) {
+		switch (button.label) {
+			// TODO: Should probably put this in game config as a 'badge-button' so not every
+			// unique badge for every game has to be handled specially here
 			case "DI":
 				tokens.push({
 					kind: "badge",
-					button: button,
+					button: button.label,
 				});
 				break;
 			default:
 				tokens.push({
 					kind: "input",
 					direction: parsedDirection,
-					button: button,
+					button: button.label,
 					delayed: false,
 					tigerKnee: false,
 				});
@@ -99,8 +96,5 @@ export class FgTokenizerParser implements IFgParser {
 
 	private parseDirection(raw: string): Direction | null {
 		return DIRECTION_MAP[raw] ?? null;
-	}
-	private parseSeparator(raw: string): Separator | null {
-		return SEPARATOR_MAP[raw] ?? null;
 	}
 }

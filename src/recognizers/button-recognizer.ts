@@ -1,5 +1,6 @@
 import { GameConfig } from "game-config";
 import { Cursor } from "cursor";
+import { ButtonData, ButtonType } from "symbol-data";
 
 export class ButtonRecognizer {
 	private gameConfig: GameConfig;
@@ -7,9 +8,18 @@ export class ButtonRecognizer {
 		this.gameConfig = gameConfig;
 	}
 
-	RecognizeButton(cursor: Cursor): string | null {
+	RecognizeButton(cursor: Cursor): ButtonData | null {
 		let matchedKey = "";
 		for (const key in this.gameConfig.inputData) {
+			let item = this.gameConfig.inputData[key];
+			if (item === undefined) {
+				continue;
+			}
+
+			if (item.buttonType !== ButtonType.Normal) {
+				continue;
+			}
+
 			let peekedCharacters = cursor.PeekAhead(key.length);
 			if (peekedCharacters == null) {
 				continue;
@@ -25,6 +35,14 @@ export class ButtonRecognizer {
 		}
 
 		let consumedCharacters = cursor.ConsumeMultiple(matchedKey.length);
-		return consumedCharacters;
+		let inputDataButton = this.gameConfig.inputData[consumedCharacters];
+
+		if (inputDataButton === undefined) {
+			const msg = `Failed to lookup consumed characters ${consumedCharacters} for input ${cursor.ToString()}`;
+			console.warn(msg);
+			throw new Error(msg);
+		}
+
+		return inputDataButton;
 	}
 }

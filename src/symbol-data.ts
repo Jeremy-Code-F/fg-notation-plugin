@@ -1,11 +1,18 @@
 import { Direction, Separator } from "./types";
 import { CANCEL_SVG, CHAIN_SVG, LINK_SVG, TOGETHER_SVG } from "./icons";
 
+export enum ButtonType {
+	Normal,
+	Special,
+	Modifier,
+}
+
 export type ButtonData = {
 	label: string;
 	cssClass: string;
 	svg?: string;
 	png?: string;
+	buttonType: ButtonType;
 };
 
 export type DirectionData = {
