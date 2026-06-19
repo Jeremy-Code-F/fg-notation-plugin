@@ -16,10 +16,6 @@ export class ButtonRecognizer {
 				continue;
 			}
 
-			if (item.buttonType !== ButtonType.Normal) {
-				continue;
-			}
-
 			let peekedCharacters = cursor.PeekAhead(key.length);
 			if (peekedCharacters == null) {
 				continue;

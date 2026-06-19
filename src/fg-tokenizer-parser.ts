@@ -7,7 +7,7 @@ import { MotionRecognizer } from "recognizers/motion-recognizer";
 import { ButtonRecognizer } from "recognizers/button-recognizer";
 import { DotRecognizer } from "recognizers/dot-recognizer";
 import { SeparatorRecognizer } from "recognizers/separator-recognizer";
-import { ButtonData } from "symbol-data";
+import { ButtonData, ButtonType } from "symbol-data";
 import { ModifierRecognizer } from "recognizers/modifier-recognizer";
 
 const DIRECTION_MAP: Record<string, Direction> = Object.fromEntries(
@@ -76,10 +76,10 @@ export class FgTokenizerParser implements IFgParser {
 		button: ButtonData,
 		parsedDirection: Direction,
 	) {
-		switch (button.label) {
+		switch (button.buttonType) {
 			// TODO: Should probably put this in game config as a 'badge-button' so not every
 			// unique badge for every game has to be handled specially here
-			case "DI":
+			case ButtonType.Special:
 				tokens.push({
 					kind: "badge",
 					button: button.label,
