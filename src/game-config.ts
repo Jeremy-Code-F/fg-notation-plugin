@@ -11,5 +11,6 @@ export interface GameConfig {
 	modifierBadgeRe: RegExp;
 	/** Map from raw button string to display data */
 	inputData: Record<string, ButtonData>;
+	modifierData: Record<string, ButtonData>;
 	gameName: string;
 }

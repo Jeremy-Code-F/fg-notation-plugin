@@ -1,5 +1,5 @@
 import { ThrowInputlabel } from "types";
-import { ButtonType } from "symbol-data";
+import { ButtonData, ButtonType } from "symbol-data";
 import { GameConfig } from "../game-config";
 import { LP_SVG, MP_SVG, HP_SVG, LK_SVG, MK_SVG, HK_SVG } from "../icons";
 
@@ -88,16 +88,6 @@ export const SF6_CONFIG: GameConfig = {
 			cssClass: "di",
 			buttonType: ButtonType.Special,
 		},
-		CH: {
-			label: "CH",
-			cssClass: "ch",
-			buttonType: ButtonType.Normal,
-		},
-		PC: {
-			label: "PC",
-			cssClass: "pc",
-			buttonType: ButtonType.Normal,
-		},
 		j: {
 			label: "JUMP",
 			cssClass: "jump",
@@ -152,6 +142,18 @@ export const SF6_CONFIG: GameConfig = {
 			label: "Super Art 3",
 			cssClass: "sa3",
 			buttonType: ButtonType.Normal,
+		},
+	},
+	modifierData: {
+		"[CH]": {
+			label: "CH",
+			cssClass: "ch",
+			buttonType: ButtonType.Modifier,
+		},
+		"[PC]": {
+			label: "PC",
+			cssClass: "pc",
+			buttonType: ButtonType.Modifier,
 		},
 	},
 	gameName: "SF6",

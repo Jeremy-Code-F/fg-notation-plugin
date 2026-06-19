@@ -8,6 +8,7 @@ import { ButtonRecognizer } from "recognizers/button-recognizer";
 import { DotRecognizer } from "recognizers/dot-recognizer";
 import { SeparatorRecognizer } from "recognizers/separator-recognizer";
 import { ButtonData } from "symbol-data";
+import { ModifierRecognizer } from "recognizers/modifier-recognizer";
 
 const DIRECTION_MAP: Record<string, Direction> = Object.fromEntries(
 	Object.values(Direction).map((v) => [v, v as Direction]),
@@ -26,6 +27,7 @@ export class FgTokenizerParser implements IFgParser {
 		let dotRecognizer = new DotRecognizer();
 		let buttonRecognizer = new ButtonRecognizer(this.gameConfig);
 		let separatorRecognizer = new SeparatorRecognizer();
+		let modifierRecognizer = new ModifierRecognizer(this.gameConfig);
 
 		for (const part of line.split(/\s+/)) {
 			if (part.length === 0) continue;
@@ -55,6 +57,14 @@ export class FgTokenizerParser implements IFgParser {
 				tokens.push({
 					kind: "separator",
 					separator: separator,
+				});
+			}
+
+			let modifier = modifierRecognizer.RecognizeModifier(cursor);
+			if (modifier !== null) {
+				tokens.push({
+					kind: "badge",
+					button: modifier.label,
 				});
 			}
 		}

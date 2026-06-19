@@ -1,8 +1,6 @@
 import { Direction, Separator } from "types";
 import { FgToken } from "types";
 import { GameConfig } from "./game-config";
-import { Cursor } from "cursor";
-import { DigitRecognizer } from "recognizers/digit-recognizer";
 
 export interface IFgParser {
 	parseFgSource(line: string): FgToken[][];

@@ -15,6 +15,14 @@ export type ButtonData = {
 	buttonType: ButtonType;
 };
 
+export type BadgeData = {
+	label: string;
+	cssClass: string;
+	svg?: string;
+	png?: string;
+	buttonType: ButtonType;
+};
+
 export type DirectionData = {
 	arrows: string;
 };
