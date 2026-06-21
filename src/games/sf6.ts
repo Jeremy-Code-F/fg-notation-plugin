@@ -123,11 +123,6 @@ export const SF6_CONFIG: GameConfig = {
 			cssClass: "throw",
 			buttonType: ButtonType.Normal,
 		},
-		WALLSPLAT: {
-			label: "WALLSPLAT",
-			cssClass: "wallsplat",
-			buttonType: ButtonType.Normal,
-		},
 		SA1: {
 			label: "Super Art 1",
 			cssClass: "sa1",
@@ -153,6 +148,11 @@ export const SF6_CONFIG: GameConfig = {
 		"[PC]": {
 			label: "PC",
 			cssClass: "pc",
+			buttonType: ButtonType.Modifier,
+		},
+		WALLSPLAT: {
+			label: "WALLSPLAT",
+			cssClass: "wallsplat",
 			buttonType: ButtonType.Modifier,
 		},
 	},
