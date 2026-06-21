@@ -9,6 +9,7 @@ import { DotRecognizer } from "recognizers/dot-recognizer";
 import { SeparatorRecognizer } from "recognizers/separator-recognizer";
 import { ButtonData, ButtonType } from "symbol-data";
 import { ModifierRecognizer } from "recognizers/modifier-recognizer";
+import { ChargeRecognizer } from "recognizers/charge-recognizer";
 
 const DIRECTION_MAP: Record<string, Direction> = Object.fromEntries(
 	Object.values(Direction).map((v) => [v, v as Direction]),
@@ -28,11 +29,15 @@ export class FgTokenizerParser implements IFgParser {
 		let buttonRecognizer = new ButtonRecognizer(this.gameConfig);
 		let separatorRecognizer = new SeparatorRecognizer();
 		let modifierRecognizer = new ModifierRecognizer(this.gameConfig);
+		let chargeRecognizer = new ChargeRecognizer();
 
 		for (const part of line.split(/\s+/)) {
 			if (part.length === 0) continue;
 
 			let cursor = new Cursor(part);
+
+			let chargeDirection: Direction | null =
+				chargeRecognizer.RecognizeCharge(cursor);
 			let motion: string | null =
 				motionRecognizer.RecognizeMotion(cursor);
 			dotRecognizer.RecognizeDot(cursor);
@@ -48,7 +53,12 @@ export class FgTokenizerParser implements IFgParser {
 			}
 
 			if (button !== null) {
-				this.PushButtonTokon(tokens, button, parsedDirection);
+				this.PushButtonTokon(
+					tokens,
+					button,
+					parsedDirection,
+					chargeDirection,
+				);
 				continue;
 			}
 
@@ -75,6 +85,7 @@ export class FgTokenizerParser implements IFgParser {
 		tokens: FgToken[],
 		button: ButtonData,
 		parsedDirection: Direction,
+		chargeDirection: Direction | null,
 	) {
 		switch (button.buttonType) {
 			// TODO: Should probably put this in game config as a 'badge-button' so not every
@@ -86,13 +97,22 @@ export class FgTokenizerParser implements IFgParser {
 				});
 				break;
 			default:
-				tokens.push({
-					kind: "input",
-					direction: parsedDirection,
-					button: button.label,
-					delayed: false,
-					tigerKnee: false,
-				});
+				if (chargeDirection !== null) {
+					tokens.push({
+						kind: "charge-input",
+						charge: chargeDirection,
+						direction: parsedDirection,
+						button: button.label,
+					});
+				} else {
+					tokens.push({
+						kind: "input",
+						direction: parsedDirection,
+						button: button.label,
+						delayed: false,
+						tigerKnee: false,
+					});
+				}
 				break;
 		}
 	}

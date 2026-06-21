@@ -629,7 +629,7 @@ describe("FgTokenizingParser", () => {
 		});
 
 		// Charge input without a dot — known gap, requires regex fix
-		it.fails("parses a charge input without a dot ([4]6HP)", () => {
+		it("parses a charge input without a dot ([4]6HP)", () => {
 			expect(parser.parseLine("[4]6HP")).toEqual([
 				{
 					kind: "charge-input",
