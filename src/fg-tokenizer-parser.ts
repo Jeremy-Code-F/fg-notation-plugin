@@ -10,6 +10,7 @@ import { SeparatorRecognizer } from "recognizers/separator-recognizer";
 import { ButtonData, ButtonType } from "symbol-data";
 import { ModifierRecognizer } from "recognizers/modifier-recognizer";
 import { ChargeRecognizer } from "recognizers/charge-recognizer";
+import { DelayRecognizer } from "recognizers/delay-recognizer";
 
 const DIRECTION_MAP: Record<string, Direction> = Object.fromEntries(
 	Object.values(Direction).map((v) => [v, v as Direction]),
@@ -30,12 +31,14 @@ export class FgTokenizerParser implements IFgParser {
 		let separatorRecognizer = new SeparatorRecognizer();
 		let modifierRecognizer = new ModifierRecognizer(this.gameConfig);
 		let chargeRecognizer = new ChargeRecognizer();
+		let delayRecognizer = new DelayRecognizer();
 
 		for (const part of line.split(/\s+/)) {
 			if (part.length === 0) continue;
 
 			let cursor = new Cursor(part);
 
+			let isDelayed: boolean = delayRecognizer.RecognizeDelay(cursor);
 			let chargeDirection: Direction | null =
 				chargeRecognizer.RecognizeCharge(cursor);
 			let motion: string | null =
@@ -58,6 +61,7 @@ export class FgTokenizerParser implements IFgParser {
 					button,
 					parsedDirection,
 					chargeDirection,
+					isDelayed,
 				);
 				continue;
 			}
@@ -86,6 +90,7 @@ export class FgTokenizerParser implements IFgParser {
 		button: ButtonData,
 		parsedDirection: Direction,
 		chargeDirection: Direction | null,
+		isDelayed: boolean,
 	) {
 		switch (button.buttonType) {
 			// TODO: Should probably put this in game config as a 'badge-button' so not every
@@ -109,7 +114,7 @@ export class FgTokenizerParser implements IFgParser {
 						kind: "input",
 						direction: parsedDirection,
 						button: button.label,
-						delayed: false,
+						delayed: isDelayed,
 						tigerKnee: false,
 					});
 				}
