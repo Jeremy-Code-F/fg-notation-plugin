@@ -76,7 +76,7 @@ export const SF6_CONFIG: GameConfig = {
 		DR: {
 			label: "DR",
 			cssClass: "dr",
-			buttonType: ButtonType.Normal,
+			buttonType: ButtonType.Special,
 		},
 		DRC: {
 			label: "DRC",

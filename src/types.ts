@@ -42,6 +42,7 @@ export type InputToken = {
 	button: string;
 	delayed?: boolean;
 	tigerKnee?: boolean;
+	jump?: boolean;
 };
 export type ChargeInputToken = {
 	kind: "charge-input";
@@ -53,10 +54,6 @@ export type SeparatorToken = { kind: "separator"; separator: Separator };
 export type BadgeToken = { kind: "badge"; button: string };
 export type RawToken = { kind: "raw"; value: string };
 export type FgToken =
-	| InputToken
-	| ChargeInputToken
-	| SeparatorToken
-	| BadgeToken
-	| RawToken;
+	InputToken | ChargeInputToken | SeparatorToken | BadgeToken | RawToken;
 
 export const ThrowInputlabel = "THROW";

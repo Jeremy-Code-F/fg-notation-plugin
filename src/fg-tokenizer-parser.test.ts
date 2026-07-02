@@ -16,6 +16,7 @@ describe("FgTokenizingParser", () => {
 					button: "LP",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -28,6 +29,7 @@ describe("FgTokenizingParser", () => {
 					button: "LP",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -40,6 +42,7 @@ describe("FgTokenizingParser", () => {
 					button: "LP",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -52,6 +55,7 @@ describe("FgTokenizingParser", () => {
 					button: "LP",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -64,6 +68,7 @@ describe("FgTokenizingParser", () => {
 					button: "LP",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -76,6 +81,7 @@ describe("FgTokenizingParser", () => {
 					button: "LP",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -84,10 +90,25 @@ describe("FgTokenizingParser", () => {
 			expect(parser.parseLine("j.HP")).toEqual([
 				{
 					kind: "input",
-					direction: Direction.Jump,
+					direction: Direction.Neutral,
 					button: "HP",
 					delayed: false,
 					tigerKnee: false,
+					jump: true,
+				},
+			]);
+		});
+
+		// For example, Luke jump 214MP (medium flash knuckle)
+		it("parses a jump special input", () => {
+			expect(parser.parseLine("j.214MP")).toEqual([
+				{
+					kind: "input",
+					direction: Direction.QuarterCircleBack,
+					button: "MP",
+					delayed: false,
+					tigerKnee: false,
+					jump: true,
 				},
 			]);
 		});
@@ -148,6 +169,7 @@ describe("FgTokenizingParser", () => {
 					button: "PP",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -160,6 +182,7 @@ describe("FgTokenizingParser", () => {
 					button: "KK",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -172,6 +195,7 @@ describe("FgTokenizingParser", () => {
 					button: "PPP",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -184,6 +208,7 @@ describe("FgTokenizingParser", () => {
 					button: "KKK",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -207,6 +232,7 @@ describe("FgTokenizingParser", () => {
 					button: "MP",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 				{ kind: "separator", separator: Separator.Chain },
 				{
@@ -215,6 +241,7 @@ describe("FgTokenizingParser", () => {
 					button: "HP",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 				{ kind: "separator", separator: Separator.Cancel },
 				{
@@ -240,6 +267,7 @@ describe("FgTokenizingParser", () => {
 					button: "HP",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 				{ kind: "separator", separator: Separator.Cancel },
 				{
@@ -248,6 +276,7 @@ describe("FgTokenizingParser", () => {
 					button: "MP",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 				{ kind: "separator", separator: Separator.Chain },
 				{
@@ -256,6 +285,7 @@ describe("FgTokenizingParser", () => {
 					button: "LP",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -268,6 +298,7 @@ describe("FgTokenizingParser", () => {
 					button: "LP",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 				{ kind: "separator", separator: Separator.Cancel },
 				{
@@ -276,6 +307,7 @@ describe("FgTokenizingParser", () => {
 					button: "HP",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -292,6 +324,7 @@ describe("FgTokenizingParser", () => {
 					button: "LP",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 			expect(result[1]).toEqual([
@@ -301,6 +334,7 @@ describe("FgTokenizingParser", () => {
 					button: "HP",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -320,6 +354,7 @@ describe("FgTokenizingParser", () => {
 						button: "LP",
 						delayed: false,
 						tigerKnee: false,
+						jump: false,
 					},
 				],
 			]);
@@ -336,6 +371,7 @@ describe("FgTokenizingParser", () => {
 					button: "LP",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -349,6 +385,7 @@ describe("FgTokenizingParser", () => {
 					button: "LK",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -362,6 +399,7 @@ describe("FgTokenizingParser", () => {
 					button: "LK",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -375,6 +413,7 @@ describe("FgTokenizingParser", () => {
 					button: "HP",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -388,6 +427,7 @@ describe("FgTokenizingParser", () => {
 					button: "HP",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -401,6 +441,7 @@ describe("FgTokenizingParser", () => {
 					button: "HP",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -416,6 +457,7 @@ describe("FgTokenizingParser", () => {
 					button: "LP",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -429,6 +471,7 @@ describe("FgTokenizingParser", () => {
 					button: "LP",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -442,6 +485,7 @@ describe("FgTokenizingParser", () => {
 					button: "KK",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -462,6 +506,7 @@ describe("FgTokenizingParser", () => {
 					button: "HP",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -476,6 +521,7 @@ describe("FgTokenizingParser", () => {
 					button: "LK",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -488,6 +534,7 @@ describe("FgTokenizingParser", () => {
 					button: "LK",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -503,6 +550,7 @@ describe("FgTokenizingParser", () => {
 					button: "LP",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -516,6 +564,7 @@ describe("FgTokenizingParser", () => {
 					button: "LK",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -530,6 +579,7 @@ describe("FgTokenizingParser", () => {
 					button: "LP",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -544,6 +594,7 @@ describe("FgTokenizingParser", () => {
 					button: "HP",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -559,6 +610,7 @@ describe("FgTokenizingParser", () => {
 					button: "THROW",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				}, // or whatever the expected token is
 			]);
 		});
@@ -572,6 +624,7 @@ describe("FgTokenizingParser", () => {
 					button: "THROW",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -585,19 +638,21 @@ describe("FgTokenizingParser", () => {
 					button: "THROW",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
 
 		// Air throw
 		it("parses an air throw (j.Throw)", () => {
-			expect(parser.parseLine("jTHROW")).toEqual([
+			expect(parser.parseLine("j.THROW")).toEqual([
 				{
 					kind: "input",
-					direction: Direction.Jump,
+					direction: Direction.Neutral,
 					button: "THROW",
 					delayed: false,
 					tigerKnee: false,
+					jump: true,
 				},
 			]);
 		});
@@ -651,6 +706,7 @@ describe("FgTokenizingParser", () => {
 					button: "MK",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 				{ kind: "badge", button: "DRC" },
 				{
@@ -659,6 +715,7 @@ describe("FgTokenizingParser", () => {
 					button: "MP",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 				{ kind: "separator", separator: Separator.Link },
 				{
@@ -667,6 +724,7 @@ describe("FgTokenizingParser", () => {
 					button: "HP",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -681,6 +739,7 @@ describe("FgTokenizingParser", () => {
 					button: "HP",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -697,6 +756,7 @@ describe("FgTokenizingParser", () => {
 					button: "HP",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -722,6 +782,7 @@ describe("FgTokenizingParser", () => {
 					button: "HP",
 					delayed: true,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -737,6 +798,7 @@ describe("FgTokenizingParser", () => {
 					button: "MK",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -750,6 +812,7 @@ describe("FgTokenizingParser", () => {
 					button: "HK",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -763,6 +826,7 @@ describe("FgTokenizingParser", () => {
 					button: "LK",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -777,6 +841,7 @@ describe("FgTokenizingParser", () => {
 					button: "HP",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -799,6 +864,7 @@ describe("FgTokenizingParser", () => {
 					button: "HP",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 				{ kind: "badge", button: "WALLSPLAT" },
 				{ kind: "separator", separator: Separator.Cancel },
@@ -808,6 +874,7 @@ describe("FgTokenizingParser", () => {
 					button: "LP",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -828,6 +895,7 @@ describe("FgTokenizingParser", () => {
 					button: "LP",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 				{ kind: "separator", separator: Separator.Together },
 				{
@@ -836,6 +904,7 @@ describe("FgTokenizingParser", () => {
 					button: "LK",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -848,6 +917,7 @@ describe("FgTokenizingParser", () => {
 					button: "MP",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 				{ kind: "separator", separator: Separator.Together },
 				{
@@ -856,6 +926,7 @@ describe("FgTokenizingParser", () => {
 					button: "MK",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -870,6 +941,7 @@ describe("FgTokenizingParser", () => {
 					button: "LP",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -882,6 +954,7 @@ describe("FgTokenizingParser", () => {
 					button: "LK",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -894,6 +967,7 @@ describe("FgTokenizingParser", () => {
 					button: "LK",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -907,6 +981,7 @@ describe("FgTokenizingParser", () => {
 					button: "MK",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 				{ kind: "badge", button: "DRC" },
 				{
@@ -915,6 +990,7 @@ describe("FgTokenizingParser", () => {
 					button: "MP",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 				{ kind: "separator", separator: Separator.Link },
 				{
@@ -923,6 +999,7 @@ describe("FgTokenizingParser", () => {
 					button: "KK",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});
@@ -964,6 +1041,7 @@ describe("FgTokenizingParser", () => {
 					button: "LP",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 				{ kind: "raw", value: "foobar" },
 				{
@@ -972,6 +1050,7 @@ describe("FgTokenizingParser", () => {
 					button: "HP",
 					delayed: false,
 					tigerKnee: false,
+					jump: false,
 				},
 			]);
 		});

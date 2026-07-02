@@ -11,6 +11,7 @@ import { ButtonData, ButtonType } from "symbol-data";
 import { ModifierRecognizer } from "recognizers/modifier-recognizer";
 import { ChargeRecognizer } from "recognizers/charge-recognizer";
 import { DelayRecognizer } from "recognizers/delay-recognizer";
+import { JumpRecognizer } from "recognizers/jump-recognizer";
 
 const DIRECTION_MAP: Record<string, Direction> = Object.fromEntries(
 	Object.values(Direction).map((v) => [v, v as Direction]),
@@ -32,6 +33,7 @@ export class FgTokenizerParser implements IFgParser {
 		let modifierRecognizer = new ModifierRecognizer(this.gameConfig);
 		let chargeRecognizer = new ChargeRecognizer();
 		let delayRecognizer = new DelayRecognizer();
+		let jumpRecognizer = new JumpRecognizer();
 
 		for (const part of line.split(/\s+/)) {
 			if (part.length === 0) continue;
@@ -39,6 +41,7 @@ export class FgTokenizerParser implements IFgParser {
 			let cursor = new Cursor(part);
 
 			let isDelayed: boolean = delayRecognizer.RecognizeDelay(cursor);
+			let isJump: boolean = jumpRecognizer.RecognizeJump(cursor);
 			let chargeDirection: Direction | null =
 				chargeRecognizer.RecognizeCharge(cursor);
 			let motion: string | null =
@@ -62,6 +65,7 @@ export class FgTokenizerParser implements IFgParser {
 					parsedDirection,
 					chargeDirection,
 					isDelayed,
+					isJump,
 				);
 				continue;
 			}
@@ -72,6 +76,7 @@ export class FgTokenizerParser implements IFgParser {
 					kind: "separator",
 					separator: separator,
 				});
+				continue;
 			}
 
 			let modifier = modifierRecognizer.RecognizeModifier(cursor);
@@ -80,7 +85,14 @@ export class FgTokenizerParser implements IFgParser {
 					kind: "badge",
 					button: modifier.label,
 				});
+				continue;
 			}
+
+			cursor.ConsumeMultiple(part.length);
+			console.warn(
+				`Part '${part}' was not recognized, pushing it as a raw token`,
+			);
+			tokens.push({ kind: "raw", value: part });
 		}
 
 		return tokens;
@@ -91,6 +103,7 @@ export class FgTokenizerParser implements IFgParser {
 		parsedDirection: Direction,
 		chargeDirection: Direction | null,
 		isDelayed: boolean,
+		isJump: boolean,
 	) {
 		switch (button.buttonType) {
 			// TODO: Should probably put this in game config as a 'badge-button' so not every
@@ -116,6 +129,7 @@ export class FgTokenizerParser implements IFgParser {
 						button: button.label,
 						delayed: isDelayed,
 						tigerKnee: false,
+						jump: isJump,
 					});
 				}
 				break;
