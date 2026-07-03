@@ -4,6 +4,7 @@ import { IconProvider } from "icon-provider";
 import { DIRECTION_DATA } from "./symbol-data";
 import { FgParser } from "fg-parser";
 import { GameConfig } from "./game-config";
+import { FgTokenizerParser } from "fg-tokenizer-parser";
 
 function renderToken(
 	token: FgToken,
@@ -38,6 +39,10 @@ function renderInputToken(
 
 	if (token.delayed) {
 		iconProvider.renderBadge("DELAY", wrapper);
+	}
+
+	if (token.jump) {
+		iconProvider.renderBadge("j", wrapper);
 	}
 
 	if (token.tigerKnee) {
@@ -94,6 +99,7 @@ export function processFgBlock(
 	config: GameConfig,
 ): void {
 	console.debug("Processing fg block for ggst");
-	const parser = new FgParser(config);
+	//const parser = new FgParser(config);
+	const parser = new FgTokenizerParser(config);
 	renderFgNotation(parser.parseFgSource(source), el, icons);
 }
