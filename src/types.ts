@@ -1,3 +1,5 @@
+import { ButtonData } from "symbol-data";
+
 export enum Direction {
 	// Single directions
 	DownBack = "1",
@@ -40,6 +42,7 @@ export type InputToken = {
 	kind: "input";
 	direction: Direction;
 	button: string;
+	buttonData: ButtonData;
 	delayed?: boolean;
 	tigerKnee?: boolean;
 	jump?: boolean;
@@ -54,6 +57,10 @@ export type SeparatorToken = { kind: "separator"; separator: Separator };
 export type BadgeToken = { kind: "badge"; button: string };
 export type RawToken = { kind: "raw"; value: string };
 export type FgToken =
-	InputToken | ChargeInputToken | SeparatorToken | BadgeToken | RawToken;
+	| InputToken
+	| ChargeInputToken
+	| SeparatorToken
+	| BadgeToken
+	| RawToken;
 
 export const ThrowInputlabel = "THROW";

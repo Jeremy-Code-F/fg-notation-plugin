@@ -1,11 +1,26 @@
 import { describe, it, expect } from "vitest";
 import { Direction, Separator } from "types";
-import type { ChargeInputToken } from "types";
+import type { ChargeInputToken, FgToken } from "types";
 import { SF6_CONFIG } from "./games/sf6";
 import { FgTokenizerParser } from "./fg-tokenizer-parser";
 
+// Tests assert on token shape, not on the resolved ButtonData icon lookup,
+// so buttonData is stripped from "input" tokens before comparison.
+function stripButtonData(tokens: FgToken[]): FgToken[] {
+	return tokens.map((token) => {
+		if (token.kind !== "input") return token;
+		const { buttonData: _buttonData, ...rest } = token;
+		return rest as FgToken;
+	});
+}
+
 describe("FgTokenizingParser", () => {
-	const parser = new FgTokenizerParser(SF6_CONFIG);
+	const rawParser = new FgTokenizerParser(SF6_CONFIG);
+	const parser = {
+		parseLine: (line: string) => stripButtonData(rawParser.parseLine(line)),
+		parseFgSource: (source: string) =>
+			rawParser.parseFgSource(source).map(stripButtonData),
+	};
 
 	describe("parseLine", () => {
 		it("parses a single numpad input", () => {

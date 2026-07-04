@@ -1,7 +1,7 @@
 export { Direction } from "./types";
 import { ChargeInputToken, Direction, FgToken, InputToken } from "./types";
 import { IconProvider } from "icon-provider";
-import { DIRECTION_DATA } from "./symbol-data";
+import { ButtonType, DIRECTION_DATA } from "./symbol-data";
 import { FgParser } from "fg-parser";
 import { GameConfig } from "./game-config";
 import { FgTokenizerParser } from "fg-tokenizer-parser";
@@ -60,7 +60,19 @@ function renderInputToken(
 		}
 	}
 
-	iconProvider.renderButton(token.button, wrapper);
+	switch (token.buttonData.buttonType) {
+		case ButtonType.Special:
+		case ButtonType.Normal:
+			iconProvider.renderButton(token.button, parent);
+			break;
+		case ButtonType.Modifier:
+			iconProvider.renderBadge(token.buttonData.id, parent);
+			break;
+		default:
+			throw new Error(
+				`Attempted to render button with type ${JSON.stringify(token.buttonData)} but it had no case`,
+			);
+	}
 }
 
 function renderChargeInputToken(

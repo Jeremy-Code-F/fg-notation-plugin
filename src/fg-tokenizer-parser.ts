@@ -127,6 +127,7 @@ export class FgTokenizerParser implements IFgParser {
 						kind: "input",
 						direction: parsedDirection,
 						button: button.label,
+						buttonData: button,
 						delayed: isDelayed,
 						tigerKnee: false,
 						jump: isJump,

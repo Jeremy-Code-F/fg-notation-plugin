@@ -13,6 +13,7 @@ export type ButtonData = {
 	svg?: string;
 	png?: string;
 	buttonType: ButtonType;
+	id: string;
 };
 
 export type BadgeData = {

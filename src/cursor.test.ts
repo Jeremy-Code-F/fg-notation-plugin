@@ -1,5 +1,4 @@
 import { describe, it, expect } from "vitest";
-import { FgParser } from "./fg-parser";
 import { Cursor } from "./cursor";
 import { DigitRecognizer } from "./recognizers/digit-recognizer";
 import { MotionRecognizer } from "./recognizers/motion-recognizer";
@@ -90,7 +89,7 @@ describe("CursorTests", () => {
 
 			let recognizedButton = buttonRecognizer.RecognizeButton(cursor);
 
-			expect(recognizedButton).toEqual("LP");
+			expect(recognizedButton?.label).toEqual("LP");
 			expect(cursor.GetCurrentPosition()).toEqual(2);
 		});
 
@@ -102,7 +101,7 @@ describe("CursorTests", () => {
 
 			let recognizedButton = buttonRecognizer.RecognizeButton(cursor);
 
-			expect(recognizedButton).toEqual("PPP");
+			expect(recognizedButton?.label).toEqual("PPP");
 			expect(cursor.GetCurrentPosition()).toEqual(3);
 		});
 
@@ -113,7 +112,7 @@ describe("CursorTests", () => {
 
 			let recognizedButton = buttonRecognizer.RecognizeButton(cursor);
 
-			expect(recognizedButton).toEqual("LP");
+			expect(recognizedButton?.label).toEqual("LP");
 			expect(cursor.GetCurrentPosition()).toEqual(2);
 		});
 
