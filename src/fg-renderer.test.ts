@@ -60,7 +60,7 @@ describe("processFgBlock", () => {
 
 		const badge = el.querySelector(".fg-badge--sa3");
 		expect(badge).not.toBeNull();
-		expect(badge?.textContent).toBe("Super Art 2");
+		expect(badge?.textContent).toBe("Super Art 3");
 	});
 
 	it("renders a Counter hit modifier with a badge", () => {

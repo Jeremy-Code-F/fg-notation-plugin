@@ -5,6 +5,7 @@ export enum ButtonType {
 	Normal,
 	Special,
 	Modifier,
+	Super,
 }
 
 export type ButtonData = {
@@ -32,6 +33,13 @@ export type SeparatorData = {
 	label: string;
 	cssClass: string;
 	svg?: string;
+};
+
+export const JUMP_BADGE_DATA: ButtonData = {
+	label: "JUMP",
+	cssClass: "jump",
+	buttonType: ButtonType.Normal,
+	id: "",
 };
 
 export const DIRECTION_DATA: Record<Direction, DirectionData> = {

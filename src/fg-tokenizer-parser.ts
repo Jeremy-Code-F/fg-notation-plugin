@@ -84,6 +84,7 @@ export class FgTokenizerParser implements IFgParser {
 				tokens.push({
 					kind: "badge",
 					button: modifier.label,
+					buttonData: modifier,
 				});
 				continue;
 			}
@@ -112,6 +113,7 @@ export class FgTokenizerParser implements IFgParser {
 				tokens.push({
 					kind: "badge",
 					button: button.label,
+					buttonData: button,
 				});
 				break;
 			default:

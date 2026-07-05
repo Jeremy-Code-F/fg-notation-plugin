@@ -1,5 +1,5 @@
 import { ThrowInputlabel } from "types";
-import { ButtonData, ButtonType } from "symbol-data";
+import { ButtonType } from "symbol-data";
 import { GameConfig } from "../game-config";
 import { LP_SVG, MP_SVG, HP_SVG, LK_SVG, MK_SVG, HK_SVG } from "../icons";
 
@@ -101,12 +101,6 @@ export const SF6_CONFIG: GameConfig = {
 			buttonType: ButtonType.Special,
 			id: "",
 		},
-		j: {
-			label: "JUMP",
-			cssClass: "jump",
-			buttonType: ButtonType.Normal,
-			id: "",
-		},
 		OR: {
 			label: "OR",
 			cssClass: "or",
@@ -146,20 +140,20 @@ export const SF6_CONFIG: GameConfig = {
 		SA1: {
 			label: "Super Art 1",
 			cssClass: "sa1",
-			buttonType: ButtonType.Modifier,
+			buttonType: ButtonType.Super,
 			id: "SA1",
 		},
 		SA2: {
 			label: "Super Art 2",
 			cssClass: "sa2",
-			buttonType: ButtonType.Normal,
-			id: "",
+			buttonType: ButtonType.Super,
+			id: "SA2",
 		},
 		SA3: {
 			label: "Super Art 3",
 			cssClass: "sa3",
-			buttonType: ButtonType.Normal,
-			id: "",
+			buttonType: ButtonType.Super,
+			id: "SA3",
 		},
 	},
 	modifierData: {
@@ -167,19 +161,19 @@ export const SF6_CONFIG: GameConfig = {
 			label: "CH",
 			cssClass: "ch",
 			buttonType: ButtonType.Modifier,
-			id: "ch",
+			id: "[CH]",
 		},
 		"[PC]": {
 			label: "PC",
 			cssClass: "pc",
 			buttonType: ButtonType.Modifier,
-			id: "pc",
+			id: "[PC]",
 		},
 		WALLSPLAT: {
 			label: "WALLSPLAT",
 			cssClass: "wallsplat",
 			buttonType: ButtonType.Modifier,
-			id: "wallsplat",
+			id: "WALLSPLAT",
 		},
 	},
 	gameName: "SF6",

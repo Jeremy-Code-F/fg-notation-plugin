@@ -26,7 +26,6 @@ export const TXKO_CONFIG: GameConfig = {
 		S1: { label: "S1", cssClass: "txko-s1", svg: TXKO_S1 },
 		S2: { label: "S2", cssClass: "txko-s2", svg: TXKO_S2 },
 		DASH: { label: "DASH", cssClass: "txko-dash", svg: TXKO_DASH },
-		j: { label: "JUMP", cssClass: "jump" },
 		T: { label: "TAG", cssClass: "tag", svg: TXKO_TAG },
 		P: { label: "PARRY", cssClass: "parry", svg: TXKO_PARRY },
 	},

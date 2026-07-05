@@ -5,10 +5,10 @@ import { SF6_CONFIG } from "./games/sf6";
 import { FgTokenizerParser } from "./fg-tokenizer-parser";
 
 // Tests assert on token shape, not on the resolved ButtonData icon lookup,
-// so buttonData is stripped from "input" tokens before comparison.
+// so buttonData is stripped from "input" and "badge" tokens before comparison.
 function stripButtonData(tokens: FgToken[]): FgToken[] {
 	return tokens.map((token) => {
-		if (token.kind !== "input") return token;
+		if (token.kind !== "input" && token.kind !== "badge") return token;
 		const { buttonData: _buttonData, ...rest } = token;
 		return rest as FgToken;
 	});

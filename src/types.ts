@@ -54,13 +54,13 @@ export type ChargeInputToken = {
 	button: string;
 };
 export type SeparatorToken = { kind: "separator"; separator: Separator };
-export type BadgeToken = { kind: "badge"; button: string };
+export type BadgeToken = {
+	kind: "badge";
+	button: string;
+	buttonData: ButtonData;
+};
 export type RawToken = { kind: "raw"; value: string };
 export type FgToken =
-	| InputToken
-	| ChargeInputToken
-	| SeparatorToken
-	| BadgeToken
-	| RawToken;
+	InputToken | ChargeInputToken | SeparatorToken | BadgeToken | RawToken;
 
 export const ThrowInputlabel = "THROW";

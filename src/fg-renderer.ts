@@ -1,10 +1,10 @@
 export { Direction } from "./types";
 import { ChargeInputToken, Direction, FgToken, InputToken } from "./types";
 import { IconProvider } from "icon-provider";
-import { ButtonType, DIRECTION_DATA } from "./symbol-data";
-import { FgParser } from "fg-parser";
+import { ButtonType, DIRECTION_DATA, JUMP_BADGE_DATA } from "./symbol-data";
 import { GameConfig } from "./game-config";
 import { FgTokenizerParser } from "fg-tokenizer-parser";
+import { assertNever } from "./utils";
 
 function renderToken(
 	token: FgToken,
@@ -18,7 +18,7 @@ function renderToken(
 	} else if (token.kind == "charge-input") {
 		renderChargeInputToken(token, parent, icons);
 	} else if (token.kind === "badge") {
-		icons.renderBadge(token.button, parent);
+		icons.renderBadge(token.buttonData, parent);
 	} else {
 		parent.createSpan({ cls: "fg-raw" }).setText(token.value);
 	}
@@ -42,7 +42,7 @@ function renderInputToken(
 	}
 
 	if (token.jump) {
-		iconProvider.renderBadge("j", wrapper);
+		iconProvider.renderBadge(JUMP_BADGE_DATA, wrapper);
 	}
 
 	if (token.tigerKnee) {
@@ -65,13 +65,12 @@ function renderInputToken(
 		case ButtonType.Normal:
 			iconProvider.renderButton(token.button, parent);
 			break;
+		case ButtonType.Super:
 		case ButtonType.Modifier:
-			iconProvider.renderBadge(token.buttonData.id, parent);
+			iconProvider.renderBadge(token.buttonData, parent);
 			break;
 		default:
-			throw new Error(
-				`Attempted to render button with type ${JSON.stringify(token.buttonData)} but it had no case`,
-			);
+			assertNever(token.buttonData.buttonType);
 	}
 }
 

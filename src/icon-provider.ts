@@ -4,7 +4,7 @@ import { ButtonData, SEPARATOR_DATA } from "./symbol-data";
 import { sanitizeHTMLToDom } from "obsidian";
 export interface IconProvider {
 	renderButton(button: string, parent: HTMLElement): void;
-	renderBadge(button: string, parent: HTMLElement): void;
+	renderBadge(button: ButtonData, parent: HTMLElement): void;
 	renderSeparator(separator: Separator, parent: HTMLElement): void;
 }
 
@@ -27,17 +27,11 @@ export class TextIconProvider implements IconProvider {
 		}
 	}
 
-	renderBadge(button: string, parent: HTMLElement): void {
-		console.debug(`Rendering badge for '${button}'`);
-		const data = this.inputData[button];
-		if (!data) {
-			console.error(`No button data found for button ${button}`);
-			return;
-		}
-		const { label, cssClass } = data;
+	renderBadge(button: ButtonData, parent: HTMLElement): void {
+		console.debug(`Rendering badge for '${JSON.stringify(button)}'`);
 		parent
-			.createSpan({ cls: ["fg-badge", `fg-badge--${cssClass}`] })
-			.setText(label);
+			.createSpan({ cls: ["fg-badge", `fg-badge--${button.cssClass}`] })
+			.setText(button.label);
 	}
 
 	renderSeparator(separator: Separator, parent: HTMLElement): void {
@@ -81,22 +75,17 @@ export class AdaptiveIconProvider implements IconProvider {
 		}
 	}
 
-	renderBadge(button: string, parent: HTMLElement): void {
-		const data = this.inputData[button];
-		if (!data) {
-			console.error(`No button data found for badge '${button}'`);
-			return;
-		}
-		if (data.svg) {
+	renderBadge(button: ButtonData, parent: HTMLElement): void {
+		if (button.svg) {
 			const span = parent.createSpan({
-				cls: ["fg-badge", `fg-badge--${data.cssClass}`],
+				cls: ["fg-badge", `fg-badge--${button.cssClass}`],
 			});
-			span.appendChild(sanitizeHTMLToDom(data.svg));
-		} else if (data.png) {
+			span.appendChild(sanitizeHTMLToDom(button.svg));
+		} else if (button.png) {
 			const span = parent.createSpan({
-				cls: ["fg-badge", `fg-badge--${data.cssClass}`],
+				cls: ["fg-badge", `fg-badge--${button.cssClass}`],
 			});
-			span.appendChild(this.createImg(data.png, data.label));
+			span.appendChild(this.createImg(button.png, button.label));
 		} else {
 			this.text.renderBadge(button, parent);
 		}
