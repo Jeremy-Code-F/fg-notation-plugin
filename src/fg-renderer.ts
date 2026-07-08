@@ -110,7 +110,7 @@ export function processFgBlock(
 	config: GameConfig,
 ): void {
 	console.debug("Processing fg block for ggst");
-	//const parser = new FgParser(config);
+	// const parser = new FgParser(config);
 	const parser = new FgTokenizerParser(config);
 	renderFgNotation(parser.parseFgSource(source), el, icons);
 }

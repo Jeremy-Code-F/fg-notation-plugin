@@ -84,7 +84,7 @@ export const SEPARATOR_DATA: Record<Separator, SeparatorData> = {
 		svg: TOGETHER_SVG,
 	},
 	[Separator.Or]: {
-		label: "/",
+		label: "OR",
 		cssClass: "or",
 	},
 };

@@ -151,7 +151,18 @@ If your plugin does not need CSS, delete this file.
 	background-color: #82c3ed;
 }
 
-.fg-badge--or {
+.fg-separator--or {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	vertical-align: middle;
+	padding: 0 6px;
+	height: 20px;
+	border-radius: 10px;
+	font-size: 0.65em !important;
+	font-weight: 700;
+	color: #1a1a1a;
+	user-select: none;
 	background-color: #82c3ed;
 }
 
