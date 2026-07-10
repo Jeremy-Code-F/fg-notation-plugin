@@ -40,60 +40,66 @@ export class FgTokenizerParser implements IFgParser {
 
 			let cursor = new Cursor(part);
 
-			let isDelayed: boolean = delayRecognizer.RecognizeDelay(cursor);
-			let isJump: boolean = jumpRecognizer.RecognizeJump(cursor);
-			let chargeDirection: Direction | null =
-				chargeRecognizer.RecognizeCharge(cursor);
-			let motion: string | null =
-				motionRecognizer.RecognizeMotion(cursor);
-			dotRecognizer.RecognizeDot(cursor);
-			let button: ButtonData | null =
-				buttonRecognizer.RecognizeButton(cursor);
+			while (!cursor.AtEnd()) {
+				let isDelayed: boolean = delayRecognizer.RecognizeDelay(cursor);
+				let isJump: boolean = jumpRecognizer.RecognizeJump(cursor);
+				let chargeDirection: Direction | null =
+					chargeRecognizer.RecognizeCharge(cursor);
+				let motion: string | null =
+					motionRecognizer.RecognizeMotion(cursor);
+				dotRecognizer.RecognizeDot(cursor);
+				let button: ButtonData | null =
+					buttonRecognizer.RecognizeButton(cursor);
 
-			let parsedDirection: Direction | null = null;
-			if (motion !== null) {
-				parsedDirection = this.parseDirection(motion);
-			}
-			if (parsedDirection === null) {
-				parsedDirection = Direction.Neutral;
-			}
+				let parsedDirection: Direction | null = null;
+				if (motion !== null) {
+					parsedDirection = this.parseDirection(motion);
+				}
+				if (parsedDirection === null) {
+					parsedDirection = Direction.Neutral;
+				}
 
-			if (button !== null) {
-				this.PushButtonTokon(
-					tokens,
-					button,
-					parsedDirection,
-					chargeDirection,
-					isDelayed,
-					isJump,
+				if (button !== null) {
+					this.PushButtonTokon(
+						tokens,
+						button,
+						parsedDirection,
+						chargeDirection,
+						isDelayed,
+						isJump,
+					);
+					continue;
+				}
+
+				let separator = separatorRecognizer.RecognizeSeparator(cursor);
+				if (separator !== null) {
+					tokens.push({
+						kind: "separator",
+						separator: separator,
+					});
+					continue;
+				}
+
+				let modifier = modifierRecognizer.RecognizeModifier(cursor);
+				if (modifier !== null) {
+					tokens.push({
+						kind: "badge",
+						button: modifier.label,
+						buttonData: modifier,
+					});
+					continue;
+				}
+
+				// Nothing recognized the remainder of this part. Consume the rest
+				// of it as a single raw token rather than looping forever, since
+				// none of the recognizers above made progress on their own.
+				let remaining = part.length - cursor.GetCurrentPosition();
+				let rawValue = cursor.ConsumeMultiple(remaining);
+				console.warn(
+					`Part '${rawValue}' was not recognized, pushing it as a raw token`,
 				);
-				continue;
+				tokens.push({ kind: "raw", value: rawValue });
 			}
-
-			let separator = separatorRecognizer.RecognizeSeparator(cursor);
-			if (separator !== null) {
-				tokens.push({
-					kind: "separator",
-					separator: separator,
-				});
-				continue;
-			}
-
-			let modifier = modifierRecognizer.RecognizeModifier(cursor);
-			if (modifier !== null) {
-				tokens.push({
-					kind: "badge",
-					button: modifier.label,
-					buttonData: modifier,
-				});
-				continue;
-			}
-
-			cursor.ConsumeMultiple(part.length);
-			console.warn(
-				`Part '${part}' was not recognized, pushing it as a raw token`,
-			);
-			tokens.push({ kind: "raw", value: part });
 		}
 
 		return tokens;

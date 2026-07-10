@@ -1047,6 +1047,30 @@ describe("FgTokenizingParser", () => {
 			]);
 		});
 
+		// Multiple recognized tokens crammed into a single whitespace-delimited
+		// part (no space around the separator)
+		it("parses multiple tokens within a single part with no surrounding whitespace", () => {
+			expect(parser.parseLine("5MP,5MP")).toEqual([
+				{
+					kind: "input",
+					direction: Direction.Neutral,
+					button: "MP",
+					delayed: false,
+					tigerKnee: false,
+					jump: false,
+				},
+				{ kind: "separator", separator: Separator.Link },
+				{
+					kind: "input",
+					direction: Direction.Neutral,
+					button: "MP",
+					delayed: false,
+					tigerKnee: false,
+					jump: false,
+				},
+			]);
+		});
+
 		// Mixed known and unknown tokens
 		it("handles a mix of valid and raw tokens", () => {
 			expect(parser.parseLine("5.LP foobar 236.HP")).toEqual([
