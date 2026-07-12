@@ -1,9 +1,11 @@
-import { IFgParser } from "fg-parser";
 import { GameConfig } from "game-config";
 import { Direction } from "types";
 import { FgToken } from "types";
 import { Cursor } from "cursor";
-import { MotionRecognizer } from "recognizers/motion-recognizer";
+import {
+	MotionRecognizer,
+	RecognizedMotion,
+} from "recognizers/motion-recognizer";
 import { ButtonRecognizer } from "recognizers/button-recognizer";
 import { DotRecognizer } from "recognizers/dot-recognizer";
 import { SeparatorRecognizer } from "recognizers/separator-recognizer";
@@ -12,12 +14,13 @@ import { ModifierRecognizer } from "recognizers/modifier-recognizer";
 import { ChargeRecognizer } from "recognizers/charge-recognizer";
 import { DelayRecognizer } from "recognizers/delay-recognizer";
 import { JumpRecognizer } from "recognizers/jump-recognizer";
+import { TigerKneeRecognizer } from "recognizers/tiger-knee-recognizer";
 
 const DIRECTION_MAP: Record<string, Direction> = Object.fromEntries(
 	Object.values(Direction).map((v) => [v, v as Direction]),
 );
 
-export class FgTokenizerParser implements IFgParser {
+export class FgTokenizerParser {
 	private cursor: number = 0;
 	private gameConfig: GameConfig;
 	constructor(private config: GameConfig) {
@@ -34,6 +37,7 @@ export class FgTokenizerParser implements IFgParser {
 		let chargeRecognizer = new ChargeRecognizer();
 		let delayRecognizer = new DelayRecognizer();
 		let jumpRecognizer = new JumpRecognizer();
+		let tigerKneeRecognizer = new TigerKneeRecognizer();
 
 		for (const part of line.split(/\s+/)) {
 			if (part.length === 0) continue;
@@ -43,21 +47,25 @@ export class FgTokenizerParser implements IFgParser {
 			while (!cursor.AtEnd()) {
 				let isDelayed: boolean = delayRecognizer.RecognizeDelay(cursor);
 				let isJump: boolean = jumpRecognizer.RecognizeJump(cursor);
+				let isTigerKnee: boolean =
+					tigerKneeRecognizer.RecognizeTigerKnee(cursor);
 				let chargeDirection: Direction | null =
 					chargeRecognizer.RecognizeCharge(cursor);
-				let motion: string | null =
+				let recognizedMotion: RecognizedMotion | null =
 					motionRecognizer.RecognizeMotion(cursor);
 				dotRecognizer.RecognizeDot(cursor);
 				let button: ButtonData | null =
 					buttonRecognizer.RecognizeButton(cursor);
 
-				let parsedDirection: Direction | null = null;
-				if (motion !== null) {
-					parsedDirection = this.parseDirection(motion);
-				}
-				if (parsedDirection === null) {
+				let parsedDirection = recognizedMotion?.recognizedDirection;
+				if (!parsedDirection) {
 					parsedDirection = Direction.Neutral;
 				}
+
+				let tkDirection = CalculateTigerKneeDirection(
+					isTigerKnee,
+					recognizedMotion,
+				);
 
 				if (button !== null) {
 					this.PushButtonTokon(
@@ -67,6 +75,7 @@ export class FgTokenizerParser implements IFgParser {
 						chargeDirection,
 						isDelayed,
 						isJump,
+						tkDirection,
 					);
 					continue;
 				}
@@ -111,6 +120,7 @@ export class FgTokenizerParser implements IFgParser {
 		chargeDirection: Direction | null,
 		isDelayed: boolean,
 		isJump: boolean,
+		tigerKneeDirection: Direction | null,
 	) {
 		switch (button.buttonType) {
 			// TODO: Should probably put this in game config as a 'badge-button' so not every
@@ -137,8 +147,8 @@ export class FgTokenizerParser implements IFgParser {
 						button: button.label,
 						buttonData: button,
 						delayed: isDelayed,
-						tigerKnee: false,
 						jump: isJump,
+						tigerKnee: tigerKneeDirection,
 					});
 				}
 				break;
@@ -155,4 +165,36 @@ export class FgTokenizerParser implements IFgParser {
 	private parseDirection(raw: string): Direction | null {
 		return DIRECTION_MAP[raw] ?? null;
 	}
+}
+
+function CalculateTigerKneeDirection(
+	isTigerKnee: boolean,
+	recognizedMotion: RecognizedMotion | null,
+): Direction | null {
+	// Because with no motion to go off of, we wouldn't be able to tell what the
+	// tiger knee direction should be anyways
+	if (
+		recognizedMotion === null ||
+		recognizedMotion.recognizedDirection === null
+	) {
+		return null;
+	}
+
+	// If we have a known tiger knee direction from the motion, just use that
+	if (recognizedMotion.tigerKneeDirection !== null) {
+		return recognizedMotion.tigerKneeDirection;
+	}
+
+	let lastDirectionDigit = recognizedMotion.recognizedDirection
+		.toString()
+		.at(-1);
+
+	if (isTigerKnee && lastDirectionDigit === "6") {
+		return Direction.UpForward;
+	}
+	if (isTigerKnee && lastDirectionDigit === "4") {
+		return Direction.UpForward;
+	}
+
+	return null;
 }

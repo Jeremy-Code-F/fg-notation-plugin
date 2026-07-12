@@ -30,7 +30,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.Neutral,
 					button: "LP",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -43,7 +43,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.Neutral,
 					button: "LP",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -56,7 +56,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.Neutral,
 					button: "LP",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -69,7 +69,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.Down,
 					button: "LP",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -82,7 +82,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.QuarterCircleForward,
 					button: "LP",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -95,7 +95,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.QuarterCircleForward,
 					button: "LP",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -108,7 +108,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.Neutral,
 					button: "HP",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: true,
 				},
 			]);
@@ -122,7 +122,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.QuarterCircleBack,
 					button: "MP",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: true,
 				},
 			]);
@@ -183,7 +183,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.QuarterCircleForward,
 					button: "PP",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -196,7 +196,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.DragonPunch,
 					button: "KK",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -209,7 +209,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.QuarterCircleForward,
 					button: "PPP",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -222,7 +222,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.QuarterCircleForward,
 					button: "KKK",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -246,7 +246,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.Neutral,
 					button: "MP",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 				{ kind: "separator", separator: Separator.Chain },
@@ -255,7 +255,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.Back,
 					button: "HP",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 				{ kind: "separator", separator: Separator.Cancel },
@@ -281,7 +281,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.QuarterCircleForward,
 					button: "HP",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 				{ kind: "separator", separator: Separator.Cancel },
@@ -290,7 +290,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.Neutral,
 					button: "MP",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 				{ kind: "separator", separator: Separator.Chain },
@@ -299,7 +299,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.Neutral,
 					button: "LP",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -312,7 +312,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.Neutral,
 					button: "LP",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 				{ kind: "separator", separator: Separator.Cancel },
@@ -321,7 +321,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.Neutral,
 					button: "HP",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -338,7 +338,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.Neutral,
 					button: "LP",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -348,7 +348,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.Neutral,
 					button: "HP",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -368,7 +368,7 @@ describe("FgTokenizingParser", () => {
 						direction: Direction.Neutral,
 						button: "LP",
 						delayed: false,
-						tigerKnee: false,
+						tigerKnee: null,
 						jump: false,
 					},
 				],
@@ -385,7 +385,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.Forward,
 					button: "LP",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -399,7 +399,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.DownForward,
 					button: "LK",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -413,7 +413,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.DownBack,
 					button: "LK",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -427,7 +427,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.Up,
 					button: "HP",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -441,7 +441,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.UpForward,
 					button: "HP",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -455,7 +455,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.UpBack,
 					button: "HP",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -471,7 +471,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.DoubleQuarterCircleForward,
 					button: "LP",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -485,7 +485,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.DoubleQuarterCircleBack,
 					button: "LP",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -499,7 +499,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.DoubleQuarterCircleForward,
 					button: "KK",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -520,7 +520,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.ChargeSuper,
 					button: "HP",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -535,7 +535,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.QuarterCircleBack,
 					button: "LK",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -548,7 +548,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.QuarterCircleBack,
 					button: "LK",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -564,7 +564,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.HalfCircleBack,
 					button: "LP",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -578,7 +578,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.HalfCircleForward,
 					button: "LK",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -593,7 +593,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.FullCircle,
 					button: "LP",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -608,7 +608,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.ReverseDragonPunch,
 					button: "HP",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -624,7 +624,7 @@ describe("FgTokenizingParser", () => {
 					direction: "5",
 					button: "THROW",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				}, // or whatever the expected token is
 			]);
@@ -638,7 +638,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.Forward,
 					button: "THROW",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -652,7 +652,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.Back,
 					button: "THROW",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -666,7 +666,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.Neutral,
 					button: "THROW",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: true,
 				},
 			]);
@@ -720,7 +720,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.Down,
 					button: "MK",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 				{ kind: "badge", button: "DRC" },
@@ -729,7 +729,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.Neutral,
 					button: "MP",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 				{ kind: "separator", separator: Separator.Link },
@@ -738,7 +738,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.QuarterCircleForward,
 					button: "HP",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -753,7 +753,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.Neutral,
 					button: "HP",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -770,7 +770,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.Neutral,
 					button: "HP",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -796,7 +796,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.Neutral,
 					button: "HP",
 					delayed: true,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -812,7 +812,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.Neutral,
 					button: "MK",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -826,7 +826,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.Neutral,
 					button: "HK",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -840,7 +840,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.Neutral,
 					button: "LK",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -855,7 +855,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.Neutral,
 					button: "HP",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -878,7 +878,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.Neutral,
 					button: "HP",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 				{ kind: "badge", button: "WALLSPLAT" },
@@ -888,7 +888,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.QuarterCircleForward,
 					button: "LP",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -909,7 +909,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.Neutral,
 					button: "LP",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 				{ kind: "separator", separator: Separator.Together },
@@ -918,7 +918,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.Neutral,
 					button: "LK",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -931,7 +931,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.Neutral,
 					button: "MP",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 				{ kind: "separator", separator: Separator.Together },
@@ -940,7 +940,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.Neutral,
 					button: "MK",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -955,7 +955,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.DoubleTapForward,
 					button: "LP",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -968,7 +968,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.DoubleTapBack,
 					button: "LK",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -981,7 +981,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.DoubleDown,
 					button: "LK",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -995,7 +995,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.Down,
 					button: "MK",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 				{ kind: "badge", button: "DRC" },
@@ -1004,7 +1004,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.Neutral,
 					button: "MP",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 				{ kind: "separator", separator: Separator.Link },
@@ -1013,10 +1013,44 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.DoubleQuarterCircleForward,
 					button: "KK",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
+		});
+	});
+
+	describe("tigerKneeCases", () => {
+		it("qcf tiger knee (tk. shorthand notation)", () => {
+			expect(parser.parseLine("tk.236.LP")).toEqual([
+				{
+					kind: "input",
+					direction: Direction.QuarterCircleForward,
+					button: "LP",
+					delayed: false,
+					tigerKnee: Direction.UpForward,
+					jump: false,
+				},
+			]);
+		});
+
+		it("qcf tiger knee (numpad notation), matches shorthand equivalent", () => {
+			expect(parser.parseLine("2369.LP")).toEqual([
+				{
+					kind: "input",
+					direction: Direction.QuarterCircleForward,
+					button: "LP",
+					delayed: false,
+					tigerKnee: Direction.UpForward,
+					jump: false,
+				},
+			]);
+		});
+
+		it("numpad and shorthand tiger knee notations produce identical parse trees", () => {
+			expect(parser.parseLine("2369.LP")).toEqual(
+				parser.parseLine("tk.236.LP"),
+			);
 		});
 	});
 
@@ -1056,7 +1090,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.Neutral,
 					button: "MP",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 				{ kind: "separator", separator: Separator.Link },
@@ -1065,7 +1099,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.Neutral,
 					button: "MP",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);
@@ -1079,7 +1113,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.Neutral,
 					button: "LP",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 				{ kind: "raw", value: "foobar" },
@@ -1088,7 +1122,7 @@ describe("FgTokenizingParser", () => {
 					direction: Direction.QuarterCircleForward,
 					button: "HP",
 					delayed: false,
-					tigerKnee: false,
+					tigerKnee: null,
 					jump: false,
 				},
 			]);

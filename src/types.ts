@@ -44,7 +44,7 @@ export type InputToken = {
 	button: string;
 	buttonData: ButtonData;
 	delayed?: boolean;
-	tigerKnee?: boolean;
+	tigerKnee?: Direction | null;
 	jump?: boolean;
 };
 export type ChargeInputToken = {

@@ -59,7 +59,10 @@ describe("CursorTests", () => {
 		it("motion input recognizer, with series of digits returns digits and consumes", () => {
 			let cursor = new Cursor("236");
 			let motionRecognizer = new MotionRecognizer();
-			expect(motionRecognizer.RecognizeMotion(cursor)).toEqual("236");
+			expect(motionRecognizer.RecognizeMotion(cursor)).toEqual({
+				recognizedDirection: "236",
+				tigerKneeDirection: null,
+			});
 
 			expect(cursor.GetCurrentPosition()).toEqual(3);
 		});
@@ -67,7 +70,10 @@ describe("CursorTests", () => {
 		it("motion input recognizer, with series of digits returns digits and consumes, ends at non-digit", () => {
 			let cursor = new Cursor("236A");
 			let motionRecognizer = new MotionRecognizer();
-			expect(motionRecognizer.RecognizeMotion(cursor)).toEqual("236");
+			expect(motionRecognizer.RecognizeMotion(cursor)).toEqual({
+				recognizedDirection: "236",
+				tigerKneeDirection: null,
+			});
 
 			expect(cursor.GetCurrentPosition()).toEqual(3);
 		});
