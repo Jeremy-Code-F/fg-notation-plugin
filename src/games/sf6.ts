@@ -99,12 +99,6 @@ export const SF6_CONFIG: GameConfig = {
 			buttonType: ButtonType.Normal,
 			id: "",
 		},
-		TIGER_KNEE: {
-			label: "Tiger Knee",
-			cssClass: "tk",
-			buttonType: ButtonType.Normal,
-			id: "",
-		},
 		CLOSE: {
 			label: "CLOSE",
 			cssClass: "close",
