@@ -193,7 +193,7 @@ function CalculateTigerKneeDirection(
 		return Direction.UpForward;
 	}
 	if (isTigerKnee && lastDirectionDigit === "4") {
-		return Direction.UpForward;
+		return Direction.UpBack;
 	}
 
 	return null;

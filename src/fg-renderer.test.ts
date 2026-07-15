@@ -73,4 +73,39 @@ describe("processFgBlock", () => {
 		expect(badge).not.toBeNull();
 		expect(badge?.textContent).toBe("CH");
 	});
+
+	describe("tigerKneeCases", () => {
+		it("renders a tiger knee badge for tk. shorthand notation", () => {
+			const el = document.createElement("div");
+			const icons = createIconProvider(SF6_CONFIG.inputData);
+
+			processFgBlock("tk.236.LP", el, icons, SF6_CONFIG);
+
+			const badge = el.querySelector(".fg-badge--tk");
+			expect(badge).not.toBeNull();
+			expect(badge?.textContent).toBe("Tiger Knee");
+
+			expect(el.querySelector(".fg-button--lp")).not.toBeNull();
+		});
+
+		it("renders a tiger knee badge for numpad notation", () => {
+			const el = document.createElement("div");
+			const icons = createIconProvider(SF6_CONFIG.inputData);
+
+			processFgBlock("2369.LP", el, icons, SF6_CONFIG);
+
+			const badge = el.querySelector(".fg-badge--tk");
+			expect(badge).not.toBeNull();
+			expect(badge?.textContent).toBe("Tiger Knee");
+		});
+
+		it("does not render a tiger knee badge for a plain motion input", () => {
+			const el = document.createElement("div");
+			const icons = createIconProvider(SF6_CONFIG.inputData);
+
+			processFgBlock("236.LP", el, icons, SF6_CONFIG);
+
+			expect(el.querySelector(".fg-badge--tk")).toBeNull();
+		});
+	});
 });

@@ -42,6 +42,13 @@ export const JUMP_BADGE_DATA: ButtonData = {
 	id: "",
 };
 
+export const TIGER_KNEE_DATA: ButtonData = {
+	label: "Tiger Knee",
+	cssClass: "tk",
+	buttonType: ButtonType.Normal,
+	id: "",
+};
+
 export const DIRECTION_DATA: Record<Direction, DirectionData> = {
 	[Direction.DownBack]: { arrows: "↙" },
 	[Direction.Down]: { arrows: "↓" },

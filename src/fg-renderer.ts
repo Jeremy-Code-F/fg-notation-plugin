@@ -1,7 +1,12 @@
 export { Direction } from "./types";
 import { ChargeInputToken, Direction, FgToken, InputToken } from "./types";
 import { IconProvider } from "icon-provider";
-import { ButtonType, DIRECTION_DATA, JUMP_BADGE_DATA } from "./symbol-data";
+import {
+	ButtonType,
+	DIRECTION_DATA,
+	JUMP_BADGE_DATA,
+	TIGER_KNEE_DATA,
+} from "./symbol-data";
 import { GameConfig } from "./game-config";
 import { FgTokenizerParser } from "fg-tokenizer-parser";
 import { assertNever } from "./utils";
@@ -47,7 +52,7 @@ function renderInputToken(
 
 	if (token.tigerKnee) {
 		console.debug(`Attempting to render tiger knee badge`);
-		iconProvider.renderBadge("TIGER_KNEE", wrapper);
+		iconProvider.renderBadge(TIGER_KNEE_DATA, wrapper);
 	}
 
 	if (directions_requiring_badge.has(token.direction)) {

@@ -1034,6 +1034,19 @@ describe("FgTokenizingParser", () => {
 			]);
 		});
 
+		it("qcb tiger knee (tk. shorthand notation)", () => {
+			expect(parser.parseLine("tk.214.LP")).toEqual([
+				{
+					kind: "input",
+					direction: Direction.QuarterCircleBack,
+					button: "LP",
+					delayed: false,
+					tigerKnee: Direction.UpBack,
+					jump: false,
+				},
+			]);
+		});
+
 		it("qcf tiger knee (numpad notation), matches shorthand equivalent", () => {
 			expect(parser.parseLine("2369.LP")).toEqual([
 				{
@@ -1047,10 +1060,113 @@ describe("FgTokenizingParser", () => {
 			]);
 		});
 
+		it("qcb tiger knee (numpad notation)", () => {
+			expect(parser.parseLine("2147.LP")).toEqual([
+				{
+					kind: "input",
+					direction: Direction.QuarterCircleBack,
+					button: "LP",
+					delayed: false,
+					tigerKnee: Direction.UpBack,
+					jump: false,
+				},
+			]);
+		});
+
 		it("numpad and shorthand tiger knee notations produce identical parse trees", () => {
 			expect(parser.parseLine("2369.LP")).toEqual(
 				parser.parseLine("tk.236.LP"),
 			);
+		});
+
+		it("straight-up tiger knee (numpad notation, no tk. equivalent)", () => {
+			expect(parser.parseLine("2368.LP")).toEqual([
+				{
+					kind: "input",
+					direction: Direction.QuarterCircleForward,
+					button: "LP",
+					delayed: false,
+					tigerKnee: Direction.Up,
+					jump: false,
+				},
+			]);
+		});
+
+		it("hcf tiger knee (numpad notation)", () => {
+			expect(parser.parseLine("412369.LP")).toEqual([
+				{
+					kind: "input",
+					direction: Direction.HalfCircleForward,
+					button: "LP",
+					delayed: false,
+					tigerKnee: Direction.UpForward,
+					jump: false,
+				},
+			]);
+		});
+
+		it("hcb tiger knee (numpad notation)", () => {
+			expect(parser.parseLine("632147.LP")).toEqual([
+				{
+					kind: "input",
+					direction: Direction.HalfCircleBack,
+					button: "LP",
+					delayed: false,
+					tigerKnee: Direction.UpBack,
+					jump: false,
+				},
+			]);
+		});
+
+		it("hcf tiger knee (tk. shorthand notation)", () => {
+			expect(parser.parseLine("tk.41236.LP")).toEqual([
+				{
+					kind: "input",
+					direction: Direction.HalfCircleForward,
+					button: "LP",
+					delayed: false,
+					tigerKnee: Direction.UpForward,
+					jump: false,
+				},
+			]);
+		});
+
+		it("hcb tiger knee (tk. shorthand notation)", () => {
+			expect(parser.parseLine("tk.63214.LP")).toEqual([
+				{
+					kind: "input",
+					direction: Direction.HalfCircleBack,
+					button: "LP",
+					delayed: false,
+					tigerKnee: Direction.UpBack,
+					jump: false,
+				},
+			]);
+		});
+
+		it("numpad and shorthand hcf tiger knee notations produce identical parse trees", () => {
+			expect(parser.parseLine("412369.LP")).toEqual(
+				parser.parseLine("tk.41236.LP"),
+			);
+		});
+
+		it("numpad and shorthand hcb tiger knee notations produce identical parse trees", () => {
+			expect(parser.parseLine("632147.LP")).toEqual(
+				parser.parseLine("tk.63214.LP"),
+			);
+		});
+
+		it("does not mistake a trailing 9 for a tiger knee when the remainder isn't a known motion", () => {
+			expect(parser.parseLine("12369.LP")).toEqual([
+				{
+					kind: "input",
+					direction: Direction.Neutral,
+					button: "LP",
+					delayed: false,
+					tigerKnee: null,
+					jump: false,
+				},
+			]);
 		});
 	});
 
