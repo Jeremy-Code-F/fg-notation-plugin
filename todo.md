@@ -7,15 +7,15 @@ Goal: Full Street Fighter 6 support (normals, charge, grapplers + any edge cases
 ## 1. SF6 Feature Completeness
 
 ### 1.1 Tiger Knee inputs (`tk.` prefix)
-- [ ] `tk.` is already matched in the input regex but the token always has `tigerKnee: false` (parser line ~140)
-- [ ] Support both `tk.236LK` (explicit prefix) and `9236LK` (raw motion) — both are valid and should be equivalent
-- [ ] Add renderer support — display a TK badge or styled direction on the token
-- [ ] Write parser tests for both forms
+- [x] `tk.` is already matched in the input regex but the token always has `tigerKnee: false` (parser line ~140)
+- [x] Support both `tk.236LK` (explicit prefix) and `9236LK` (raw motion) — both are valid and should be equivalent
+- [x] Add renderer support — display a TK badge or styled direction on the token
+- [x] Write parser tests for both forms
 
 ### 1.2 Crouching / Far-standing prefixes
-- [ ] `c.` (crouching) and `f.` (far standing) exist in the input regex but are not surfaced in tokens
-- [ ] These are primarily needed for GGST (not SF6) — defer full implementation to a post-1.0 GGST pass, but ensure the parser doesn't choke on them
-- [ ] For now: parse and silently ignore `c.`/`f.` so notation with them doesn't break rendering
+- [x] `c.` (crouching) and `f.` (far standing) exist in the input regex but are not surfaced in tokens
+- [x] These are primarily needed for GGST (not SF6) — defer full implementation to a post-1.0 GGST pass, but ensure the parser doesn't choke on them
+- [x] For now: parse and silently ignore `c.`/`f.` so notation with them doesn't break rendering
 
 ### 1.3 Grappler / Command grab notation
 - [ ] Verify 360 / 720 motion parsing works end-to-end (tokenizer → renderer) — current test coverage unclear
