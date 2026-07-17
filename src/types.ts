@@ -25,6 +25,7 @@ export enum Direction {
 	HalfCircleForward = "41236", // HCF
 	HalfCircleBack = "63214", // HCB
 	FullCircle = "360",
+	DoubleFullCircle = "720",
 	DoubleDown = "22", // double-tap down
 	DoubleTapForward = "66", // dash forward
 	DoubleTapBack = "44",

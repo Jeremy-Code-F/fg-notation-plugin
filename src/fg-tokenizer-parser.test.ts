@@ -555,6 +555,61 @@ describe("FgTokenizingParser", () => {
 		});
 	});
 
+	describe("grapplerInputSources", () => {
+		it("parses a full 360 input", () => {
+			expect(parser.parseLine("360LP")).toEqual([
+				{
+					kind: "input",
+					direction: Direction.FullCircle,
+					button: "LP",
+					delayed: false,
+					tigerKnee: null,
+					jump: false,
+				},
+			]);
+		});
+
+		it("parses a jump 360 input", () => {
+			expect(parser.parseLine("j.360KK")).toEqual([
+				{
+					kind: "input",
+					direction: Direction.FullCircle,
+					button: "KK",
+					delayed: false,
+					tigerKnee: null,
+					jump: true,
+				},
+			]);
+		});
+
+		it("parses a tiger knee 360 input", () => {
+			expect(parser.parseLine("tk.360KK")).toEqual([
+				{
+					kind: "input",
+					direction: Direction.FullCircle,
+					button: "KK",
+					delayed: false,
+					tigerKnee: Direction.Up,
+					jump: false,
+				},
+			]);
+		});
+
+		// Zangief super? not sure if anything else is 720 in SF6
+		it("parses a full 720 input", () => {
+			expect(parser.parseLine("720LP")).toEqual([
+				{
+					kind: "input",
+					direction: Direction.DoubleFullCircle,
+					button: "LP",
+					delayed: false,
+					tigerKnee: null,
+					jump: false,
+				},
+			]);
+		});
+	});
+
 	describe("largeCircleInputSources", () => {
 		// Half-Circle Back (63214) - command grabs like Zangief SPD
 		it("parses a half-circle back input (63214LP)", () => {

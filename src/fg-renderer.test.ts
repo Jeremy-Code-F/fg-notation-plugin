@@ -113,4 +113,43 @@ describe("processFgBlock", () => {
 			expect(arrows?.textContent).toBe("↓↘→");
 		});
 	});
+
+	describe("grapplerInputSources", () => {
+		it("renders a full 360 input", () => {
+			const el = document.createElement("div");
+			const icons = createIconProvider(SF6_CONFIG.inputData);
+
+			processFgBlock("360LP", el, icons, SF6_CONFIG);
+
+			const arrows = el.querySelector(".fg-direction.fg-arrows");
+			expect(arrows?.textContent).toBe("→↘↓↙←↖↑");
+
+			expect(el.querySelector(".fg-button--lp")).not.toBeNull();
+		});
+
+		it("renders a jump 360 input with a JUMP badge", () => {
+			const el = document.createElement("div");
+			const icons = createIconProvider(SF6_CONFIG.inputData);
+
+			processFgBlock("j.360KK", el, icons, SF6_CONFIG);
+
+			const badge = el.querySelector(".fg-badge--jump");
+			expect(badge).not.toBeNull();
+
+			const arrows = el.querySelector(".fg-direction.fg-arrows");
+			expect(arrows?.textContent).toBe("→↘↓↙←↖↑");
+
+			expect(el.querySelector(".fg-button--kk")).not.toBeNull();
+		});
+
+		it("appends the tiger knee direction arrow onto a 360 input", () => {
+			const el = document.createElement("div");
+			const icons = createIconProvider(SF6_CONFIG.inputData);
+
+			processFgBlock("tk.360KK", el, icons, SF6_CONFIG);
+
+			const arrows = el.querySelector(".fg-direction.fg-arrows");
+			expect(arrows?.textContent).toBe("→↘↓↙←↖↑↑");
+		});
+	});
 });
