@@ -196,5 +196,15 @@ function CalculateTigerKneeDirection(
 		return Direction.UpBack;
 	}
 
+	// This is kind of a guess, but it's what supercombo.gg shows for the tk direction e.g.
+	// https://www.youtube.com/watch?v=G2Be57obZgo
+	// Results in this effective motion for tk.360: →↘↓↙←↖↑
+	if (
+		isTigerKnee &&
+		recognizedMotion.recognizedDirection == Direction.FullCircle
+	) {
+		return Direction.Up;
+	}
+
 	return null;
 }
