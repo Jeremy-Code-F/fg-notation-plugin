@@ -18,9 +18,9 @@ Goal: Full Street Fighter 6 support (normals, charge, grapplers + any edge cases
 - [x] For now: parse and silently ignore `c.`/`f.` so notation with them doesn't break rendering
 
 ### 1.3 Grappler / Command grab notation
-- [ ] Verify 360 / 720 motion parsing works end-to-end (tokenizer → renderer) — current test coverage unclear
-- [ ] Confirm air-throw notation (`j.THROW`) renders correctly
-- [ ] Add parser + renderer tests for grappler combos (e.g., `5.LP > 5.MP > 360.PP`)
+- [x] Verify 360 / 720 motion parsing works end-to-end (tokenizer → renderer) — current test coverage unclear
+- [x] Confirm air-throw notation (`j.THROW`) renders correctly
+- [x] Add parser + renderer tests for grappler combos (e.g., `5.LP > 5.MP > 360.PP`)
 
 ### 1.4 Super Art identification
 - [ ] SA1 / SA2 / SA3 badges are supported; confirm all three render with distinct visual styles
@@ -35,6 +35,11 @@ Goal: Full Street Fighter 6 support (normals, charge, grapplers + any edge cases
 ### 1.7 Drive System moves
 - [ ] `DRC`, `DR`, `DI` already supported — verify all render correctly
 - [ ] Add `[DRIVE RUSH]` or `[DR]` bracketed modifier form if needed for clarity
+
+## 1.8 Misc
+- [ ] Support dash with 'dash' or '66'/'44'
+- [ ] Support delay with 'dl.' or 'd.'
+- [ ] Support microwalk tbd on notation 'walk'? 'microwalk'
 
 ---
 
@@ -72,7 +77,7 @@ Goal: Full Street Fighter 6 support (normals, charge, grapplers + any edge cases
 - [ ] Parser tests once feature is implemented (see 1.1)
 
 ### 3.3 Grappler / 360 motion tests
-- [ ] Parser + renderer tests for full-circle motions and command grabs (see 1.3)
+- [x] Parser + renderer tests for full-circle motions and command grabs (see 1.3)
 
 ### 3.4 Edge case coverage
 - [ ] Charge inputs where the hold and release are the same direction (malformed — should produce a `RawToken`)

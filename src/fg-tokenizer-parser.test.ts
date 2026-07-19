@@ -569,6 +569,43 @@ describe("FgTokenizingParser", () => {
 			]);
 		});
 
+		it("parses a combo with 360 input in it", () => {
+			expect(parser.parseLine("5.LP > 5.MP > 360.PP")).toEqual([
+				{
+					kind: "input",
+					direction: Direction.Neutral,
+					button: "LP",
+					delayed: false,
+					tigerKnee: null,
+					jump: false,
+				},
+				{
+					kind: "separator",
+					separator: ">",
+				},
+				{
+					kind: "input",
+					direction: Direction.Neutral,
+					button: "MP",
+					delayed: false,
+					tigerKnee: null,
+					jump: false,
+				},
+				{
+					kind: "separator",
+					separator: ">",
+				},
+				{
+					kind: "input",
+					direction: Direction.FullCircle,
+					button: "PP",
+					delayed: false,
+					tigerKnee: null,
+					jump: false,
+				},
+			]);
+		});
+
 		it("parses a jump 360 input", () => {
 			expect(parser.parseLine("j.360KK")).toEqual([
 				{

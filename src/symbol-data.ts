@@ -72,6 +72,9 @@ export const DIRECTION_DATA: Record<Direction, DirectionData> = {
 	[Direction.FullCircle]: {
 		arrows: "→↘↓↙←↖↑",
 	},
+	[Direction.DoubleFullCircle]: {
+		arrows: "→↘↓↙←↖↑→↘↓↙←↖↑",
+	},
 };
 
 export const SEPARATOR_DATA: Record<Separator, SeparatorData> = {
