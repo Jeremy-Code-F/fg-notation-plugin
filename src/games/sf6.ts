@@ -129,17 +129,35 @@ export const SF6_CONFIG: GameConfig = {
 			buttonType: ButtonType.Super,
 			id: "SA1",
 		},
+		"[SA1]": {
+			label: "Super Art 1",
+			cssClass: "sa1",
+			buttonType: ButtonType.Super,
+			id: "[SA1]",
+		},
 		SA2: {
 			label: "Super Art 2",
 			cssClass: "sa2",
 			buttonType: ButtonType.Super,
 			id: "SA2",
 		},
+		"[SA2]": {
+			label: "Super Art 2",
+			cssClass: "sa2",
+			buttonType: ButtonType.Super,
+			id: "[SA2]",
+		},
 		SA3: {
 			label: "Super Art 3",
 			cssClass: "sa3",
 			buttonType: ButtonType.Super,
 			id: "SA3",
+		},
+		"[SA3]": {
+			label: "Super Art 3",
+			cssClass: "sa3",
+			buttonType: ButtonType.Super,
+			id: "[SA3]",
 		},
 	},
 	modifierData: {
