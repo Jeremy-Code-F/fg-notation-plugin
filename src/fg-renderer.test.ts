@@ -30,6 +30,20 @@ describe("processFgBlock", () => {
 		expect(el.querySelector(".fg-button--hp")).not.toBeNull();
 	});
 
+	it("renders a delayed input with a DELAY badge", () => {
+		const el = document.createElement("div");
+		const icons = createIconProvider(SF6_CONFIG.inputData);
+
+		processFgBlock("d.HP", el, icons, SF6_CONFIG);
+
+		const badge = el.querySelector(".fg-badge--delay");
+		expect(badge).not.toBeNull();
+		expect(badge?.textContent).toBe("DELAY");
+		expect(el.querySelector(".fg-badge--undefined")).toBeNull();
+
+		expect(el.querySelector(".fg-button--hp")).not.toBeNull();
+	});
+
 	it("renders a SA1 input with a SA1 badge", () => {
 		const el = document.createElement("div");
 		const icons = createIconProvider(SF6_CONFIG.inputData);

@@ -1,7 +1,12 @@
 export { Direction } from "./types";
 import { ChargeInputToken, Direction, FgToken, InputToken } from "./types";
 import { IconProvider } from "icon-provider";
-import { ButtonType, DIRECTION_DATA, JUMP_BADGE_DATA } from "./symbol-data";
+import {
+	ButtonType,
+	DELAY_BADGE_DATA,
+	DIRECTION_DATA,
+	JUMP_BADGE_DATA,
+} from "./symbol-data";
 import { GameConfig } from "./game-config";
 import { FgTokenizerParser } from "fg-tokenizer-parser";
 import { assertNever } from "./utils";
@@ -38,7 +43,7 @@ function renderInputToken(
 	]);
 
 	if (token.delayed) {
-		iconProvider.renderBadge("DELAY", wrapper);
+		iconProvider.renderBadge(DELAY_BADGE_DATA, wrapper);
 	}
 
 	if (token.jump) {
