@@ -16,6 +16,7 @@ Goal: Full Street Fighter 6 support (normals, charge, grapplers + any edge cases
 - [x] `c.` (crouching) and `f.` (far standing) exist in the input regex but are not surfaced in tokens
 - [x] These are primarily needed for GGST (not SF6) — defer full implementation to a post-1.0 GGST pass, but ensure the parser doesn't choke on them
 - [x] For now: parse and silently ignore `c.`/`f.` so notation with them doesn't break rendering
+- [x] `c.`/`f.` now parse to `Direction.Close`/`Direction.Far` and render as CLOSE/FAR badges
 
 ### 1.3 Grappler / Command grab notation
 - [x] Verify 360 / 720 motion parsing works end-to-end (tokenizer → renderer) — current test coverage unclear
@@ -23,22 +24,22 @@ Goal: Full Street Fighter 6 support (normals, charge, grapplers + any edge cases
 - [x] Add parser + renderer tests for grappler combos (e.g., `5.LP > 5.MP > 360.PP`)
 
 ### 1.4 Super Art identification
-- [ ] SA1 / SA2 / SA3 badges are supported; confirm all three render with distinct visual styles
-- [ ] Consider support for `[SA1]` bracketed form (e.g., "during SA1") if the community uses it
+- [x] SA1 / SA2 / SA3 badges are supported; confirm all three render with distinct visual styles
+- [x] Consider support for `[SA1]` bracketed form (e.g., "during SA1") if the community uses it
 
 ### 1.5 Perfect Parry
-- [ ] Perfect Parry doesn't change combo routing so no notation is needed — skip for 1.0.0
+- [x] Perfect Parry doesn't change combo routing so no notation is needed — skip for 1.0.0
 
 ### 1.6 OD (Overdrive) moves
-- [ ] `PP`/`KK` is sufficient to represent OD moves — no separate `[OD]` badge needed
+- [x] `PP`/`KK` is sufficient to represent OD moves — no separate `[OD]` badge needed
 
 ### 1.7 Drive System moves
-- [ ] `DRC`, `DR`, `DI` already supported — verify all render correctly
-- [ ] Add `[DRIVE RUSH]` or `[DR]` bracketed modifier form if needed for clarity
+- [x] `DRC`, `DR`, `DI` already supported — verify all render correctly (parser + renderer tests)
+- [x] ~~Add `[DRIVE RUSH]` or `[DR]` bracketed modifier form if needed for clarity~~ — won't do: `DR`/`DRC` already render as distinct badges, and brackets are reserved for hit states (`[CH]`, `[PC]`) and charge (`[4]`)
 
 ## 1.8 Misc
 - [ ] Support dash with 'dash' or '66'/'44'
-- [ ] Support delay with 'dl.' or 'd.'
+- [ ] Support delay with 'dl.' or 'd.' (`d.` done and renders a DELAY badge; `dl.` not yet supported)
 - [ ] Support microwalk tbd on notation 'walk'? 'microwalk'
 
 ---
@@ -49,32 +50,35 @@ Goal: Full Street Fighter 6 support (normals, charge, grapplers + any edge cases
 - [ ] `fg-renderer.ts` line ~112 logs "Processing fg block for ggst" for all games — fix to use the actual game name
 
 ### 2.2 `modifierData` missing `buttonType`
-- [ ] GGST and COTW `modifierData` entries don't define `buttonType`, which can cause runtime errors when the renderer accesses that field
-- [ ] Add `buttonType` to all modifier entries or make the field optional and handle it in the renderer
+- [x] ~~GGST and COTW `modifierData` entries don't define `buttonType`~~ — N/A for 1.0.0: GGST, COTW and 2XKO were removed to ship SF6 only
+- [ ] When reviving those games (saved on the `wip/other-games` branch), port their configs to the current `GameConfig` shape (`inputData` + `modifierData` with `buttonType`/`id`); they still use the old regex-parser fields
 
 ### 2.3 Badge/button hardcoding in tokenizer
 - [ ] `fg-tokenizer-parser.ts` line ~117: TODO comment — badge button handling is hardcoded rather than config-driven
 - [ ] Refactor so each game config can declare which modifier tokens also behave as buttons (e.g., `THROW` in SF6)
 
 ### 2.4 Icon provider type confusion
-- [ ] `renderBadge` accepts both `string` and `ButtonData` — tighten the signature and make callers consistent
+- [x] `renderBadge` accepts both `string` and `ButtonData` — tighten the signature and make callers consistent (now `ButtonData` only; fixed the `"DELAY"` and direction callers that rendered `undefined` badges)
+
+### 2.5 Buttons rendered outside their input wrapper
+- [x] `renderInputToken` appended the button/super badge to the line instead of the `fg-input` wrapper, separating it from its arrows (regression tests added)
 
 ---
 
 ## 3. Test Coverage
 
 ### 3.1 Renderer tests
-- [ ] Only 6 renderer tests currently — expand to cover:
-  - Charge inputs rendering correctly (charge direction + release direction shown)
-  - All separators rendering correct symbols
-  - Standalone badges (DRC, DR, DI, WALLSPLAT, SA1–SA3)
-  - Bracketed modifiers ([CH], [PC])
-  - Multi-button inputs (PP, KK, PPP, KKK)
-  - Jump inputs with motion (`j.236LP`)
-  - Lines with multiple tokens (full combo end-to-end → HTML snapshot)
+- [ ] Expand renderer tests (now 25) to cover:
+  - [ ] Charge inputs rendering correctly (charge direction + release direction shown)
+  - [ ] All separators rendering correct symbols (cancel and link covered in combos; chain, together, or not yet)
+  - [ ] Standalone badges (DRC, DR, DI, SA1–SA3 done; WALLSPLAT remaining)
+  - [ ] Bracketed modifiers ([CH] done; [PC] remaining)
+  - [ ] Multi-button inputs (PP, KK done; PPP, KKK remaining)
+  - [ ] Jump inputs with motion (`j.236LP`)
+  - [ ] Lines with multiple tokens (end-to-end combo structure covered; HTML snapshot not yet)
 
 ### 3.2 Tiger knee tests
-- [ ] Parser tests once feature is implemented (see 1.1)
+- [x] Parser tests once feature is implemented (see 1.1)
 
 ### 3.3 Grappler / 360 motion tests
 - [x] Parser + renderer tests for full-circle motions and command grabs (see 1.3)

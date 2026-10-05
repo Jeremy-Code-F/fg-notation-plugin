@@ -63,11 +63,11 @@ function renderInputToken(
 	switch (token.buttonData.buttonType) {
 		case ButtonType.Special:
 		case ButtonType.Normal:
-			iconProvider.renderButton(token.button, parent);
+			iconProvider.renderButton(token.button, wrapper);
 			break;
 		case ButtonType.Super:
 		case ButtonType.Modifier:
-			iconProvider.renderBadge(token.buttonData, parent);
+			iconProvider.renderBadge(token.buttonData, wrapper);
 			break;
 		default:
 			assertNever(token.buttonData.buttonType);

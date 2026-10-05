@@ -17,6 +17,34 @@ describe("processFgBlock", () => {
 		expect(button?.querySelector("svg")).not.toBeNull();
 	});
 
+	it("renders the button inside its input wrapper alongside the direction", () => {
+		const el = document.createElement("div");
+		const icons = createIconProvider(SF6_CONFIG.inputData);
+
+		processFgBlock("236.LP", el, icons, SF6_CONFIG);
+
+		const line = el.querySelector(".fg-line")!;
+		expect(line.children).toHaveLength(1);
+
+		const input = line.children[0]!;
+		expect(input.hasClass("fg-input")).toBe(true);
+		expect(input.querySelector(".fg-direction.fg-arrows")).not.toBeNull();
+		expect(input.querySelector(".fg-button--lp")).not.toBeNull();
+	});
+
+	it("renders a super badge inside its input wrapper", () => {
+		const el = document.createElement("div");
+		const icons = createIconProvider(SF6_CONFIG.inputData);
+
+		processFgBlock("SA1", el, icons, SF6_CONFIG);
+
+		const line = el.querySelector(".fg-line")!;
+		expect(line.children).toHaveLength(1);
+		expect(
+			line.children[0]!.querySelector(".fg-badge--sa1"),
+		).not.toBeNull();
+	});
+
 	it("renders a jump input with a JUMP badge", () => {
 		const el = document.createElement("div");
 		const icons = createIconProvider(SF6_CONFIG.inputData);
@@ -86,6 +114,66 @@ describe("processFgBlock", () => {
 		const badge = el.querySelector(".fg-badge--ch");
 		expect(badge).not.toBeNull();
 		expect(badge?.textContent).toBe("CH");
+	});
+
+	describe("driveSystemNotation", () => {
+		it("renders a Drive Rush cancel badge in a combo", () => {
+			const el = document.createElement("div");
+			const icons = createIconProvider(SF6_CONFIG.inputData);
+
+			processFgBlock("2.MK DRC 5.MP , 236.HP", el, icons, SF6_CONFIG);
+
+			const badge = el.querySelector(".fg-badge--drc");
+			expect(badge).not.toBeNull();
+			expect(badge?.textContent).toBe("DRC");
+
+			const children = Array.from(el.querySelector(".fg-line")!.children);
+			expect(children).toHaveLength(5);
+			expect(children[0]!.hasClass("fg-input")).toBe(true);
+			expect(children[1]).toBe(badge);
+			expect(children[2]!.hasClass("fg-input")).toBe(true);
+			expect(children[3]!.hasClass("fg-separator--link")).toBe(true);
+			expect(children[4]!.hasClass("fg-input")).toBe(true);
+
+			expect(el.querySelector(".fg-raw")).toBeNull();
+		});
+
+		it("renders a Drive Rush badge before a normal", () => {
+			const el = document.createElement("div");
+			const icons = createIconProvider(SF6_CONFIG.inputData);
+
+			processFgBlock("DR 5.HP", el, icons, SF6_CONFIG);
+
+			const badge = el.querySelector(".fg-badge--dr");
+			expect(badge).not.toBeNull();
+			expect(badge?.textContent).toBe("DR");
+
+			const children = Array.from(el.querySelector(".fg-line")!.children);
+			expect(children).toHaveLength(2);
+			expect(children[0]).toBe(badge);
+			expect(children[1]!.querySelector(".fg-button--hp")).not.toBeNull();
+
+			expect(el.querySelector(".fg-raw")).toBeNull();
+		});
+
+		it("renders a Drive Impact badge as a combo starter", () => {
+			const el = document.createElement("div");
+			const icons = createIconProvider(SF6_CONFIG.inputData);
+
+			processFgBlock("DI > 5.HP", el, icons, SF6_CONFIG);
+
+			const badge = el.querySelector(".fg-badge--di");
+			expect(badge).not.toBeNull();
+			expect(badge?.textContent).toBe("DI");
+
+			const children = Array.from(el.querySelector(".fg-line")!.children);
+			expect(children).toHaveLength(3);
+			expect(children[0]).toBe(badge);
+			expect(children[1]!.hasClass("fg-separator--cancel")).toBe(true);
+			expect(children[2]!.querySelector(".fg-button--hp")).not.toBeNull();
+
+			expect(el.querySelector(".fg-raw")).toBeNull();
+		});
 	});
 
 	describe("tigerKneeCases", () => {
