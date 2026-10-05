@@ -49,6 +49,22 @@ export const DELAY_BADGE_DATA: ButtonData = {
 	id: "",
 };
 
+export const DIRECTION_BADGE_DATA: Partial<Record<Direction, ButtonData>> = {
+	[Direction.Jump]: JUMP_BADGE_DATA,
+	[Direction.Close]: {
+		label: "CLOSE",
+		cssClass: "close",
+		buttonType: ButtonType.Normal,
+		id: "",
+	},
+	[Direction.Far]: {
+		label: "FAR",
+		cssClass: "far",
+		buttonType: ButtonType.Normal,
+		id: "",
+	},
+};
+
 export const DIRECTION_DATA: Record<Direction, DirectionData> = {
 	[Direction.DownBack]: { arrows: "↙" },
 	[Direction.Down]: { arrows: "↓" },

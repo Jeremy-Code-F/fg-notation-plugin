@@ -895,6 +895,56 @@ describe("FgTokenizingParser", () => {
 		});
 	});
 
+	describe("proximityNotation", () => {
+		it("parses a close input", () => {
+			expect(parser.parseLine("c.HP")).toEqual([
+				{
+					kind: "input",
+					direction: Direction.Close,
+					button: "HP",
+					delayed: false,
+					tigerKnee: null,
+					jump: false,
+				},
+			]);
+		});
+
+		it("parses a far input", () => {
+			expect(parser.parseLine("f.HP")).toEqual([
+				{
+					kind: "input",
+					direction: Direction.Far,
+					button: "HP",
+					delayed: false,
+					tigerKnee: null,
+					jump: false,
+				},
+			]);
+		});
+
+		it("parses close and far inputs in a combo", () => {
+			expect(parser.parseLine("c.HP > f.HP")).toEqual([
+				{
+					kind: "input",
+					direction: Direction.Close,
+					button: "HP",
+					delayed: false,
+					tigerKnee: null,
+					jump: false,
+				},
+				{ kind: "separator", separator: Separator.Cancel },
+				{
+					kind: "input",
+					direction: Direction.Far,
+					button: "HP",
+					delayed: false,
+					tigerKnee: null,
+					jump: false,
+				},
+			]);
+		});
+	});
+
 	describe("allSingleButtons", () => {
 		// Medium Kick
 		it("parses MK button", () => {

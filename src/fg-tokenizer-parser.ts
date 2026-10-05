@@ -14,6 +14,7 @@ import { ModifierRecognizer } from "recognizers/modifier-recognizer";
 import { ChargeRecognizer } from "recognizers/charge-recognizer";
 import { DelayRecognizer } from "recognizers/delay-recognizer";
 import { JumpRecognizer } from "recognizers/jump-recognizer";
+import { ProximityRecognizer } from "recognizers/proximity-recognizer";
 import { TigerKneeRecognizer } from "recognizers/tiger-knee-recognizer";
 
 const DIRECTION_MAP: Record<string, Direction> = Object.fromEntries(
@@ -37,6 +38,7 @@ export class FgTokenizerParser {
 		let chargeRecognizer = new ChargeRecognizer();
 		let delayRecognizer = new DelayRecognizer();
 		let jumpRecognizer = new JumpRecognizer();
+		let proximityRecognizer = new ProximityRecognizer();
 		let tigerKneeRecognizer = new TigerKneeRecognizer();
 
 		for (const part of line.split(/\s+/)) {
@@ -47,6 +49,8 @@ export class FgTokenizerParser {
 			while (!cursor.AtEnd()) {
 				let isDelayed: boolean = delayRecognizer.RecognizeDelay(cursor);
 				let isJump: boolean = jumpRecognizer.RecognizeJump(cursor);
+				let proximityDirection: Direction | null =
+					proximityRecognizer.RecognizeProximity(cursor);
 				let isTigerKnee: boolean =
 					tigerKneeRecognizer.RecognizeTigerKnee(cursor);
 				let chargeDirection: Direction | null =
@@ -59,7 +63,7 @@ export class FgTokenizerParser {
 
 				let parsedDirection = recognizedMotion?.recognizedDirection;
 				if (!parsedDirection) {
-					parsedDirection = Direction.Neutral;
+					parsedDirection = proximityDirection ?? Direction.Neutral;
 				}
 
 				let tkDirection = CalculateTigerKneeDirection(

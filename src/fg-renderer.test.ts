@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { processFgBlock } from "./fg-renderer";
+import { Direction, processFgBlock, renderFgNotation } from "./fg-renderer";
 import { createIconProvider } from "./icon-provider";
 import { SF6_CONFIG } from "./games/sf6";
 
@@ -223,5 +223,58 @@ describe("processFgBlock", () => {
 			const arrows = el.querySelector(".fg-direction.fg-arrows");
 			expect(arrows?.textContent).toBe("→↘↓↙←↖↑↑");
 		});
+	});
+
+	it("renders close and far inputs with CLOSE and FAR badges", () => {
+		const el = document.createElement("div");
+		const icons = createIconProvider(SF6_CONFIG.inputData);
+
+		processFgBlock("c.HP > f.HP", el, icons, SF6_CONFIG);
+
+		const inputs = el.querySelectorAll(".fg-input");
+		expect(inputs).toHaveLength(2);
+		expect(inputs[0]!.querySelector(".fg-badge--close")?.textContent).toBe(
+			"CLOSE",
+		);
+		expect(inputs[1]!.querySelector(".fg-badge--far")?.textContent).toBe(
+			"FAR",
+		);
+		expect(el.querySelector(".fg-raw")).toBeNull();
+	});
+
+	describe("directionBadges", () => {
+		it.each([
+			[Direction.Close, "close", "CLOSE"],
+			[Direction.Far, "far", "FAR"],
+			[Direction.Jump, "jump", "JUMP"],
+		])(
+			"renders a %s direction as a badge",
+			(direction, cssClass, label) => {
+				const el = document.createElement("div");
+				const icons = createIconProvider(SF6_CONFIG.inputData);
+
+				renderFgNotation(
+					[
+						[
+							{
+								kind: "input",
+								direction,
+								button: "HP",
+								buttonData: SF6_CONFIG.inputData["HP"]!,
+							},
+						],
+					],
+					el,
+					icons,
+				);
+
+				const badge = el.querySelector(`.fg-badge--${cssClass}`);
+				expect(badge).not.toBeNull();
+				expect(badge?.textContent).toBe(label);
+				expect(el.querySelector(".fg-badge--undefined")).toBeNull();
+
+				expect(el.querySelector(".fg-button--hp")).not.toBeNull();
+			},
+		);
 	});
 });

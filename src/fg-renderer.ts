@@ -1,9 +1,10 @@
 export { Direction } from "./types";
-import { ChargeInputToken, Direction, FgToken, InputToken } from "./types";
+import { ChargeInputToken, FgToken, InputToken } from "./types";
 import { IconProvider } from "icon-provider";
 import {
 	ButtonType,
 	DELAY_BADGE_DATA,
+	DIRECTION_BADGE_DATA,
 	DIRECTION_DATA,
 	JUMP_BADGE_DATA,
 } from "./symbol-data";
@@ -36,12 +37,6 @@ function renderInputToken(
 ) {
 	const wrapper = parent.createSpan({ cls: "fg-input" });
 	const arrows = DIRECTION_DATA[token.direction].arrows;
-	const directions_requiring_badge = new Set([
-		Direction.Jump,
-		Direction.Close,
-		Direction.Far,
-	]);
-
 	if (token.delayed) {
 		iconProvider.renderBadge(DELAY_BADGE_DATA, wrapper);
 	}
@@ -50,8 +45,9 @@ function renderInputToken(
 		iconProvider.renderBadge(JUMP_BADGE_DATA, wrapper);
 	}
 
-	if (directions_requiring_badge.has(token.direction)) {
-		iconProvider.renderBadge(token.direction, wrapper);
+	const directionBadge = DIRECTION_BADGE_DATA[token.direction];
+	if (directionBadge) {
+		iconProvider.renderBadge(directionBadge, wrapper);
 	} else {
 		let combinedArrows = arrows;
 		if (token.tigerKnee) {
@@ -93,7 +89,7 @@ function renderChargeInputToken(
 	iconProvider.renderButton(token.button, wrapper);
 }
 
-function renderFgNotation(
+export function renderFgNotation(
 	lines: FgToken[][],
 	el: HTMLElement,
 	icons: IconProvider,
