@@ -47,14 +47,14 @@ Goal: Full Street Fighter 6 support (normals, charge, grapplers + any edge cases
 ## 2. Bug Fixes
 
 ### 2.1 Hardcoded "ggst" in renderer debug log
-- [ ] `fg-renderer.ts` line ~112 logs "Processing fg block for ggst" for all games — fix to use the actual game name
+- [x] `fg-renderer.ts` logged "Processing fg block for ggst" for all games — now uses `config.gameName`
 
 ### 2.2 `modifierData` missing `buttonType`
 - [x] ~~GGST and COTW `modifierData` entries don't define `buttonType`~~ — N/A for 1.0.0: GGST, COTW and 2XKO were removed to ship SF6 only
-- [ ] When reviving those games (saved on the `wip/other-games` branch), port their configs to the current `GameConfig` shape (`inputData` + `modifierData` with `buttonType`/`id`); they still use the old regex-parser fields
+- [ ] **Post-1.0:** When reviving those games (saved on the `wip/other-games` branch), port their configs to the current `GameConfig` shape (`inputData` + `modifierData` with `buttonType`/`id`); they still use the old regex-parser fields
 
 ### 2.3 Badge/button hardcoding in tokenizer
-- [ ] `fg-tokenizer-parser.ts` line ~117: TODO comment — badge button handling is hardcoded rather than config-driven
+- [ ] `fg-tokenizer-parser.ts` `PushButtonTokon`: TODO comment — `ButtonType.Special` badge handling is hardcoded rather than config-driven (cleanup, not a bug while SF6 is the only game; decide if in scope for 1.0)
 - [ ] Refactor so each game config can declare which modifier tokens also behave as buttons (e.g., `THROW` in SF6)
 
 ### 2.4 Icon provider type confusion
@@ -68,14 +68,14 @@ Goal: Full Street Fighter 6 support (normals, charge, grapplers + any edge cases
 ## 3. Test Coverage
 
 ### 3.1 Renderer tests
-- [ ] Expand renderer tests (now 25) to cover:
-  - [ ] Charge inputs rendering correctly (charge direction + release direction shown)
-  - [ ] All separators rendering correct symbols (cancel and link covered in combos; chain, together, or not yet)
-  - [ ] Standalone badges (DRC, DR, DI, SA1–SA3 done; WALLSPLAT remaining)
+- [ ] Expand renderer tests (now 28) to cover:
+  - [ ] Charge inputs rendering correctly (charge direction + release direction shown, e.g. `[4]6HP`) — no renderer test yet
+  - [ ] All separators rendering correct symbols (cancel `>` and link `,` covered in combos; chain `~`, together `+`, or `/` not yet)
+  - [ ] Standalone badges (DRC, DR, DI, SA1–SA3, MICROWALK done; WALLSPLAT remaining)
   - [ ] Bracketed modifiers ([CH] done; [PC] remaining)
-  - [ ] Multi-button inputs (PP, KK done; PPP, KKK remaining)
-  - [ ] Jump inputs with motion (`j.236LP`)
-  - [ ] Lines with multiple tokens (end-to-end combo structure covered; HTML snapshot not yet)
+  - [ ] Multi-button inputs (PP, KK done incl. `360.PP` / `j.360KK`; PPP, KKK remaining)
+  - [ ] Jump inputs with motion (`j.360KK` done; `j.236LP` remaining)
+  - [ ] Lines with multiple tokens (end-to-end combo structure covered; HTML snapshot not yet — optional)
 
 ### 3.2 Tiger knee tests
 - [x] Parser tests once feature is implemented (see 1.1)
@@ -84,9 +84,9 @@ Goal: Full Street Fighter 6 support (normals, charge, grapplers + any edge cases
 - [x] Parser + renderer tests for full-circle motions and command grabs (see 1.3)
 
 ### 3.4 Edge case coverage
-- [ ] Charge inputs where the hold and release are the same direction (malformed — should produce a `RawToken`)
-- [ ] Nested brackets / mismatched brackets
-- [ ] Extremely long combos (stress test)
+- [ ] Charge inputs where the hold and release are the same direction (malformed — should produce a `RawToken`). **Bug:** `[4]4HP` currently parses as a valid `charge-input` (charge 4, release 4) — needs a fix + test
+- [ ] Nested brackets / mismatched brackets — `[[CH]]`, `[CH`, `CH]`, `[4[2]]6HP` already fall back to a single raw token; just needs tests to lock it in
+- [ ] Extremely long combos (stress test) — a 500-repeat combo (~3k tokens) parses in ~6 ms; just needs a test to lock it in
 
 ---
 
