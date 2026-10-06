@@ -60,8 +60,18 @@ export type BadgeToken = {
 	button: string;
 	buttonData: ButtonData;
 };
+export type DashToken = {
+	kind: "dash";
+	direction: Direction.DoubleTapForward | Direction.DoubleTapBack;
+	air: boolean;
+};
 export type RawToken = { kind: "raw"; value: string };
 export type FgToken =
-	InputToken | ChargeInputToken | SeparatorToken | BadgeToken | RawToken;
+	| InputToken
+	| ChargeInputToken
+	| SeparatorToken
+	| BadgeToken
+	| DashToken
+	| RawToken;
 
 export const ThrowInputlabel = "THROW";

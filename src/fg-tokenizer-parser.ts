@@ -84,6 +84,19 @@ export class FgTokenizerParser {
 					continue;
 				}
 
+				// A dash with no button following it, e.g. "66 > 5LP" or "j.66"
+				if (
+					parsedDirection === Direction.DoubleTapForward ||
+					parsedDirection === Direction.DoubleTapBack
+				) {
+					tokens.push({
+						kind: "dash",
+						direction: parsedDirection,
+						air: isJump,
+					});
+					continue;
+				}
+
 				let separator = separatorRecognizer.RecognizeSeparator(cursor);
 				if (separator !== null) {
 					tokens.push({

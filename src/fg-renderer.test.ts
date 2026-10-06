@@ -45,6 +45,29 @@ describe("processFgBlock", () => {
 		).not.toBeNull();
 	});
 
+	it("renders a standalone dash as arrows", () => {
+		const el = document.createElement("div");
+		const icons = createIconProvider(SF6_CONFIG.inputData);
+
+		processFgBlock("66", el, icons, SF6_CONFIG);
+
+		const dash = el.querySelector(".fg-dash");
+		expect(dash).not.toBeNull();
+		expect(dash?.querySelector(".fg-arrows")?.textContent).toBe("→→");
+		expect(el.querySelector(".fg-raw")).toBeNull();
+	});
+
+	it("renders an air dash with a JUMP badge", () => {
+		const el = document.createElement("div");
+		const icons = createIconProvider(SF6_CONFIG.inputData);
+
+		processFgBlock("j.44", el, icons, SF6_CONFIG);
+
+		const dash = el.querySelector(".fg-dash");
+		expect(dash?.querySelector(".fg-badge--jump")).not.toBeNull();
+		expect(dash?.querySelector(".fg-arrows")?.textContent).toBe("←←");
+	});
+
 	it("renders a jump input with a JUMP badge", () => {
 		const el = document.createElement("div");
 		const icons = createIconProvider(SF6_CONFIG.inputData);

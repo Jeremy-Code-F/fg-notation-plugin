@@ -1,5 +1,5 @@
 export { Direction } from "./types";
-import { ChargeInputToken, FgToken, InputToken } from "./types";
+import { ChargeInputToken, DashToken, FgToken, InputToken } from "./types";
 import { IconProvider } from "icon-provider";
 import {
 	ButtonType,
@@ -25,6 +25,8 @@ function renderToken(
 		renderChargeInputToken(token, parent, icons);
 	} else if (token.kind === "badge") {
 		icons.renderBadge(token.buttonData, parent);
+	} else if (token.kind === "dash") {
+		renderDashToken(token, parent, icons);
 	} else {
 		parent.createSpan({ cls: "fg-raw" }).setText(token.value);
 	}
@@ -87,6 +89,20 @@ function renderChargeInputToken(
 		.setText(chargeArrows);
 	wrapper.createSpan({ cls: ["fg-arrows"] }).setText(directionArrows);
 	iconProvider.renderButton(token.button, wrapper);
+}
+
+function renderDashToken(
+	token: DashToken,
+	parent: HTMLElement,
+	iconProvider: IconProvider,
+) {
+	const wrapper = parent.createSpan({ cls: ["fg-input", "fg-dash"] });
+	if (token.air) {
+		iconProvider.renderBadge(JUMP_BADGE_DATA, wrapper);
+	}
+	wrapper
+		.createSpan({ cls: ["fg-direction", "fg-arrows"] })
+		.setText(DIRECTION_DATA[token.direction].arrows);
 }
 
 export function renderFgNotation(

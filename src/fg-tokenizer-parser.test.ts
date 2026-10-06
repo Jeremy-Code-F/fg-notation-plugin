@@ -1129,6 +1129,39 @@ describe("FgTokenizingParser", () => {
 			]);
 		});
 
+		it("parses a standalone forward dash (66)", () => {
+			expect(parser.parseLine("66")).toEqual([
+				{ kind: "dash", direction: Direction.DoubleTapForward, air: false },
+			]);
+		});
+
+		it("parses a standalone back dash (44)", () => {
+			expect(parser.parseLine("44")).toEqual([
+				{ kind: "dash", direction: Direction.DoubleTapBack, air: false },
+			]);
+		});
+
+		it("parses an air dash (j.66)", () => {
+			expect(parser.parseLine("j.66")).toEqual([
+				{ kind: "dash", direction: Direction.DoubleTapForward, air: true },
+			]);
+		});
+
+		it("parses a dash followed by a separator and a normal (66 > 5LP)", () => {
+			expect(parser.parseLine("66 > 5LP")).toEqual([
+				{ kind: "dash", direction: Direction.DoubleTapForward, air: false },
+				{ kind: "separator", separator: Separator.Cancel },
+				{
+					kind: "input",
+					direction: Direction.Neutral,
+					button: "LP",
+					delayed: false,
+					tigerKnee: null,
+					jump: false,
+				},
+			]);
+		});
+
 		it("parses DR followed by a normal in a combo", () => {
 			expect(parser.parseLine("[CH] 2.MK DRC 5.MP , 236236.KK")).toEqual([
 				{ kind: "badge", button: "CH" },
