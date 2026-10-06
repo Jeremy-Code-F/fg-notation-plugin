@@ -1195,6 +1195,59 @@ describe("FgTokenizingParser", () => {
 		});
 	});
 
+	describe("microwalkNotation", () => {
+		it("parses a standalone microwalk", () => {
+			expect(parser.parseLine("microwalk")).toEqual([
+				{ kind: "badge", button: "MICROWALK" },
+			]);
+		});
+
+		it("parses microwalk case-insensitively", () => {
+			for (const input of ["Microwalk", "MICROWALK", "microWalk"]) {
+				expect(parser.parseLine(input)).toEqual([
+					{ kind: "badge", button: "MICROWALK" },
+				]);
+			}
+		});
+
+		it("parses a microwalk between inputs (2LP > microwalk 5MP)", () => {
+			expect(parser.parseLine("2LP > microwalk 5MP")).toEqual([
+				{
+					kind: "input",
+					direction: Direction.Down,
+					button: "LP",
+					delayed: false,
+					tigerKnee: null,
+					jump: false,
+				},
+				{ kind: "separator", separator: Separator.Cancel },
+				{ kind: "badge", button: "MICROWALK" },
+				{
+					kind: "input",
+					direction: Direction.Neutral,
+					button: "MP",
+					delayed: false,
+					tigerKnee: null,
+					jump: false,
+				},
+			]);
+		});
+
+		it("parses a microwalk attached to the following input (microwalk5MP)", () => {
+			expect(parser.parseLine("microwalk5MP")).toEqual([
+				{ kind: "badge", button: "MICROWALK" },
+				{
+					kind: "input",
+					direction: Direction.Neutral,
+					button: "MP",
+					delayed: false,
+					tigerKnee: null,
+					jump: false,
+				},
+			]);
+		});
+	});
+
 	describe("tigerKneeCases", () => {
 		it("qcf tiger knee (tk. shorthand notation)", () => {
 			expect(parser.parseLine("tk.236.LP")).toEqual([

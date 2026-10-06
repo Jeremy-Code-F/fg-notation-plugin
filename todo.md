@@ -38,9 +38,9 @@ Goal: Full Street Fighter 6 support (normals, charge, grapplers + any edge cases
 - [x] ~~Add `[DRIVE RUSH]` or `[DR]` bracketed modifier form if needed for clarity~~ — won't do: `DR`/`DRC` already render as distinct badges, and brackets are reserved for hit states (`[CH]`, `[PC]`) and charge (`[4]`)
 
 ## 1.8 Misc
-- [ ] Support dash with 'dash' or '66'/'44'
-- [ ] Support delay with 'dl.' or 'd.' (`d.` done and renders a DELAY badge; `dl.` not yet supported)
-- [ ] Support microwalk tbd on notation 'walk'? 'microwalk'
+- [x] Support dash with 'dash' or '66'/'44'
+- [x] Support delay with 'dl.' or 'd.' (`d.` done and renders a DELAY badge; `dl.` not yet supported)
+- [x] Support microwalk tbd on notation 'walk'? 'microwalk'
 
 ---
 

@@ -49,6 +49,13 @@ export const DELAY_BADGE_DATA: ButtonData = {
 	id: "",
 };
 
+export const MICROWALK_BADGE_DATA: ButtonData = {
+	label: "MICROWALK",
+	cssClass: "microwalk",
+	buttonType: ButtonType.Normal,
+	id: "",
+};
+
 export const DIRECTION_BADGE_DATA: Partial<Record<Direction, ButtonData>> = {
 	[Direction.Jump]: JUMP_BADGE_DATA,
 	[Direction.Close]: {

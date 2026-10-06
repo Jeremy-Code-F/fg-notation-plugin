@@ -9,13 +9,14 @@ import {
 import { ButtonRecognizer } from "recognizers/button-recognizer";
 import { DotRecognizer } from "recognizers/dot-recognizer";
 import { SeparatorRecognizer } from "recognizers/separator-recognizer";
-import { ButtonData, ButtonType } from "symbol-data";
+import { ButtonData, ButtonType, MICROWALK_BADGE_DATA } from "symbol-data";
 import { ModifierRecognizer } from "recognizers/modifier-recognizer";
 import { ChargeRecognizer } from "recognizers/charge-recognizer";
 import { DelayRecognizer } from "recognizers/delay-recognizer";
 import { JumpRecognizer } from "recognizers/jump-recognizer";
 import { ProximityRecognizer } from "recognizers/proximity-recognizer";
 import { TigerKneeRecognizer } from "recognizers/tiger-knee-recognizer";
+import { MicrowalkRecognizer } from "recognizers/microwalk-recognizer";
 
 const DIRECTION_MAP: Record<string, Direction> = Object.fromEntries(
 	Object.values(Direction).map((v) => [v, v as Direction]),
@@ -40,6 +41,7 @@ export class FgTokenizerParser {
 		let jumpRecognizer = new JumpRecognizer();
 		let proximityRecognizer = new ProximityRecognizer();
 		let tigerKneeRecognizer = new TigerKneeRecognizer();
+		let microwalkRecognizer = new MicrowalkRecognizer();
 
 		for (const part of line.split(/\s+/)) {
 			if (part.length === 0) continue;
@@ -112,6 +114,15 @@ export class FgTokenizerParser {
 						kind: "badge",
 						button: modifier.label,
 						buttonData: modifier,
+					});
+					continue;
+				}
+
+				if (microwalkRecognizer.RecognizeMicrowalk(cursor)) {
+					tokens.push({
+						kind: "badge",
+						button: MICROWALK_BADGE_DATA.label,
+						buttonData: MICROWALK_BADGE_DATA,
 					});
 					continue;
 				}

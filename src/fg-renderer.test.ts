@@ -68,6 +68,19 @@ describe("processFgBlock", () => {
 		expect(dash?.querySelector(".fg-arrows")?.textContent).toBe("←←");
 	});
 
+	it("renders a microwalk as a MICROWALK badge", () => {
+		const el = document.createElement("div");
+		const icons = createIconProvider(SF6_CONFIG.inputData);
+
+		processFgBlock("microwalk 5MP", el, icons, SF6_CONFIG);
+
+		const badge = el.querySelector(".fg-badge--microwalk");
+		expect(badge).not.toBeNull();
+		expect(badge?.textContent).toBe("MICROWALK");
+		expect(el.querySelector(".fg-raw")).toBeNull();
+		expect(el.querySelector(".fg-button--mp")).not.toBeNull();
+	});
+
 	it("renders a jump input with a JUMP badge", () => {
 		const el = document.createElement("div");
 		const icons = createIconProvider(SF6_CONFIG.inputData);
