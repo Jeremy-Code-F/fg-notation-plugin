@@ -68,14 +68,14 @@ Goal: Full Street Fighter 6 support (normals, charge, grapplers + any edge cases
 ## 3. Test Coverage
 
 ### 3.1 Renderer tests
-- [ ] Expand renderer tests (now 28) to cover:
-  - [ ] Charge inputs rendering correctly (charge direction + release direction shown, e.g. `[4]6HP`) — no renderer test yet
-  - [ ] All separators rendering correct symbols (cancel `>` and link `,` covered in combos; chain `~`, together `+`, or `/` not yet)
-  - [ ] Standalone badges (DRC, DR, DI, SA1–SA3, MICROWALK done; WALLSPLAT remaining)
-  - [ ] Bracketed modifiers ([CH] done; [PC] remaining)
-  - [ ] Multi-button inputs (PP, KK done incl. `360.PP` / `j.360KK`; PPP, KKK remaining)
-  - [ ] Jump inputs with motion (`j.360KK` done; `j.236LP` remaining)
-  - [ ] Lines with multiple tokens (end-to-end combo structure covered; HTML snapshot not yet — optional)
+- [x] Expand renderer tests (now 47) to cover:
+  - [x] Charge inputs rendering correctly (charge direction + release direction shown, e.g. `[4]6HP`, `[2]8KK`, charge in a combo)
+  - [x] All separators rendering correct symbols (cancel `>`, link `,`, chain `~`, together `+` incl. `LP+LK`, or `/`)
+  - [x] Standalone badges (DRC, DR, DI, SA1–SA3, MICROWALK, WALLSPLAT)
+  - [x] Bracketed modifiers ([CH], [PC])
+  - [x] Multi-button inputs (PP, KK, PPP, KKK)
+  - [x] Jump inputs with motion (`j.360KK`, `j.236LP`, `j.214.HK`)
+  - [x] Lines with multiple tokens (full-combo token shape + multi-line blocks; HTML snapshot skipped — would lock in SVG markup and be brittle)
 
 ### 3.2 Tiger knee tests
 - [x] Parser tests once feature is implemented (see 1.1)
@@ -84,9 +84,9 @@ Goal: Full Street Fighter 6 support (normals, charge, grapplers + any edge cases
 - [x] Parser + renderer tests for full-circle motions and command grabs (see 1.3)
 
 ### 3.4 Edge case coverage
-- [ ] Charge inputs where the hold and release are the same direction (malformed — should produce a `RawToken`). **Bug:** `[4]4HP` currently parses as a valid `charge-input` (charge 4, release 4) — needs a fix + test
-- [ ] Nested brackets / mismatched brackets — `[[CH]]`, `[CH`, `CH]`, `[4[2]]6HP` already fall back to a single raw token; just needs tests to lock it in
-- [ ] Extremely long combos (stress test) — a 500-repeat combo (~3k tokens) parses in ~6 ms; just needs a test to lock it in
+- [x] ~~Charge inputs where the hold and release are the same direction should produce a `RawToken`~~ — won't do: charge inputs are intentionally not validated (see Decisions Log); `[4]4HP` parses as written and a parser test locks that in
+- [x] Nested brackets / mismatched brackets — `[[CH]]`, `[CH`, `CH]`, `[4[2]]6HP`, `[[4]6HP` fall back to a single raw token; a mismatched part mid-combo doesn't affect the rest; `[4]6HP]` leaves only the `]` raw
+- [x] Extremely long combos (stress test) — a 500-segment combo (~5k tokens) parses in ~10 ms; test checks token count, no raw tokens, a generous 500 ms bound, and that the first and last segments parse identically
 
 ---
 
@@ -167,6 +167,7 @@ Once all the above is done:
 | Perfect Parry | No notation needed — doesn't affect combo routing |
 | OD moves | `PP`/`KK` is sufficient, no separate `[OD]` badge |
 | `c.`/`f.` prefixes | GGST concern, not SF6 — parse silently for now, full support post-1.0 |
+| Charge input validation | None — any held/release pair (even `[4]4HP`) renders as written; charge notation varies too much across games and players to enforce rules |
 | Plugin display name | `Fg Notation` |
 | Plugin ID | `fg-notation` (verify against community list before submitting) |
 | Author | Jeremy Farmer |

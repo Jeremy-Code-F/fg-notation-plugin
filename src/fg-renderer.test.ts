@@ -401,4 +401,277 @@ describe("processFgBlock", () => {
 			},
 		);
 	});
+
+	describe("chargeInputs", () => {
+		it("renders the charge direction and release direction for [4]6HP", () => {
+			const el = document.createElement("div");
+			const icons = createIconProvider(SF6_CONFIG.inputData);
+
+			processFgBlock("[4]6HP", el, icons, SF6_CONFIG);
+
+			const line = el.querySelector(".fg-line")!;
+			expect(line.children).toHaveLength(1);
+
+			const input = line.children[0]!;
+			expect(input.hasClass("fg-input")).toBe(true);
+
+			const arrows = input.querySelectorAll(".fg-arrows");
+			expect(arrows).toHaveLength(2);
+			expect(arrows[0]!.hasClass("fg-charge")).toBe(true);
+			expect(arrows[0]!.textContent).toBe("←");
+			expect(arrows[1]!.hasClass("fg-charge")).toBe(false);
+			expect(arrows[1]!.textContent).toBe("→");
+
+			expect(input.querySelector(".fg-button--hp")).not.toBeNull();
+			expect(el.querySelector(".fg-raw")).toBeNull();
+		});
+
+		it("renders a down-charge into an up release for [2]8KK", () => {
+			const el = document.createElement("div");
+			const icons = createIconProvider(SF6_CONFIG.inputData);
+
+			processFgBlock("[2]8KK", el, icons, SF6_CONFIG);
+
+			expect(el.querySelector(".fg-charge.fg-arrows")?.textContent).toBe(
+				"↓",
+			);
+			const arrows = el.querySelectorAll(".fg-arrows");
+			expect(arrows[1]?.textContent).toBe("↑");
+			expect(el.querySelector(".fg-button--kk")).not.toBeNull();
+			expect(el.querySelector(".fg-raw")).toBeNull();
+		});
+
+		it("renders a charge input inside a combo", () => {
+			const el = document.createElement("div");
+			const icons = createIconProvider(SF6_CONFIG.inputData);
+
+			processFgBlock("2LP > [4]6HP", el, icons, SF6_CONFIG);
+
+			const children = Array.from(el.querySelector(".fg-line")!.children);
+			expect(children).toHaveLength(3);
+			expect(children[0]!.querySelector(".fg-button--lp")).not.toBeNull();
+			expect(children[1]!.hasClass("fg-separator--cancel")).toBe(true);
+			expect(children[2]!.querySelector(".fg-charge")).not.toBeNull();
+			expect(children[2]!.querySelector(".fg-button--hp")).not.toBeNull();
+		});
+	});
+
+	describe("separators", () => {
+		it.each([
+			[">", "cancel"],
+			[",", "link"],
+			["~", "chain"],
+			["+", "together"],
+		])(
+			"renders the '%s' separator as a %s icon",
+			(symbol, cssClass) => {
+				const el = document.createElement("div");
+				const icons = createIconProvider(SF6_CONFIG.inputData);
+
+				processFgBlock(`5LP ${symbol} 5MP`, el, icons, SF6_CONFIG);
+
+				const children = Array.from(
+					el.querySelector(".fg-line")!.children,
+				);
+				expect(children).toHaveLength(3);
+
+				const separator = children[1]!;
+				expect(separator.hasClass("fg-separator")).toBe(true);
+				expect(separator.hasClass(`fg-separator--${cssClass}`)).toBe(
+					true,
+				);
+				expect(separator.querySelector("svg")).not.toBeNull();
+				expect(el.querySelector(".fg-raw")).toBeNull();
+			},
+		);
+
+		it("renders the '/' separator as OR text", () => {
+			const el = document.createElement("div");
+			const icons = createIconProvider(SF6_CONFIG.inputData);
+
+			processFgBlock("5LP / 2LP", el, icons, SF6_CONFIG);
+
+			const children = Array.from(el.querySelector(".fg-line")!.children);
+			expect(children).toHaveLength(3);
+
+			const separator = children[1]!;
+			expect(separator.hasClass("fg-separator--or")).toBe(true);
+			expect(separator.textContent).toBe("OR");
+			expect(el.querySelector(".fg-raw")).toBeNull();
+		});
+
+		it("renders a together separator with no surrounding spaces (LP+LK)", () => {
+			const el = document.createElement("div");
+			const icons = createIconProvider(SF6_CONFIG.inputData);
+
+			processFgBlock("LP+LK", el, icons, SF6_CONFIG);
+
+			const children = Array.from(el.querySelector(".fg-line")!.children);
+			expect(children).toHaveLength(3);
+			expect(children[0]!.querySelector(".fg-button--lp")).not.toBeNull();
+			expect(children[1]!.hasClass("fg-separator--together")).toBe(true);
+			expect(children[2]!.querySelector(".fg-button--lk")).not.toBeNull();
+		});
+	});
+
+	describe("standaloneBadges", () => {
+		it("renders a WALLSPLAT badge", () => {
+			const el = document.createElement("div");
+			const icons = createIconProvider(SF6_CONFIG.inputData);
+
+			processFgBlock("WALLSPLAT", el, icons, SF6_CONFIG);
+
+			const badge = el.querySelector(".fg-badge--wallsplat");
+			expect(badge).not.toBeNull();
+			expect(badge?.textContent).toBe("WALLSPLAT");
+			expect(el.querySelector(".fg-raw")).toBeNull();
+		});
+
+		it("renders a WALLSPLAT badge between inputs in a combo", () => {
+			const el = document.createElement("div");
+			const icons = createIconProvider(SF6_CONFIG.inputData);
+
+			processFgBlock("236HP WALLSPLAT 5HP", el, icons, SF6_CONFIG);
+
+			const children = Array.from(el.querySelector(".fg-line")!.children);
+			expect(children).toHaveLength(3);
+			expect(children[0]!.hasClass("fg-input")).toBe(true);
+			expect(children[1]!.hasClass("fg-badge--wallsplat")).toBe(true);
+			expect(children[2]!.hasClass("fg-input")).toBe(true);
+		});
+	});
+
+	describe("bracketedModifiers", () => {
+		it("renders a Punish Counter modifier with a badge", () => {
+			const el = document.createElement("div");
+			const icons = createIconProvider(SF6_CONFIG.inputData);
+
+			processFgBlock("[PC]", el, icons, SF6_CONFIG);
+
+			const badge = el.querySelector(".fg-badge--pc");
+			expect(badge).not.toBeNull();
+			expect(badge?.textContent).toBe("PC");
+			expect(el.querySelector(".fg-raw")).toBeNull();
+		});
+
+		it("renders a Punish Counter modifier before an input", () => {
+			const el = document.createElement("div");
+			const icons = createIconProvider(SF6_CONFIG.inputData);
+
+			processFgBlock("[PC] 5HP", el, icons, SF6_CONFIG);
+
+			const children = Array.from(el.querySelector(".fg-line")!.children);
+			expect(children).toHaveLength(2);
+			expect(children[0]!.hasClass("fg-badge--pc")).toBe(true);
+			expect(children[1]!.querySelector(".fg-button--hp")).not.toBeNull();
+		});
+	});
+
+	describe("multiButtonInputs", () => {
+		it.each([
+			["PPP", "ppp"],
+			["KKK", "kkk"],
+		])("renders %s as a single button with three icons", (input, cssClass) => {
+			const el = document.createElement("div");
+			const icons = createIconProvider(SF6_CONFIG.inputData);
+
+			processFgBlock(`236${input}`, el, icons, SF6_CONFIG);
+
+			const buttons = el.querySelectorAll(".fg-button");
+			expect(buttons).toHaveLength(1);
+			expect(buttons[0]!.hasClass(`fg-button--${cssClass}`)).toBe(true);
+			expect(buttons[0]!.querySelectorAll("svg")).toHaveLength(3);
+
+			expect(el.querySelector(".fg-direction.fg-arrows")?.textContent).toBe(
+				"↓↘→",
+			);
+			expect(el.querySelector(".fg-raw")).toBeNull();
+		});
+	});
+
+	describe("jumpMotionInputs", () => {
+		it("renders j.236LP with a JUMP badge, motion arrows and button", () => {
+			const el = document.createElement("div");
+			const icons = createIconProvider(SF6_CONFIG.inputData);
+
+			processFgBlock("j.236LP", el, icons, SF6_CONFIG);
+
+			const line = el.querySelector(".fg-line")!;
+			expect(line.children).toHaveLength(1);
+
+			const input = line.children[0]!;
+			expect(input.querySelector(".fg-badge--jump")?.textContent).toBe(
+				"JUMP",
+			);
+			expect(
+				input.querySelector(".fg-direction.fg-arrows")?.textContent,
+			).toBe("↓↘→");
+			expect(input.querySelector(".fg-button--lp")).not.toBeNull();
+			expect(el.querySelector(".fg-raw")).toBeNull();
+		});
+
+		it("renders j.214.HK with a dot between motion and button", () => {
+			const el = document.createElement("div");
+			const icons = createIconProvider(SF6_CONFIG.inputData);
+
+			processFgBlock("j.214.HK", el, icons, SF6_CONFIG);
+
+			expect(el.querySelector(".fg-badge--jump")).not.toBeNull();
+			expect(el.querySelector(".fg-direction.fg-arrows")?.textContent).toBe(
+				"↓↙←",
+			);
+			expect(el.querySelector(".fg-button--hk")).not.toBeNull();
+		});
+	});
+
+	describe("multiTokenLines", () => {
+		it("renders a full combo with modifiers, charge, drive rush and a super", () => {
+			const el = document.createElement("div");
+			const icons = createIconProvider(SF6_CONFIG.inputData);
+
+			processFgBlock(
+				"[PC] j.HP , 2MP > DRC 5HP > [4]6HP > 236236PPP ~ SA3",
+				el,
+				icons,
+				SF6_CONFIG,
+			);
+
+			const children = Array.from(el.querySelector(".fg-line")!.children);
+			const shape = children.map((child) => {
+				if (child.hasClass("fg-separator")) return "separator";
+				if (child.hasClass("fg-badge")) return "badge";
+				if (child.hasClass("fg-input")) return "input";
+				return "other";
+			});
+
+			expect(shape).toEqual([
+				"badge", // [PC]
+				"input", // j.HP
+				"separator", // ,
+				"input", // 2MP
+				"separator", // >
+				"badge", // DRC
+				"input", // 5HP
+				"separator", // >
+				"input", // [4]6HP
+				"separator", // >
+				"input", // 236236PPP
+				"separator", // ~
+				"input", // SA3
+			]);
+			expect(el.querySelector(".fg-raw")).toBeNull();
+		});
+
+		it("renders each source line as its own .fg-line", () => {
+			const el = document.createElement("div");
+			const icons = createIconProvider(SF6_CONFIG.inputData);
+
+			processFgBlock("2LP > 2LP\n\n5MP > 236HP", el, icons, SF6_CONFIG);
+
+			const lines = el.querySelectorAll(".fg-line");
+			expect(lines).toHaveLength(2);
+			expect(lines[0]!.querySelectorAll(".fg-input")).toHaveLength(2);
+			expect(lines[1]!.querySelectorAll(".fg-input")).toHaveLength(2);
+		});
+	});
 });

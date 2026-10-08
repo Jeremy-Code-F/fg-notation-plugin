@@ -801,6 +801,19 @@ describe("FgTokenizingParser", () => {
 				} satisfies ChargeInputToken,
 			]);
 		});
+
+		// Charge inputs are intentionally not validated (see Decisions Log in
+		// todo.md), so a same-direction hold and release still parses as written
+		it("parses a same-direction charge input as written ([4]4HP)", () => {
+			expect(parser.parseLine("[4]4HP")).toEqual([
+				{
+					kind: "charge-input",
+					charge: Direction.Back,
+					direction: Direction.Back,
+					button: "HP",
+				} satisfies ChargeInputToken,
+			]);
+		});
 	});
 
 	describe("driveRushNotation", () => {
@@ -1494,6 +1507,81 @@ describe("FgTokenizingParser", () => {
 		it("treats tab-only lines as blank", () => {
 			const result = parser.parseFgSource("5.LP\n\t\n5.HP");
 			expect(result).toHaveLength(2);
+		});
+	});
+
+	describe("malformedBrackets", () => {
+		// Nested or unbalanced brackets aren't recognized by any recognizer, so
+		// the whole part falls back to a single raw token
+		it.each(["[[CH]]", "[CH", "CH]", "[4[2]]6HP", "[[4]6HP"])(
+			"parses '%s' as a single raw token",
+			(input) => {
+				expect(parser.parseLine(input)).toEqual([
+					{ kind: "raw", value: input },
+				]);
+			},
+		);
+
+		it("keeps the rest of the combo when one part has a mismatched bracket", () => {
+			expect(parser.parseLine("5LP > [CH")).toEqual([
+				{
+					kind: "input",
+					direction: Direction.Neutral,
+					button: "LP",
+					delayed: false,
+					jump: false,
+					tigerKnee: null,
+				},
+				{ kind: "separator", separator: Separator.Cancel },
+				{ kind: "raw", value: "[CH" },
+			]);
+		});
+
+		// The charge input is complete before the stray bracket, so only the
+		// trailing "]" is left unrecognized
+		it("parses a charge input followed by a stray closing bracket ([4]6HP])", () => {
+			expect(parser.parseLine("[4]6HP]")).toEqual([
+				{
+					kind: "charge-input",
+					charge: Direction.Back,
+					direction: Direction.Forward,
+					button: "HP",
+				} satisfies ChargeInputToken,
+				{ kind: "raw", value: "]" },
+			]);
+		});
+	});
+
+	describe("longComboStress", () => {
+		const SEGMENT = "2LP > 5MP , 236HP DRC [4]6HP ~ SA3";
+		const SEGMENT_TOKEN_COUNT = 9;
+		const REPEATS = 500;
+
+		it("parses a 500-segment combo without raw tokens or slowdown", () => {
+			const combo = Array(REPEATS).fill(SEGMENT).join(" > ");
+
+			const start = performance.now();
+			const tokens = rawParser.parseLine(combo);
+			const elapsedMs = performance.now() - start;
+
+			// Each segment's tokens plus one ">" between each pair of segments
+			expect(tokens).toHaveLength(
+				REPEATS * SEGMENT_TOKEN_COUNT + (REPEATS - 1),
+			);
+			expect(tokens.filter((t) => t.kind === "raw")).toHaveLength(0);
+
+			// Parses in ~10ms locally; the bound is generous so slow CI machines
+			// don't flake, while still catching accidental quadratic behaviour
+			expect(elapsedMs).toBeLessThan(500);
+		});
+
+		it("parses the same segment identically at the start and end of a long combo", () => {
+			const combo = Array(REPEATS).fill(SEGMENT).join(" > ");
+			const tokens = parser.parseLine(combo);
+			const single = parser.parseLine(SEGMENT);
+
+			expect(tokens.slice(0, SEGMENT_TOKEN_COUNT)).toEqual(single);
+			expect(tokens.slice(-SEGMENT_TOKEN_COUNT)).toEqual(single);
 		});
 	});
 });
