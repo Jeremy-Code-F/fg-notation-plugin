@@ -22,6 +22,17 @@ export default tseslint.config(
 		},
 	},
 	...obsidianmd.configs.recommended,
+	{
+		plugins: { "@typescript-eslint": tseslint.plugin },
+		rules: {
+			// Allow intentionally unused variables when prefixed with "_",
+			// e.g. omitting a property via destructuring
+			"@typescript-eslint/no-unused-vars": [
+				"warn",
+				{ varsIgnorePattern: "^_", argsIgnorePattern: "^_" },
+			],
+		},
+	},
 	globalIgnores([
 		"node_modules",
 		"dist",
@@ -30,5 +41,10 @@ export default tseslint.config(
 		"version-bump.mjs",
 		"versions.json",
 		"main.js",
+		// Test and tooling files that never ship in main.js
+		"vitest.config.ts",
+		"scripts",
+		"src/test-setup.ts",
+		"src/obsidian-test-stub.ts",
 	]),
 );

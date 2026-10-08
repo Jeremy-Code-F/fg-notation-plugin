@@ -136,7 +136,38 @@ The README needs updates before submission — Obsidian reviewers read it carefu
 
 ---
 
-## 7. Obsidian Community Plugin Submission
+## 7. Pre-1.0 Review Findings
+
+Found in a whole-project review before release. Items that overlap §4–§6 point there instead of duplicating them.
+
+### 7.1 Will fail checks or get flagged in review
+- [x] **CI lint is failing** — `npm run lint` now exits clean (0 errors, 0 warnings). Kept `eslint .` so `manifest.json` stays linted; added `vitest.config.ts`, `scripts/`, `src/test-setup.ts` and `src/obsidian-test-stub.ts` (test/tooling only, never shipped) to the eslint ignores; `_`-prefixed unused vars are now allowed; dropped the unused `ButtonType` import in `button-recognizer.ts`
+- [ ] **Sample settings tab still shipped** — `src/settings.ts` shows "Settings #1" / "It's a secret" and `mySetting` is never read. Remove the tab and settings plumbing from `main.ts` (no settings needed for 1.0)
+- [ ] **`LICENSE` is the sample plugin's** — copyright reads "Dynalist Inc."; put your own name on it (0BSD can stay)
+- [ ] **`package.json` still says `obsidian-sample-plugin`** — update `name` and `description`
+- [ ] **Plugin ID / name rules** — Obsidian's validator rejects IDs ending in `plugin` and names ending in "Plugin"; the description must end with a period. Already planned in §4 (`fg-notation` / "Fg Notation"); just make sure it lands
+- [ ] **README documents notation that doesn't work** — remove `RC`, `Burst`, `WS`, `WB`, `[RISC]`, `c.HS`, `j.K` (GGST/other-game notation that won't parse in the SF6-only build); document `/` (OR), `tk.`, `d.`, dashes (`66`/`44`), microwalk, `SA1`–`SA3`, `WALLSPLAT`; drop the §5 bullet about adding GGST/COTW/2XKO to the games table
+
+### 7.2 Should fix
+- [ ] **Too much console logging** — Obsidian's guidelines ask plugins to keep the console clean:
+  - remove the per-badge JSON log in `icon-provider.ts` (`renderBadge`)
+  - remove the per-block log in `fg-renderer.ts` (`processFgBlock`)
+  - remove the parser's "not recognized, pushing it as a raw token" warning (unrecognized text is normal input, not an error)
+- [ ] **A parser error leaves the block blank** — some recognizers `throw` on lookups that should never fail; wrap `processFgBlock` in a try/catch that falls back to rendering the raw text
+- [ ] **Release tag conflict** — §6.1 and §8 say to tag `v1.0.0`, but `AGENTS.md` and Obsidian's docs require the tag to exactly match the manifest version (`1.0.0`, no `v`); fix those two items
+- [ ] **`minAppVersion` 0.15.0 is probably too low** — the code uses `sanitizeHTMLToDom`, which likely postdates 0.15; raise it to a 1.x version you've tested on (ties into the §4 checkbox)
+- [ ] **Hardcoded button colors** — plain `blue`/`yellow`/`red` and fixed `#1a1a1a` text; test in light and dark themes and adjust if they're harsh or hard to read. Also remove the sample comment block at the top of `styles.css`
+
+### 7.3 Nice to have
+- [ ] **Leftover code and files**:
+  - `assets/icons/Cotw-LP.png` is unused (from the removed COTW config)
+  - `fg-tokenizer-parser.ts` has an unused `parseDirection` method and `DIRECTION_MAP`, an unused `cursor` field, and a duplicate `config`/`gameConfig` field
+  - `obsidian` is listed as `"latest"` in `dependencies`; it's normally a pinned `devDependency`
+- [ ] **Turn on `"strict": true` in `tsconfig.json`** — currently enables individual strict checks instead; `AGENTS.md` prefers full strict mode. Optional, may surface a few type errors
+
+---
+
+## 8. Obsidian Community Plugin Submission
 
 Once all the above is done:
 
@@ -159,7 +190,7 @@ Once all the above is done:
 
 ---
 
-## 8. Decisions Log
+## 9. Decisions Log
 
 | Question | Decision |
 |---|---|

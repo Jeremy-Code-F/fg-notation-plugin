@@ -1,6 +1,6 @@
 import { GameConfig } from "game-config";
 import { Cursor } from "cursor";
-import { ButtonData, ButtonType } from "symbol-data";
+import { ButtonData } from "symbol-data";
 
 export class ButtonRecognizer {
 	private gameConfig: GameConfig;
