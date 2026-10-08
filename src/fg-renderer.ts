@@ -63,7 +63,7 @@ function renderInputToken(
 	}
 
 	switch (token.buttonData.buttonType) {
-		case ButtonType.Special:
+		case ButtonType.Badge:
 		case ButtonType.Normal:
 			iconProvider.renderButton(token.button, wrapper);
 			break;

@@ -78,20 +78,27 @@ export const SF6_CONFIG: GameConfig = {
 		DR: {
 			label: "DR",
 			cssClass: "dr",
-			buttonType: ButtonType.Special,
+			buttonType: ButtonType.Badge,
 			id: "",
 		},
 		DRC: {
 			label: "DRC",
 			cssClass: "drc",
-			buttonType: ButtonType.Special,
+			buttonType: ButtonType.Badge,
 			id: "",
 		},
 		DI: {
 			label: "DI",
 			cssClass: "di",
-			buttonType: ButtonType.Special,
+			buttonType: ButtonType.Badge,
 			id: "",
+		},
+		MICROWALK: {
+			label: "MICROWALK",
+			cssClass: "microwalk",
+			buttonType: ButtonType.Badge,
+			id: "",
+			caseInsensitive: true,
 		},
 		OR: {
 			label: "OR",

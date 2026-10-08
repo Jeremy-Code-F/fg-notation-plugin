@@ -54,8 +54,8 @@ Goal: Full Street Fighter 6 support (normals, charge, grapplers + any edge cases
 - [ ] **Post-1.0:** When reviving those games (saved on the `wip/other-games` branch), port their configs to the current `GameConfig` shape (`inputData` + `modifierData` with `buttonType`/`id`); they still use the old regex-parser fields
 
 ### 2.3 Badge/button hardcoding in tokenizer
-- [ ] `fg-tokenizer-parser.ts` `PushButtonTokon`: TODO comment — `ButtonType.Special` badge handling is hardcoded rather than config-driven (cleanup, not a bug while SF6 is the only game; decide if in scope for 1.0)
-- [ ] Refactor so each game config can declare which modifier tokens also behave as buttons (e.g., `THROW` in SF6)
+- [x] `fg-tokenizer-parser.ts` `PushButtonTokon`: badge handling is config-driven — `ButtonType.Special` renamed to `ButtonType.Badge`, and MICROWALK moved into the SF6 config (bespoke recognizer removed)
+- [x] Refactor so each game config can declare which modifier tokens also behave as buttons (e.g., `THROW` in SF6)
 
 ### 2.4 Icon provider type confusion
 - [x] `renderBadge` accepts both `string` and `ButtonData` — tighten the signature and make callers consistent (now `ButtonData` only; fixed the `"DELAY"` and direction callers that rendered `undefined` badges)

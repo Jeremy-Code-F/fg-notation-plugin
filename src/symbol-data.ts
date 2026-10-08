@@ -3,7 +3,7 @@ import { CANCEL_SVG, CHAIN_SVG, LINK_SVG, TOGETHER_SVG } from "./icons";
 
 export enum ButtonType {
 	Normal,
-	Special,
+	Badge,
 	Modifier,
 	Super,
 }
@@ -15,6 +15,8 @@ export type ButtonData = {
 	png?: string;
 	buttonType: ButtonType;
 	id: string;
+	/** Match the input key regardless of case, e.g. "Microwalk" or "microwalk" */
+	caseInsensitive?: boolean;
 };
 
 export type BadgeData = {
@@ -45,13 +47,6 @@ export const JUMP_BADGE_DATA: ButtonData = {
 export const DELAY_BADGE_DATA: ButtonData = {
 	label: "DELAY",
 	cssClass: "delay",
-	buttonType: ButtonType.Normal,
-	id: "",
-};
-
-export const MICROWALK_BADGE_DATA: ButtonData = {
-	label: "MICROWALK",
-	cssClass: "microwalk",
 	buttonType: ButtonType.Normal,
 	id: "",
 };

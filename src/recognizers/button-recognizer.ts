@@ -21,8 +21,11 @@ export class ButtonRecognizer {
 				continue;
 			}
 
-			if (peekedCharacters == key && key.length > matchedKey.length) {
-				matchedKey = peekedCharacters;
+			let isMatch = item.caseInsensitive
+				? peekedCharacters.toLowerCase() === key.toLowerCase()
+				: peekedCharacters == key;
+			if (isMatch && key.length > matchedKey.length) {
+				matchedKey = key;
 			}
 		}
 
@@ -31,7 +34,7 @@ export class ButtonRecognizer {
 		}
 
 		let consumedCharacters = cursor.ConsumeMultiple(matchedKey.length);
-		let inputDataButton = this.gameConfig.inputData[consumedCharacters];
+		let inputDataButton = this.gameConfig.inputData[matchedKey];
 
 		if (inputDataButton === undefined) {
 			const msg = `Failed to lookup consumed characters ${consumedCharacters} for input ${cursor.ToString()}`;
