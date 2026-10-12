@@ -125,15 +125,16 @@ The README needs updates before submission — Obsidian reviewers read it carefu
 ## 6. CI / Release Pipeline
 
 ### 6.1 Automated release workflow
-- [ ] Add `.github/workflows/release.yml` that:
-  - Triggers on a version tag push — the tag must exactly match `manifest.json`'s `version` with no `v` prefix (e.g. `1.0.0`, not `v1.0.0`). `.npmrc` already sets `tag-version-prefix=""`, so `npm version` creates tags in this format
-  - Runs `npm ci && npm run build`
-  - Creates a GitHub Release and attaches `main.js`, `manifest.json`, and `styles.css` as individual assets (not a zip)
-  - (Obsidian's community registry expects those exact three files on the release)
-- [ ] Confirm the build output filename is `main.js` (the community registry requires this)
+- [x] Add `.github/workflows/release.yml` that:
+  - Triggers only on tags like `1.0.0` (no `v` prefix, no pre-release suffix). `.npmrc` already sets `tag-version-prefix=""`, so `npm version` creates tags in this format
+  - Fails if the tag doesn't match `manifest.json`'s and `package.json`'s `version`
+  - Runs `npm ci`, lint, tests and `npm run build`
+  - Creates a **draft** GitHub release with auto-generated notes and attaches `main.js`, `manifest.json`, and `styles.css` as individual assets (not a zip) — review the notes, then select **Publish release**; Obsidian only sees published releases
+- [x] Confirm the build output filename is `main.js` (`esbuild.config.mjs` writes `outfile: "main.js"`)
+- [ ] Verify the release workflow on the first real tag push (it can't be run locally)
 
 ### 6.2 Test run in CI
-- [ ] Add `npm test` step to the existing `lint.yml` workflow (tests aren't currently run in CI)
+- [x] Added an `npm test` step to `lint.yml`, so tests run on every push and pull request on Node 20 and 22
 
 ---
 
