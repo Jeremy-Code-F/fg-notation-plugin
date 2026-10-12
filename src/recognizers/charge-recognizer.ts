@@ -29,10 +29,8 @@ export class ChargeRecognizer {
 		}
 
 		let parsedDirection = DIRECTION_MAP[potentialDigit];
+		// e.g. "[0]", which is a number but not a direction
 		if (parsedDirection === undefined) {
-			console.warn(
-				`ChargeRecognizer recognized digit ${potentialDigit} as a number, but it was not in DIRECTION_MAP`,
-			);
 			return null;
 		}
 		cursor.ConsumeMultiple(3);

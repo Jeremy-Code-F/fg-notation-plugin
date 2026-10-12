@@ -125,7 +125,23 @@ export function processFgBlock(
 	icons: IconProvider,
 	config: GameConfig,
 ): void {
-	console.debug(`Processing fg block for ${config.gameName}`);
-	const parser = new FgTokenizerParser(config);
-	renderFgNotation(parser.parseFgSource(source), el, icons);
+	try {
+		const parser = new FgTokenizerParser(config);
+		renderFgNotation(parser.parseFgSource(source), el, icons);
+	} catch (error) {
+		// Parsing and rendering only throw on internal bugs, not on user input.
+		// Rather than leave the block blank (or half rendered), show each line
+		// as plain text so the user still sees their notation.
+		console.error("Fighting Game Notation: failed to render block", error);
+		el.empty();
+		renderFgNotation(rawLines(source), el, icons);
+	}
+}
+
+function rawLines(source: string): FgToken[][] {
+	return source
+		.split("\n")
+		.map((line) => line.trim())
+		.filter((line) => line.length > 0)
+		.map((line) => [{ kind: "raw", value: line }]);
 }

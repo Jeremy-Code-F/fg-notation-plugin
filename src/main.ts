@@ -1,20 +1,10 @@
 import { Plugin } from "obsidian";
-import {
-	DEFAULT_SETTINGS,
-	FgPluginSettings,
-	FgPluginSettingsTab,
-} from "./settings";
 import { processFgBlock } from "./fg-renderer";
 import { createIconProvider } from "./icon-provider";
 import { SF6_CONFIG } from "./games/sf6";
 
 export default class FgNotationPlugin extends Plugin {
-	settings: FgPluginSettings;
-
 	async onload() {
-		await this.loadSettings();
-		this.addSettingTab(new FgPluginSettingsTab(this.app, this));
-
 		this.registerMarkdownCodeBlockProcessor("fg", (source, el) => {
 			processFgBlock(
 				source,
@@ -35,16 +25,4 @@ export default class FgNotationPlugin extends Plugin {
 	}
 
 	onunload() {}
-
-	async loadSettings() {
-		this.settings = Object.assign(
-			{},
-			DEFAULT_SETTINGS,
-			(await this.loadData()) as Partial<FgPluginSettings>,
-		);
-	}
-
-	async saveSettings() {
-		await this.saveData(this.settings);
-	}
 }

@@ -38,7 +38,7 @@ Goal: Full Street Fighter 6 support (normals, charge, grapplers + any edge cases
 - [x] ~~Add `[DRIVE RUSH]` or `[DR]` bracketed modifier form if needed for clarity~~ — won't do: `DR`/`DRC` already render as distinct badges, and brackets are reserved for hit states (`[CH]`, `[PC]`) and charge (`[4]`)
 
 ## 1.8 Misc
-- [x] Support dash with 'dash' or '66'/'44'
+- [x] Support dash with '66'/'44' (`j.66`/`j.44` for air dashes); the word 'dash' is intentionally not supported
 - [x] Support delay with 'dl.' or 'd.' (`d.` done and renders a DELAY badge; `dl.` not yet supported)
 - [x] Support microwalk tbd on notation 'walk'? 'microwalk'
 
@@ -94,14 +94,14 @@ Goal: Full Street Fighter 6 support (normals, charge, grapplers + any edge cases
 
 The `manifest.json` currently has placeholder values from the Obsidian sample plugin. These **must** be corrected before submission.
 
-- [ ] `"id"`: Change to a unique, hyphenated lowercase ID — **must not conflict** with any existing community plugin (pick one, e.g., `"fg-notation"`, and verify against the community-plugins.json list)
-- [ ] `"name"`: Set to `"Fg Notation"`
-- [ ] `"description"`: Replace the placeholder — one sentence describing what the plugin does
-- [ ] `"author"`: Set to `"Jeremy Farmer"`
-- [ ] `"authorUrl"`: Set your GitHub profile URL or personal site
-- [ ] `"fundingUrl"`: Fill in or remove (optional)
-- [ ] `"version"`: Confirm `"1.0.0"` is correct
-- [ ] `"minAppVersion"`: Verify `"0.15.0"` is still an appropriate minimum (current Obsidian is 1.x)
+- [x] `"id"`: `"fighting-game-notation"` — `fg-notation` / "FG Notation" were already taken by another fighting game plugin (`kh0p/fg-notation`); checked the new ID and name against `community-plugins.json`. When testing locally, the vault folder must be `.obsidian/plugins/fighting-game-notation/`
+- [x] `"name"`: `"Fighting Game Notation"`
+- [x] `"description"`: `"Render fighting game combo notation in your notes."` (no "Obsidian" — the validator flags it as redundant)
+- [x] `"author"`: `"Jeremy Farmer"`
+- [x] `"authorUrl"`: `"https://jeremyfarmer.netlify.app/"`
+- [x] `"fundingUrl"`: Removed for now — see the GitHub Sponsors item in §7.3
+- [x] `"version"`: `"1.0.0"`
+- [x] `"minAppVersion"`: `"0.15.0"` is correct — every Obsidian API the plugin uses exists by then (see §7.2). If a future change uses a newer API, raise it and update `versions.json`
 
 ---
 
@@ -109,14 +109,16 @@ The `manifest.json` currently has placeholder values from the Obsidian sample pl
 
 The README needs updates before submission — Obsidian reviewers read it carefully.
 
-- [ ] Fix the "[GitHub repository](#)" placeholder link — point to the actual repo URL
-- [ ] Fix "Coming Soon" coffee/donate link — fill in or remove the section
-- [ ] Update the Supported Games table to include GGST, COTW, and 2XKO (currently only SF6 is listed)
-- [ ] Add docs for the `/` (or) separator — it's implemented but not documented
-- [ ] Add a section for grappler notation examples
-- [ ] Add a section for tiger knee notation once implemented
-- [ ] Include a screenshot or GIF of the rendered output (one already exists for SF6 — add for charge moves)
-- [ ] Add a "Compatibility" note (desktop + mobile)
+- [x] Fix the "[GitHub repository](#)" placeholder link — now points to the repo's issues page
+- [x] Remove the "Coming Soon" coffee/donate section for now (re-add a GitHub Sponsors link once approved — see §7.3)
+- [x] ~~Update the Supported Games table to include GGST, COTW, and 2XKO~~ — won't do: 1.0.0 ships SF6 only
+- [x] Add docs for the `/` (or) separator
+- [x] Add a section for grappler notation examples
+- [x] Add a section for tiger knee notation
+- [x] Include screenshots of the rendered output (combo and charge screenshots both in the README)
+- [x] Add a "Compatibility" note (desktop + mobile, offline)
+- [ ] Verify the plugin on Obsidian mobile — the README says it works on mobile, but it hasn't been tested there yet
+- Rewritten for 1.0.0: renamed to "Fighting Game Notation", full SF6 notation reference (motions, buttons, prefixes, separators, charge, tiger knee, grapplers, dashes, microwalk, badges), install instructions with the new plugin folder name, license section. Every example in the README was run through the parser and renders with no raw tokens
 
 ---
 
@@ -124,10 +126,9 @@ The README needs updates before submission — Obsidian reviewers read it carefu
 
 ### 6.1 Automated release workflow
 - [ ] Add `.github/workflows/release.yml` that:
-  - Triggers on a version tag push (e.g., `v1.0.0`)
+  - Triggers on a version tag push — the tag must exactly match `manifest.json`'s `version` with no `v` prefix (e.g. `1.0.0`, not `v1.0.0`). `.npmrc` already sets `tag-version-prefix=""`, so `npm version` creates tags in this format
   - Runs `npm ci && npm run build`
-  - Packages `main.js`, `manifest.json`, and `styles.css` into a zip
-  - Creates a GitHub Release and attaches those three files as assets
+  - Creates a GitHub Release and attaches `main.js`, `manifest.json`, and `styles.css` as individual assets (not a zip)
   - (Obsidian's community registry expects those exact three files on the release)
 - [ ] Confirm the build output filename is `main.js` (the community registry requires this)
 
@@ -142,28 +143,26 @@ Found in a whole-project review before release. Items that overlap §4–§6 poi
 
 ### 7.1 Will fail checks or get flagged in review
 - [x] **CI lint is failing** — `npm run lint` now exits clean (0 errors, 0 warnings). Kept `eslint .` so `manifest.json` stays linted; added `vitest.config.ts`, `scripts/`, `src/test-setup.ts` and `src/obsidian-test-stub.ts` (test/tooling only, never shipped) to the eslint ignores; `_`-prefixed unused vars are now allowed; dropped the unused `ButtonType` import in `button-recognizer.ts`
-- [ ] **Sample settings tab still shipped** — `src/settings.ts` shows "Settings #1" / "It's a secret" and `mySetting` is never read. Remove the tab and settings plumbing from `main.ts` (no settings needed for 1.0)
-- [ ] **`LICENSE` is the sample plugin's** — copyright reads "Dynalist Inc."; put your own name on it (0BSD can stay)
-- [ ] **`package.json` still says `obsidian-sample-plugin`** — update `name` and `description`
-- [ ] **Plugin ID / name rules** — Obsidian's validator rejects IDs ending in `plugin` and names ending in "Plugin"; the description must end with a period. Already planned in §4 (`fg-notation` / "Fg Notation"); just make sure it lands
-- [ ] **README documents notation that doesn't work** — remove `RC`, `Burst`, `WS`, `WB`, `[RISC]`, `c.HS`, `j.K` (GGST/other-game notation that won't parse in the SF6-only build); document `/` (OR), `tk.`, `d.`, dashes (`66`/`44`), microwalk, `SA1`–`SA3`, `WALLSPLAT`; drop the §5 bullet about adding GGST/COTW/2XKO to the games table
+- [x] **Sample settings tab still shipped** — removed `src/settings.ts` and the settings plumbing from `main.ts` (no settings needed for 1.0)
+- [x] **`LICENSE` is the sample plugin's** — replaced with MIT, copyright 2026 Jeremy Farmer; `package.json` `license` updated to match
+- [x] **`package.json` still says `obsidian-sample-plugin`** — `name` is now `fighting-game-notation` (matches the plugin ID) and `description` matches the manifest; `package-lock.json` regenerated
+- [x] **Plugin ID / name rules** — `fighting-game-notation` / "Fighting Game Notation" don't end in `plugin`/"Plugin" and the description ends with a period (see §4)
+- [x] **README documents notation that doesn't work** (fixed in the §5 rewrite) — remove `RC`, `Burst`, `WS`, `WB`, `[RISC]`, `c.HS`, `j.K` (GGST/other-game notation that won't parse in the SF6-only build); document `/` (OR), `tk.`, `d.`, dashes (`66`/`44`), microwalk, `SA1`–`SA3`, `WALLSPLAT`; drop the §5 bullet about adding GGST/COTW/2XKO to the games table
 
 ### 7.2 Should fix
-- [ ] **Too much console logging** — Obsidian's guidelines ask plugins to keep the console clean:
-  - remove the per-badge JSON log in `icon-provider.ts` (`renderBadge`)
-  - remove the per-block log in `fg-renderer.ts` (`processFgBlock`)
-  - remove the parser's "not recognized, pushing it as a raw token" warning (unrecognized text is normal input, not an error)
-- [ ] **A parser error leaves the block blank** — some recognizers `throw` on lookups that should never fail; wrap `processFgBlock` in a try/catch that falls back to rendering the raw text
-- [ ] **Release tag conflict** — §6.1 and §8 say to tag `v1.0.0`, but `AGENTS.md` and Obsidian's docs require the tag to exactly match the manifest version (`1.0.0`, no `v`); fix those two items
-- [ ] **`minAppVersion` 0.15.0 is probably too low** — the code uses `sanitizeHTMLToDom`, which likely postdates 0.15; raise it to a 1.x version you've tested on (ties into the §4 checkbox)
-- [ ] **Hardcoded button colors** — plain `blue`/`yellow`/`red` and fixed `#1a1a1a` text; test in light and dark themes and adjust if they're harsh or hard to read. Also remove the sample comment block at the top of `styles.css`
+- [x] **Too much console logging** — removed the per-badge log (`icon-provider.ts`), the per-block log (`fg-renderer.ts`), the parser's "not recognized" warning, and the charge recognizer's warning for non-direction digits like `[0]` (user input, not an error). The remaining `console.warn` calls sit right before a `throw` on lookups that only fail through a code bug; they're handled by the try/catch item below
+- [x] **A parser error leaves the block blank** — `processFgBlock` now catches errors from parsing or rendering, clears any partial output, shows each line as plain text, and logs once with `console.error`. Removed the now-redundant `console.warn` calls before each internal `throw`. Tests cover a parser crash, a crash midway through rendering, and that unrecognized user input logs nothing
+- [x] **Release tag conflict** — §6.1 and §8 now say to tag `1.0.0` with no `v`, matching `AGENTS.md` and Obsidian's docs (`.npmrc` already had `tag-version-prefix=""`); §6.1 also now says to attach the files individually rather than as a zip
+- [x] ~~**`minAppVersion` 0.15.0 is probably too low**~~ — it isn't: checked the published `obsidian` API types and `sanitizeHTMLToDom` first appears between 0.12.17 and 0.13.8; `Plugin` and `registerMarkdownCodeBlockProcessor` date to 0.9.7, and the DOM helpers are in 0.11.13 at the latest. Kept 0.15.0 (`versions.json` already matches)
+- [x] **Hardcoded button colors** — checked in light and dark themes; both look fine, so no color changes. Removed the sample comment block at the top of `styles.css`
 
 ### 7.3 Nice to have
-- [ ] **Leftover code and files**:
-  - `assets/icons/Cotw-LP.png` is unused (from the removed COTW config)
-  - `fg-tokenizer-parser.ts` has an unused `parseDirection` method and `DIRECTION_MAP`, an unused `cursor` field, and a duplicate `config`/`gameConfig` field
-  - `obsidian` is listed as `"latest"` in `dependencies`; it's normally a pinned `devDependency`
-- [ ] **Turn on `"strict": true` in `tsconfig.json`** — currently enables individual strict checks instead; `AGENTS.md` prefers full strict mode. Optional, may surface a few type errors
+- [ ] **Add GitHub Sponsors once approved** — application submitted; `https://github.com/sponsors/Jeremy-Code-F` currently just redirects to the profile. After approval, add `"fundingUrl": "https://github.com/sponsors/Jeremy-Code-F"` to `manifest.json` and a sponsor link to the README, then ship it (in 1.0.0 if approved before submission, otherwise a 1.0.1)
+- [x] **Leftover code and files**:
+  - deleted the unused `assets/icons/Cotw-LP.png` (from the removed COTW config)
+  - removed the unused `parseDirection` method, `DIRECTION_MAP` and `cursor` field from `fg-tokenizer-parser.ts`, and merged the duplicate `config`/`gameConfig` fields into one constructor parameter
+  - moved `obsidian` from `dependencies` (`"latest"`) to `devDependencies`, pinned to the installed `1.10.3`
+- [x] **Turn on `"strict": true` in `tsconfig.json`** — enabled with no new type errors; removed the individual flags it already covers, kept `noImplicitReturns` and `noUncheckedIndexedAccess` (not part of `strict`)
 
 ---
 
@@ -172,16 +171,16 @@ Found in a whole-project review before release. Items that overlap §4–§6 poi
 Once all the above is done:
 
 - [ ] **Create a public GitHub repository** (if not already public)
-- [ ] **Tag and release `v1.0.0`** — the release must include `main.js`, `manifest.json`, and `styles.css` as release assets (not just source code)
+- [ ] **Tag and release `1.0.0`** (no `v` prefix — the tag must exactly match `manifest.json`'s `version`) — the release must include `main.js`, `manifest.json`, and `styles.css` as individual release assets (not just source code)
 - [ ] **Fork the community plugins repo**: `obsidianmd/obsidian-releases`
 - [ ] **Add your plugin entry** to `community-plugins.json` in that fork:
   ```json
   {
-    "id": "fg-notation",
-    "name": "Fg Notation",
+    "id": "fighting-game-notation",
+    "name": "Fighting Game Notation",
     "author": "Jeremy Farmer",
-    "description": "Render fighting game combo notation in your Obsidian notes.",
-    "repo": "<github-username>/fg-notation-plugin"
+    "description": "Render fighting game combo notation in your notes.",
+    "repo": "Jeremy-Code-F/fg-notation-plugin"
   }
   ```
 - [ ] **Open a pull request** against `obsidianmd/obsidian-releases` — the Obsidian team reviews and merges
@@ -199,6 +198,7 @@ Once all the above is done:
 | OD moves | `PP`/`KK` is sufficient, no separate `[OD]` badge |
 | `c.`/`f.` prefixes | GGST concern, not SF6 — parse silently for now, full support post-1.0 |
 | Charge input validation | None — any held/release pair (even `[4]4HP`) renders as written; charge notation varies too much across games and players to enforce rules |
-| Plugin display name | `Fg Notation` |
-| Plugin ID | `fg-notation` (verify against community list before submitting) |
+| Plugin display name | `Fighting Game Notation` (`FG Notation` was already taken) |
+| Plugin ID | `fighting-game-notation` (`fg-notation` was already taken by `kh0p/fg-notation`; new ID checked against the community list) |
+| Funding link | None for 1.0.0; add GitHub Sponsors once approved (no public address needed, unlike Buy Me a Coffee's support address) |
 | Author | Jeremy Farmer |

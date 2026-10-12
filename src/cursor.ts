@@ -24,7 +24,6 @@ export class Cursor {
 
 		if (currentCharacter === undefined) {
 			let msg = `Attempted to peek but no character could be read at position ${this.currentPosition} in input '${this.input}'`;
-			console.warn(msg);
 			throw new Error(msg);
 		}
 

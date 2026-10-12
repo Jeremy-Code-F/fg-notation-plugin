@@ -38,7 +38,6 @@ export class ModifierRecognizer {
 
 		if (inputDataButton === undefined) {
 			const msg = `Failed to lookup consumed characters '${consumedCharacters}' for input '${cursor.ToString()}'`;
-			console.warn(msg);
 			throw new Error(msg);
 		}
 

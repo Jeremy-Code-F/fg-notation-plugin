@@ -1,7 +1,10 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi, afterEach } from "vitest";
 import { Direction, processFgBlock, renderFgNotation } from "./fg-renderer";
 import { createIconProvider } from "./icon-provider";
 import { SF6_CONFIG } from "./games/sf6";
+import { FgTokenizerParser } from "./fg-tokenizer-parser";
+import { ButtonType } from "./symbol-data";
+import type { GameConfig } from "./game-config";
 
 describe("processFgBlock", () => {
 	it("renders an LP input as a button icon", () => {
@@ -672,6 +675,80 @@ describe("processFgBlock", () => {
 			expect(lines).toHaveLength(2);
 			expect(lines[0]!.querySelectorAll(".fg-input")).toHaveLength(2);
 			expect(lines[1]!.querySelectorAll(".fg-input")).toHaveLength(2);
+		});
+	});
+
+	describe("errorFallback", () => {
+		afterEach(() => {
+			vi.restoreAllMocks();
+		});
+
+		it("renders each line as plain text when the parser throws", () => {
+			const el = document.createElement("div");
+			const icons = createIconProvider(SF6_CONFIG.inputData);
+			const consoleError = vi
+				.spyOn(console, "error")
+				.mockImplementation(() => {});
+			vi.spyOn(
+				FgTokenizerParser.prototype,
+				"parseFgSource",
+			).mockImplementation(() => {
+				throw new Error("parser bug");
+			});
+
+			processFgBlock("2LP > 236HP\n\n  5MP  ", el, icons, SF6_CONFIG);
+
+			expect(el.hasClass("fg-notation-block")).toBe(true);
+			const lines = el.querySelectorAll(".fg-line");
+			expect(lines).toHaveLength(2);
+			expect(lines[0]!.querySelector(".fg-raw")?.textContent).toBe(
+				"2LP > 236HP",
+			);
+			expect(lines[1]!.querySelector(".fg-raw")?.textContent).toBe("5MP");
+			expect(consoleError).toHaveBeenCalledTimes(1);
+		});
+
+		it("replaces a partly rendered block with plain text when rendering throws", () => {
+			const el = document.createElement("div");
+			// An invalid button type makes the renderer throw after the 5HP
+			// input has already been rendered
+			const brokenConfig: GameConfig = {
+				...SF6_CONFIG,
+				inputData: {
+					...SF6_CONFIG.inputData,
+					LP: {
+						...SF6_CONFIG.inputData["LP"]!,
+						buttonType: 99 as ButtonType,
+					},
+				},
+			};
+			const icons = createIconProvider(brokenConfig.inputData);
+			const consoleError = vi
+				.spyOn(console, "error")
+				.mockImplementation(() => {});
+
+			processFgBlock("5HP > 5LP", el, icons, brokenConfig);
+
+			expect(el.querySelector(".fg-input")).toBeNull();
+			const lines = el.querySelectorAll(".fg-line");
+			expect(lines).toHaveLength(1);
+			expect(lines[0]!.textContent).toBe("5HP > 5LP");
+			expect(consoleError).toHaveBeenCalledTimes(1);
+		});
+
+		it("does not log anything for unrecognized user input", () => {
+			const el = document.createElement("div");
+			const icons = createIconProvider(SF6_CONFIG.inputData);
+			const consoleSpies = (["error", "warn", "log", "debug"] as const).map(
+				(method) => vi.spyOn(console, method),
+			);
+
+			processFgBlock("5LP > notamove [0]6HP [[CH]]", el, icons, SF6_CONFIG);
+
+			expect(el.querySelectorAll(".fg-raw").length).toBeGreaterThan(0);
+			for (const spy of consoleSpies) {
+				expect(spy).not.toHaveBeenCalled();
+			}
 		});
 	});
 });

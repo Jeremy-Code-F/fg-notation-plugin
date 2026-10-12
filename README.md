@@ -1,129 +1,187 @@
-# FG Notation Plugin for Obsidian
+# Fighting Game Notation
 
-Render fighting game combo notation directly in your Obsidian notes. Write inputs in plain text using standard numpad notation and the plugin converts them into visually styled blocks with directional arrows and game-accurate button icons.
-
----
-
-## Supported Games
-
-| Code block | Game |
-|---|---|
-| ` ```fg ` or ` ```fg-sf6 ` | Street Fighter 6 |
----
-
-## Usage
-
-Wrap your notation in a fenced code block with the appropriate game tag:
-
-````markdown
-```fg-sf6
-4.HK , 2.MP , 5.LK > 214.LP , 623.LP
-```
-````
-
-Each line in the block is rendered as a separate notation sequence.
+Render fighting game combo notation directly in your Obsidian notes. Write inputs in plain text using standard numpad notation, and the plugin turns them into styled blocks with directional arrows, button icons and badges.
 
 ![SF6 combo notation rendered in Obsidian](docs/assets/ExampleComboSf6.png)
 
 ---
 
-## Notation Syntax
+## Supported games
 
-### Directional Inputs (numpad notation)
+| Code block | Game |
+|---|---|
+| ` ```fg ` or ` ```fg-sf6 ` | Street Fighter 6 |
 
-Directions use standard numpad notation where `5` is neutral:
+---
+
+## Usage
+
+Wrap your notation in a fenced code block with the game's tag:
+
+````markdown
+```fg-sf6
+2MK > 236HP
+j.HP , 2MP > DRC 5HP > [4]6HP > SA3
+```
+````
+
+Each line in the block renders as its own combo. Anything the plugin doesn't recognize is shown as plain text, so a typo never breaks the rest of the line.
+
+---
+
+## Notation
+
+### Directions
+
+Directions use numpad notation, where `5` is neutral:
 
 | Input | Direction |
 |---|---|
-| `1` | ↙ down-back |
-| `2` | ↓ down |
-| `3` | ↘ down-forward |
-| `4` | ← back |
-| `5` | neutral |
-| `6` | → forward |
-| `7` | ↖ up-back |
-| `8` | ↑ up |
-| `9` | ↗ up-forward |
+| `7` `8` `9` | ↖ ↑ ↗ |
+| `4` `5` `6` | ← neutral → |
+| `1` `2` `3` | ↙ ↓ ↘ |
 
-Common motion inputs like `236` (QCF), `214` (QCB), `623` (DP), `41236` (HCF), and `63214` (HCB) are all supported.
+### Motions
 
-Use `j` for jump inputs.
+| Input | Motion |
+|---|---|
+| `236` | Quarter-circle forward |
+| `214` | Quarter-circle back |
+| `623` | Dragon punch |
+| `421` | Reverse dragon punch |
+| `41236` | Half-circle forward |
+| `63214` | Half-circle back |
+| `236236` | Double quarter-circle forward |
+| `214214` | Double quarter-circle back |
+| `360` | Full circle |
+| `720` | Double full circle |
+| `646` | Charge super (forward, back, forward) |
+| `22` | Down, down |
+
+A `.` between the motion and the button is optional, so `236LP` and `236.LP` are the same.
+
+### Buttons
+
+| Input | Button |
+|---|---|
+| `LP` `MP` `HP` | Light, medium, heavy punch |
+| `LK` `MK` `HK` | Light, medium, heavy kick |
+| `PP` `KK` | Two punches or two kicks (e.g. OD moves) |
+| `PPP` `KKK` | All three punches or kicks |
+| `THROW` | Throw |
+
+### Prefixes
+
+| Prefix | Meaning | Example |
+|---|---|---|
+| `j.` | Jumping | `j.HP` |
+| `c.` | Close | `c.HP` |
+| `f.` | Far | `f.HP` |
+| `d.` | Delayed | `d.2MK` |
+| `tk.` | Tiger knee | `tk.236LK` |
 
 ### Separators
 
 | Symbol | Meaning |
 |---|---|
 | `>` | Cancel |
-| `~` | Chain |
 | `,` | Link |
-| `+` | Simultaneous |
+| `~` | Chain |
+| `+` | Pressed together |
+| `/` | Or (alternative route) |
 
-### Buttons
+### Charge inputs
 
-Buttons are written with a direction and input, with an optional `.` separator for certain modifiers. For example:
+Put the held direction in brackets, followed by the release direction:
 
-- `5HP` — standing heavy punch
-- `236LP` — QCF + light punch
-- `j.K` — jump kick
-- `c.HS` — close heavy slash
-
-Multi-button inputs like `PP`, `KK`, `PPP`, `KKK` are supported for games that use them.
-
-### Charge Inputs
-
-Use bracket notation for charge inputs:
-
-```
-[4]6HP > [2]8HK
+```fg-sf6
+[4]6HP > [2]8KK
 ```
 
-This means: hold back, release forward + heavy punch.
-
+This means hold back, then press forward + HP; then hold down, then press up + KK.
 
 ![SF6 charge notation rendered in Obsidian](docs/assets/ExampleChargeInputSf6.png)
 
+Charge inputs aren't checked against any game's rules, so whatever you write is shown as written.
+
+### Tiger knee
+
+A tiger knee motion ends in an upward direction, usually to do a special move just off the ground. Write it either with the `tk.` prefix or by adding the up direction to the motion yourself. Both of these render the same:
+
+```fg-sf6
+tk.236LK
+2369LK
+```
+
+### Grapplers
+
+Full-circle motions work like any other motion, including on the ground, in the air and as a tiger knee:
+
+```fg-sf6
+5LP > 5MP > 360PP
+j.360KK
+720PPP
+tk.360LP
+```
+
+### Dashes and microwalk
+
+`66` and `44` on their own render as a forward or back dash. `j.66` is an air dash. `microwalk` (any capitalization) renders as a badge:
+
+```fg-sf6
+66 > 5HP
+microwalk 2MK > 236HP
+```
+
 ### Badges
 
-Game-specific modifiers and states can appear inline:
+These render as labeled badges and can appear anywhere in a line:
 
-- **Standalone**: `DRC`, `DR`, `DI`, `THROW`, `RC`, `Burst`, `WS`, `WB`
-- **Bracketed**: `[CH]`, `[PC]`, `[RISC]`
+| Input | Badge |
+|---|---|
+| `DR` | Drive Rush |
+| `DRC` | Drive Rush cancel |
+| `DI` | Drive Impact |
+| `SA1` `SA2` `SA3` (or `[SA1]` `[SA2]` `[SA3]`) | Super Art 1–3 |
+| `[CH]` | Counter hit |
+| `[PC]` | Punish counter |
+| `WALLSPLAT` | Wall splat |
+| `microwalk` | Microwalk |
 
 ---
 
-## Game Reference
+## Examples
 
-<details>
-<summary><strong>Street Fighter 6</strong></summary>
-
-**Code block**: ` ```fg ` or ` ```fg-sf6 `
-
-**Buttons**: `LP`, `MP`, `HP`, `LK`, `MK`, `HK`, `PP`, `KK`, `PPP`, `KKK`
-
-**Badges**: `DRC` (Drive Rush Cancel), `DR` (Drive Rush), `DI` (Drive Impact), `THROW`
-
-**Modifiers**: `[CH]` (Counter Hit), `[PC]` (Punish Counter)
-
-**Example**:
 ````markdown
 ```fg-sf6
-236.HP > DRC > 5.MP ~ 5.LP, 2.HK
-[4]6.HP > 5.MP > 214.PP
+[PC] 2MK > DRC 5HP > 236HP
+DI , WALLSPLAT 5HP > 623PP
+2LP , 2LP / 2LP , 5LP > 214PP
+c.HP > SA2
 ```
 ````
 
-</details>
+---
+
+## Installation
+
+Once the plugin is listed in Obsidian's community plugins:
+
+1. Open **Settings → Community plugins** and turn off restricted mode if it's on.
+2. Select **Browse**, search for "Fighting Game Notation", then select **Install** and **Enable**.
+
+To install manually, download `main.js`, `manifest.json` and `styles.css` from the [latest release](https://github.com/Jeremy-Code-F/fg-notation-plugin/releases/latest) into `<vault>/.obsidian/plugins/fighting-game-notation/`, then enable the plugin under **Settings → Community plugins**.
+
+## Compatibility
+
+Works on Obsidian desktop and mobile. The plugin runs entirely offline: it makes no network requests and collects no data.
 
 ---
 
-## Feedback & Issues
+## Feedback and issues
 
-Found a bug or want to request a game? Open an issue on the [GitHub repository](#).
+Found a bug or want to request a game? Open an issue on the [GitHub repository](https://github.com/Jeremy-Code-F/fg-notation-plugin/issues).
 
----
+## License
 
-## Say Thank You
-
-If you are enjoying the plugin, then please support my work by buying me a coffee on [Coming Soon].
-
-Please also help spread the word by sharing about the Obsidian FgNotation plugin on Twitter, Reddit, or any other social media platform you regularly use.
+[MIT](LICENSE)

@@ -17,16 +17,8 @@ import { JumpRecognizer } from "recognizers/jump-recognizer";
 import { ProximityRecognizer } from "recognizers/proximity-recognizer";
 import { TigerKneeRecognizer } from "recognizers/tiger-knee-recognizer";
 
-const DIRECTION_MAP: Record<string, Direction> = Object.fromEntries(
-	Object.values(Direction).map((v) => [v, v as Direction]),
-);
-
 export class FgTokenizerParser {
-	private cursor: number = 0;
-	private gameConfig: GameConfig;
-	constructor(private config: GameConfig) {
-		this.gameConfig = config;
-	}
+	constructor(private gameConfig: GameConfig) {}
 
 	parseLine(line: string): FgToken[] {
 		const tokens: FgToken[] = [];
@@ -121,9 +113,6 @@ export class FgTokenizerParser {
 				// none of the recognizers above made progress on their own.
 				let remaining = part.length - cursor.GetCurrentPosition();
 				let rawValue = cursor.ConsumeMultiple(remaining);
-				console.warn(
-					`Part '${rawValue}' was not recognized, pushing it as a raw token`,
-				);
 				tokens.push({ kind: "raw", value: rawValue });
 			}
 		}
@@ -175,10 +164,6 @@ export class FgTokenizerParser {
 			.split("\n")
 			.filter((line) => line.trim().length > 0)
 			.map((line) => this.parseLine(line.trim()));
-	}
-
-	private parseDirection(raw: string): Direction | null {
-		return DIRECTION_MAP[raw] ?? null;
 	}
 }
 

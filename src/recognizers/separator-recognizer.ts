@@ -18,7 +18,6 @@ export class SeparatorRecognizer {
 			let lookedUpSeparator = SEPARATOR_MAP[consumedCharacters];
 			if (lookedUpSeparator === undefined) {
 				let msg = `Failed to find separator '${consumedCharacters}' in SEPARATOR_MAP for input '${cursor.ToString()}'`;
-				console.warn(msg);
 				throw new Error(msg);
 			}
 

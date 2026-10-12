@@ -28,7 +28,6 @@ export class TextIconProvider implements IconProvider {
 	}
 
 	renderBadge(button: ButtonData, parent: HTMLElement): void {
-		console.debug(`Rendering badge for '${JSON.stringify(button)}'`);
 		parent
 			.createSpan({ cls: ["fg-badge", `fg-badge--${button.cssClass}`] })
 			.setText(button.label);
