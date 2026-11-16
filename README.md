@@ -152,6 +152,8 @@ These render as labeled badges and can appear anywhere in a line:
 
 ## Examples
 
+For a full reference, download the [example note](examples/Fighting%20Game%20Notation%20examples.md) and copy it into your vault. It covers every kind of notation, showing what to type next to how it renders.
+
 ````markdown
 ```fg-sf6
 [PC] 2MK > DRC 5HP > 236HP
@@ -185,3 +187,9 @@ Found a bug or want to request a game? Open an issue on the [GitHub repository](
 ## License
 
 [MIT](LICENSE)
+
+## Credits
+
+The punch and kick button icons are based on [Punch blast](https://game-icons.net/1x1/lorc/punch-blast.html) and [Footprint](https://game-icons.net/1x1/lorc/footprint.html) by [Lorc](https://lorcblog.blogspot.com) from [game-icons.net](https://game-icons.net), licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/). They were changed to show only the fist and placed on colored circles.
+
+The separator icons are from [Lucide](https://lucide.dev) (chevron-right, link-2, plus and waves), licensed under the [ISC License](https://github.com/lucide-icons/lucide/blob/main/LICENSE), copyright Lucide Icons and Contributors.

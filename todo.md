@@ -117,7 +117,9 @@ The README needs updates before submission — Obsidian reviewers read it carefu
 - [x] Add a section for tiger knee notation
 - [x] Include screenshots of the rendered output (combo and charge screenshots both in the README)
 - [x] Add a "Compatibility" note (desktop + mobile, offline)
-- [ ] Verify the plugin on Obsidian mobile — the README says it works on mobile, but it hasn't been tested there yet
+- [x] Verify the plugin on Obsidian mobile — tested with the exact files from the `1.0.0` draft release; everything works
+- [x] Add an example note — `examples/Fighting Game Notation examples.md`, linked from the README's Examples section. Covers every notation type with a "what to type" table next to a rendered block. `src/docs-examples.test.ts` parses every `fg`/`fg-sf6` line in the README and in `examples/*.md` and fails on any raw token, so the docs can't drift from the parser
+- [ ] **Post-1.0:** add a command (e.g. **Create example note**) that writes the example note into the vault, since community installs only download `main.js`, `manifest.json` and `styles.css`
 - Rewritten for 1.0.0: renamed to "Fighting Game Notation", full SF6 notation reference (motions, buttons, prefixes, separators, charge, tiger knee, grapplers, dashes, microwalk, badges), install instructions with the new plugin folder name, license section. Every example in the README was run through the parser and renders with no raw tokens
 
 ---
@@ -131,7 +133,7 @@ The README needs updates before submission — Obsidian reviewers read it carefu
   - Runs `npm ci`, lint, tests and `npm run build`
   - Creates a **draft** GitHub release with auto-generated notes and attaches `main.js`, `manifest.json`, and `styles.css` as individual assets (not a zip) — review the notes, then select **Publish release**; Obsidian only sees published releases
 - [x] Confirm the build output filename is `main.js` (`esbuild.config.mjs` writes `outfile: "main.js"`)
-- [ ] Verify the release workflow on the first real tag push (it can't be run locally)
+- [x] Verify the release workflow on the first real tag push — the `1.0.0` tag produced a draft release whose three assets are byte-for-byte identical to a local production build of the same commit
 
 ### 6.2 Test run in CI
 - [x] Added an `npm test` step to `lint.yml`, so tests run on every push and pull request on Node 20 and 22
@@ -149,6 +151,10 @@ Found in a whole-project review before release. Items that overlap §4–§6 poi
 - [x] **`package.json` still says `obsidian-sample-plugin`** — `name` is now `fighting-game-notation` (matches the plugin ID) and `description` matches the manifest; `package-lock.json` regenerated
 - [x] **Plugin ID / name rules** — `fighting-game-notation` / "Fighting Game Notation" don't end in `plugin`/"Plugin" and the description ends with a period (see §4)
 - [x] **README documents notation that doesn't work** (fixed in the §5 rewrite) — remove `RC`, `Burst`, `WS`, `WB`, `[RISC]`, `c.HS`, `j.K` (GGST/other-game notation that won't parse in the SF6-only build); document `/` (OR), `tk.`, `d.`, dashes (`66`/`44`), microwalk, `SA1`–`SA3`, `WALLSPLAT`; drop the §5 bullet about adding GGST/COTW/2XKO to the games table
+
+- [x] **Icon licensing** — Obsidian's developer policies require complying with the licenses of any code/assets used, including README attribution where required
+  - [x] Punch: confirmed to be the fist from Lorc's "Punch blast" (game-icons.net, CC BY 3.0). Kick replaced with Lorc's "Footprint". Both credited in `src/icons.ts` and the README **Credits** section; the six button icons now come from one shared shape plus a color
+  - [x] Separators: the unknown-source cancel (`>`), chain (`~`), link (`,`) and together (`+`) icons were replaced with Lucide (ISC) chevron-right, the middle wave of waves, link-2 and plus. The ISC notice is a `/*! */` comment in `src/icons.ts` so it stays in the minified `main.js`, and the README **Credits** section covers it too
 
 ### 7.2 Should fix
 - [x] **Too much console logging** — removed the per-badge log (`icon-provider.ts`), the per-block log (`fg-renderer.ts`), the parser's "not recognized" warning, and the charge recognizer's warning for non-direction digits like `[0]` (user input, not an error). The remaining `console.warn` calls sit right before a `throw` on lookups that only fail through a code bug; they're handled by the try/catch item below

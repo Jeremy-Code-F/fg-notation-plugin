@@ -33,6 +33,17 @@ export default tseslint.config(
 			],
 		},
 	},
+	{
+		// Tests run under Node and never ship in main.js, so they can use
+		// Node built-ins like fs to read docs
+		files: ["src/**/*.test.ts"],
+		languageOptions: {
+			globals: { ...globals.node },
+		},
+		rules: {
+			"import/no-nodejs-modules": "off",
+		},
+	},
 	globalIgnores([
 		"node_modules",
 		"dist",
