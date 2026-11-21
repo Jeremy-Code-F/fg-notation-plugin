@@ -2,7 +2,7 @@ import { Cursor } from "cursor";
 import { Separator } from "types";
 
 const SEPARATOR_MAP: Record<string, Separator> = Object.fromEntries(
-	Object.values(Separator).map((v) => [v, v as Separator]),
+	Object.values(Separator).map((v) => [v, v]),
 );
 
 export class SeparatorRecognizer {

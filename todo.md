@@ -164,7 +164,7 @@ Found in a whole-project review before release. Items that overlap §4–§6 poi
 - [x] **Hardcoded button colors** — checked in light and dark themes; both look fine, so no color changes. Removed the sample comment block at the top of `styles.css`
 
 ### 7.3 Nice to have
-- [ ] **Add GitHub Sponsors once approved** — application submitted; `https://github.com/sponsors/Jeremy-Code-F` currently just redirects to the profile. After approval, add `"fundingUrl": "https://github.com/sponsors/Jeremy-Code-F"` to `manifest.json` and a sponsor link to the README, then ship it (in 1.0.0 if approved before submission, otherwise a 1.0.1)
+- [ ] **Post-1.0: Add GitHub Sponsors once approved** — not approved in time, so 1.0.0 ships without it. After approval, add `"fundingUrl": "https://github.com/sponsors/Jeremy-Code-F"` to `manifest.json` and a sponsor link to the README, bump to 1.0.1 (`manifest.json`, `package.json`, `versions.json`) and release
 - [x] **Leftover code and files**:
   - deleted the unused `assets/icons/Cotw-LP.png` (from the removed COTW config)
   - removed the unused `parseDirection` method, `DIRECTION_MAP` and `cursor` field from `fg-tokenizer-parser.ts`, and merged the duplicate `config`/`gameConfig` fields into one constructor parameter
@@ -177,8 +177,8 @@ Found in a whole-project review before release. Items that overlap §4–§6 poi
 
 Once all the above is done:
 
-- [ ] **Create a public GitHub repository** (if not already public)
-- [ ] **Tag and release `1.0.0`** (no `v` prefix — the tag must exactly match `manifest.json`'s `version`) — the release must include `main.js`, `manifest.json`, and `styles.css` as individual release assets (not just source code)
+- [x] **Create a public GitHub repository** — public, not a fork
+- [ ] **Tag and release `1.0.0`** — tagged at `5ebbfe3` and draft created; publish the draft (no `v` prefix — the tag must exactly match `manifest.json`'s `version`) — the release must include `main.js`, `manifest.json`, and `styles.css` as individual release assets (not just source code)
 - [ ] **Fork the community plugins repo**: `obsidianmd/obsidian-releases`
 - [ ] **Add your plugin entry** to `community-plugins.json` in that fork:
   ```json

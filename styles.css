@@ -146,6 +146,11 @@
 	background-color: #82c3ed;
 }
 
+/* Inside a block, beats the 0.9em font size from .fg-notation-block .fg-separator */
+.fg-notation-block .fg-separator--or {
+	font-size: 0.65em;
+}
+
 .fg-separator--or {
 	display: inline-flex;
 	align-items: center;
@@ -154,7 +159,7 @@
 	padding: 0 6px;
 	height: 20px;
 	border-radius: 10px;
-	font-size: 0.65em !important;
+	font-size: 0.65em;
 	font-weight: 700;
 	color: #1a1a1a;
 	user-select: none;

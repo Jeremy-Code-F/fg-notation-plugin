@@ -2,7 +2,7 @@ import { Cursor } from "cursor";
 import { Direction } from "types";
 
 const DIRECTION_MAP: Record<string, Direction> = Object.fromEntries(
-	Object.values(Direction).map((v) => [v, v as Direction]),
+	Object.values(Direction).map((v) => [v, v]),
 );
 
 export class ChargeRecognizer {

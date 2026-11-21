@@ -4,6 +4,9 @@
 // reproduce the subset of that patch needed to exercise rendering code here.
 // `DomElementInfo` is declared ambient-global by obsidian's types, so no import is needed.
 
+// Obsidian sets these to the focused window's document; tests have one
+Object.assign(globalThis, { activeDocument: document, activeWindow: window });
+
 function applyDomElementInfo(el: HTMLElement, o?: DomElementInfo | string) {
 	if (!o) return el;
 	if (typeof o === "string") {
@@ -41,18 +44,30 @@ Node.prototype.detach = function (this: Node) {
 	this.parentNode?.removeChild(this);
 };
 
+// Obsidian's global createEl: creates a detached element
+globalThis.createEl = function <K extends keyof HTMLElementTagNameMap>(
+	tag: K,
+	o?: DomElementInfo | string,
+	callback?: (el: HTMLElementTagNameMap[K]) => void,
+) {
+	const el = activeDocument.createElement(tag);
+	applyDomElementInfo(el, o);
+	callback?.(el);
+	return el;
+};
+
 Node.prototype.createEl = function <K extends keyof HTMLElementTagNameMap>(
 	this: Node,
 	tag: K,
 	o?: DomElementInfo | string,
 	callback?: (el: HTMLElementTagNameMap[K]) => void,
 ) {
-	const el = document.createElement(tag);
+	const el = activeDocument.createElement(tag);
 	this.appendChild(el);
 	applyDomElementInfo(el, o);
 	callback?.(el);
 	return el;
-} as typeof Node.prototype.createEl;
+};
 
 Node.prototype.createDiv = function (
 	this: Node,

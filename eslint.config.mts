@@ -49,13 +49,12 @@ export default tseslint.config(
 		"dist",
 		"esbuild.config.mjs",
 		"eslint.config.js",
+		"eslint.config.mts",
 		"version-bump.mjs",
 		"versions.json",
 		"main.js",
 		// Test and tooling files that never ship in main.js
 		"vitest.config.ts",
 		"scripts",
-		"src/test-setup.ts",
-		"src/obsidian-test-stub.ts",
 	]),
 );

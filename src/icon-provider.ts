@@ -49,9 +49,7 @@ export class AdaptiveIconProvider implements IconProvider {
 	}
 
 	private createImg(src: string, alt: string): HTMLImageElement {
-		const img = document.createElement("img");
-		img.src = src;
-		img.alt = alt;
+		const img = createEl("img", { attr: { src, alt } });
 		img.addEventListener("error", () => img.remove(), { once: true });
 		return img;
 	}

@@ -3,9 +3,9 @@
 // is aliased in place of it (see vitest.config.ts) and implements just the
 // runtime pieces our code actually calls.
 export function sanitizeHTMLToDom(html: string): DocumentFragment {
-	const template = document.createElement("template");
-	template.innerHTML = html;
-	const fragment = document.createDocumentFragment();
-	fragment.append(...Array.from(template.content.childNodes));
+	// Parse into a separate inert document, then move the nodes over
+	const parsed = new DOMParser().parseFromString(html, "text/html");
+	const fragment = new DocumentFragment();
+	fragment.append(...Array.from(parsed.body.childNodes));
 	return fragment;
 }
