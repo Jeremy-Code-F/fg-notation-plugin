@@ -1,6 +1,6 @@
 {
 	"name": "fighting-game-notation",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Render fighting game combo notation in your notes.",
 	"main": "main.js",
 	"type": "module",

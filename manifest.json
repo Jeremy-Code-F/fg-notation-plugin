@@ -1,7 +1,7 @@
 {
 	"id": "fighting-game-notation",
 	"name": "Fighting Game Notation",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"minAppVersion": "0.15.0",
 	"description": "Render fighting game combo notation in your notes.",
 	"author": "Jeremy Farmer",
